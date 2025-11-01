@@ -1,0 +1,273 @@
+<?php
+@session_start();
+
+use ModelsFrontend\Mesa;
+use ModelsFrontend\Reserva;
+
+require_once dirname(__DIR__, 2) . '/models/frontend/Mesa.php';
+require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante XITO</title>
+    <link rel="stylesheet" href="/assets/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <?php include_once __DIR__ . '/../partials/header.php'; ?>
+
+    <main>
+        <hr id="hr1">
+        <!--<hr id="hr2">
+        <hr id="hr3">-->
+        <hr id="hr4">
+
+
+        <?php if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar']) && !isset($_SESSION['modificar_reserva'])): 
+            unset($_SESSION['modificar_reserva']);
+            unset($_SESSION['fecha']);
+            unset($_SESSION['hora']);
+            unset($_SESSION['comensales']);
+            unset($_SESSION['comanda']);
+        ?>
+            <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
+            <section class="container_form">
+
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="formulario-reserva" class="formulario">
+                    <!-- Campo oculto de mesa -->
+                    <input type="hidden" id="mesa_id" name="mesa_id" value="">
+
+                    <!-- Fecha -->
+                    <div>
+                        <label for="fecha_reserva">Selecciona la fecha:</label>
+                        <input type="date" id="fecha_reserva" name="fecha" title="Elige la fecha" onkeydown="return false" required value="<?php echo date('Y-m-d'); ?>">
+
+                        <p class="mensaje-error" id="error-fecha" role="alert" aria-live="assertive"></p>
+                    </div>
+
+                    <!-- Hora -->
+                    <div>
+                        <label for="hora">Hora:</label>
+                        <select id="hora" name="hora" required>
+
+                            <optgroup label="Mediodía">
+                                <option value="13:30">13:30</option>
+                                <option value="14:00" selected>14:00</option>
+                                <option value="14:30">14:30</option>
+                                <option value="15:00">15:00</option>
+                                <option value="15:30">15:30</option>
+                                <option value="16:00">16:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:00">17:00</option>
+                            </optgroup>
+
+                            <optgroup label="Noche">
+                                <option value="20:30">20:30</option>
+                                <option value="21:00">21:00</option>
+                                <option value="21:30">21:30</option>
+                                <option value="22:00">22:00</option>
+                                <option value="22:30">22:30</option>
+                                <option value="23:00">23:00</option>
+                                <option value="23:30">23:30</option>
+                            </optgroup>
+                        </select>
+
+                        <p class="mensaje-error" id="error-hora" role="alert" aria-live="assertive"></p>
+                    </div>
+
+                    <!-- Comensales -->
+                    <div>
+                        <label for="comensales">Número de comensales:</label>
+                        <select id="comensales" name="comensales">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+
+                        <p class="mensaje-error" id="error-comensales" role="alert" aria-live="assertive"></p>
+                    </div>
+
+                    <!-- Comanda -->
+                    <div>
+                        <p>¿Quieres realizar ya tu comanda?</p>
+                        <label><input type="radio" name="comanda" value="1" required> Sí</label>
+                        <label><input type="radio" name="comanda" value="0" required> No</label>
+                        <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                    </div>
+
+                    <!-- Botón -->
+                    <div>
+                        <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar">Reservar</button>
+                    </div>
+                </form>
+
+            </section>
+
+        <?php endif; ?>
+
+        <?php
+
+
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' || (isset($_POST['reservar'])) || isset($_SESSION['modificar_reserva'])):
+
+            if (isset($_SESSION['modificar_reserva'])) {
+                $modificarReserva = new Reserva();
+                $codigoReservaOriginal = $_SESSION['modificar_reserva'];
+                $datosOriginalesReserva = $modificarReserva->obtenerReservaPorCodigo($codigoReservaOriginal);
+
+                $_SESSION['fecha'] = $datosOriginalesReserva['fecha_reserva'];
+                $_SESSION['hora'] = $datosOriginalesReserva['hora_reserva'];
+                $_SESSION['comensales'] = $datosOriginalesReserva['numero_comensales'];
+                $_SESSION['comanda'] = $datosOriginalesReserva['comanda_previa'];
+            } else {
+                unset($_SESSION['modificar_reserva']);
+                $_SESSION['fecha'] = $_POST['fecha'];
+                $_SESSION['hora'] = $_POST['hora'];
+                $_SESSION['comensales'] = $_POST['comensales'];
+                $_SESSION['comanda'] = $_POST['comanda'];
+            }
+
+
+
+            $mesa = new Mesa();
+            $idMesasDisponibles = $mesa->obtenerMesasDisponibles($_SESSION['fecha'], $_SESSION['hora'], $_SESSION['comensales']);
+
+        ?>
+            <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
+            <section class="container_form">
+                <?php
+                if (isset($_SESSION['modificar_reserva']) || isset($_POST['reservar'])) {
+
+
+                ?>
+                    <!-- Fecha -->
+                    <div>
+                        <label for="fecha_reserva">Selecciona la fecha:</label>
+                        <?php echo "<input type='date' id='fecha_reserva' name='fecha' title='Elige la fecha' value='" . $_SESSION['fecha'] . "' onkeydown='return false'>"; ?>
+                        <p class="mensaje-error" id="error-fecha" role="alert" aria-live="assertive"></p>
+                    </div>
+
+                    <!-- Hora -->
+                    <div>
+                        <label for="hora">Hora:</label>
+                        <select id="hora" name="hora" required>
+                            <option value="<?= $_SESSION['hora']; ?>" selected><?= $_SESSION['hora']; ?></option>
+                        </select>
+                        <p class="mensaje-error" id="error-hora" role="alert" aria-live="assertive"></p>
+                    </div>
+
+                    <!-- Comensales -->
+                    <div>
+                        <label for="comensales">Número de comensales:</label>
+                        <select id="comensales" name="comensales">
+                            <option value="<?= $_SESSION['comensales']; ?>" selected><?= $_SESSION['comensales']; ?></option>
+                        </select>
+
+
+                        <p class="mensaje-error" id="error-comensales" role="alert" aria-live="assertive"></p>
+                    </div>
+
+                    <!-- Comanda -->
+                    <div>
+                        <p>¿Quieres realizar ya tu comanda?</p>
+                        <label><input type="radio" name="comanda" value="1" <?= $_SESSION['comanda'] === '1' ? 'checked' : ''; ?>> Sí</label>
+                        <label><input type="radio" name="comanda" value="0" <?= $_SESSION['comanda'] === '0' ? 'checked' : ''; ?>> No</label>
+
+                        <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                    </div>
+                <?php } ?>
+
+            </section>
+
+            <section class="container_plano">
+
+                <form action="/controllers/frontend/ReservaController.php" name="formulario-reserva" method="post">
+                    <!-- Para trasladar el ID de la mesa seleccionada -->
+                    <input type="hidden" name="mesa_id" id="mesa_id" value="">
+
+                    <?php
+                    $planoMesas = [
+                        // Subarrays para representar la estructura de mesas y huecos entre las mismas
+                        [true,  false, true,  false, true,  false],
+                        [false, true,  false, true,  false, true],
+                        [true,  false, true,  false, true,  false],
+                    ];
+
+                    $idMesa = 1; // ID inicial de las mesas
+
+                    echo '<table class="tabla">';
+
+                    foreach ($planoMesas as $fila) {
+                        echo '<tr class="fila">';
+
+                        foreach ($fila as $mesa) {
+                            if ($mesa) {
+                                $clase = 'celda mesa-seleccionada';
+                                if (!in_array($idMesa, $idMesasDisponibles)) {
+                                    $clase .= ' mesa-no-disponible';
+                                }
+
+                                echo "<td class=\"$clase\" title=\"Elige tu mesa\" id=\"$idMesa\">";
+                                echo '<span class="silla1"></span>';
+                                echo '<span class="silla2"></span>';
+                                echo '<span class="mesa"></span>';
+                                echo '<span class="silla3"></span>';
+                                echo '<span class="silla4"></span>';
+                                echo '</td>';
+
+                                $idMesa++; // Solo incrementa si hay una mesa
+                            } else {
+                                echo '<td class="celda"></td>';
+                            }
+                        }
+
+                        echo '</tr>';
+                    }
+
+                    echo '</table>';
+                    ?>
+
+                    <div>
+                        <button type="submit" id="boton-confirmar-reserva" name="confirmarReserva" disabled>Confirmar reserva</button>
+                    </div>
+                </form>
+            </section>
+
+        <?php endif; ?>
+    </main>
+
+    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
+
+
+
+    <!--  <script src="/assets/js/validacionReserva.js"></script> -->
+
+
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservar'])): ?>
+
+        <script src="/assets/js/validacionMesa.js"></script>
+
+    <?php endif; ?>
+
+
+
+</body>
+
+
+</html>

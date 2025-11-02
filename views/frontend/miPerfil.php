@@ -2,10 +2,12 @@
 @session_start();
 
 use ModelsFrontend\Reserva;
+use ModelsFrontend\Orden;
 
 require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 $nuevaReserva = new Reserva();
 $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuario']);
+$orden = new Orden();
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +42,7 @@ $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuari
                             <p><strong>Hora:</strong> " . htmlspecialchars($reserva['hora_reserva']) . "</p>
                             <p><strong>Número de personas:</strong> " . htmlspecialchars($reserva['numero_comensales']) . "</p>
                           </div>";
-                          
+
             ?>
                     <!-- Formulario para cancelar la reserva -->
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
@@ -49,12 +51,27 @@ $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuari
                     </form>
 
                     <!-- Formulario para modificar la reserva -->
-                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                    <form action="/controllers/frontend/ReservaController.php" method="post">
                         <input type="hidden" name="codigo_reserva" value="<?php echo htmlspecialchars($reserva['codigo_reserva']); ?>">
+                        <input type="hidden" name="fecha" value="<?php echo htmlspecialchars($reserva['fecha_reserva']); ?>">
+                        <input type="hidden" name="hora" value="<?php echo htmlspecialchars($reserva['hora_reserva']); ?>">
+                        <input type="hidden" name="comensales" value="<?php echo htmlspecialchars($reserva['numero_comensales']); ?>">
+                        <input type="hidden" name="comanda" value="<?php echo htmlspecialchars($reserva['comanda_previa']); ?>">
+                        <input type="hidden" name="numero_mesa" value="<?php echo htmlspecialchars($reserva['numero_mesa']); ?>">
                         <input type="submit" value="Modificar reserva" name="modificarReserva">
                     </form>
                     <br>
             <?php
+                    if ($reserva['comanda_previa'] == 1) {
+                        $ordenes = $orden->obtenerOrden($reserva['codigo_reserva']);
+                        if ($ordenes) {
+                            echo "<p><strong>Orden asociada a la reserva:</strong></p>";
+                            echo "<p>Código de reserva: " . htmlspecialchars($ordenes['codigo_reserva']) . "</p>";
+                            echo "<p>Número de mesa: " . htmlspecialchars($ordenes['numero_mesa']) . "</p>";
+                            echo "<p>Estatus: " . htmlspecialchars($ordenes['estatus']) . "</p>";
+                            echo "<hr>";
+                        }
+                    }
                 }
             } else {
                 echo "<p>No tienes reservas realizadas.</p>";
@@ -64,10 +81,10 @@ $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuari
                 $nuevaReserva->cancelarReserva($_POST['codigo_reserva']);
             }
 
-            if (isset($_POST['modificarReserva'])) {
+            /*if (isset($_POST['modificarReserva'])) {
                 $_SESSION['modificar_reserva'] = $_POST['codigo_reserva'];
                 header("Location: /views/frontend/reserva.php");
-            }
+            }*/
             ?>
 
         </section>

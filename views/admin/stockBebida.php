@@ -25,7 +25,6 @@ session_start();
             <?php
             require_once dirname(__DIR__, 2) . '/models/admin/Bebida.php';
 
-            use ModelsAdmin\Bebida;
             use ModelsAdmin\Producto;
 
             ?>

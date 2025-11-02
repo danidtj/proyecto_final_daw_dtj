@@ -42,4 +42,22 @@ class Orden
             throw new Exception("Error al crear la orden: " . $e->getMessage());
         }
     }
+
+    //Método para obtener la orden por código de reserva
+    public function obtenerOrden($codigo_reserva)
+    {
+        try {
+            $sql = "SELECT * FROM ordenes WHERE codigo_reserva = :codigo_reserva";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':codigo_reserva', $codigo_reserva);
+            $stmt->execute();
+
+            $orden = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $orden;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener la orden: " . $e->getMessage());
+        }
+    }
 }

@@ -29,7 +29,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
     <?php include_once __DIR__ . '/../partials/header.php'; ?>
     <main>
 
-        <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) && $_SESSION['comanda'] === '1') { ?>
+        <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) && $_SESSION['comanda'] === '1'
+        || isset($_SESSION['confirmarModificacionReserva'])) { ?>
             <section class="container_form">
                 <h2 class="titulo_form">CARTA</h2>
                 <!--<form action="/controllers/frontend/CarritoController.php" method="post">-->

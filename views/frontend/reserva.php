@@ -30,7 +30,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
         <hr id="hr4">
 
 
-        <?php if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar']) && !isset($_SESSION['modificar_reserva'])): 
+        <?php if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar']) || isset($_POST['modificarReserva'])):
             unset($_SESSION['modificar_reserva']);
             unset($_SESSION['fecha']);
             unset($_SESSION['hora']);
@@ -110,9 +110,15 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     </div>
 
                     <!-- Botón -->
-                    <div>
-                        <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar">Reservar</button>
-                    </div>
+                    <?php if (!isset($_POST['modificarReserva'])): ?>
+                        <div>
+                            <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar">Reservar</button>
+                        </div>
+                    <?php else: ?>
+                        <div>
+                            <button type="submit" id="boton-reservar" name="modificar" class="btn-reservar">Modificar reserva</button>
+                        </div>
+                    <?php endif; ?>
                 </form>
 
             </section>
@@ -123,24 +129,27 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 
 
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' || (isset($_POST['reservar'])) || isset($_SESSION['modificar_reserva'])):
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']))):
 
-            if (isset($_SESSION['modificar_reserva'])) {
-                $modificarReserva = new Reserva();
-                $codigoReservaOriginal = $_SESSION['modificar_reserva'];
-                $datosOriginalesReserva = $modificarReserva->obtenerReservaPorCodigo($codigoReservaOriginal);
+            /*if (isset($_POST['modificarReserva'])) {
+                $_SESSION['fecha'] = $_POST['fecha_reserva'];
+                $_SESSION['hora'] = $_POST['hora_reserva'];
+                $_SESSION['comensales'] = $_POST['numero_comensales'];
+                $_SESSION['comanda'] = $_POST['comanda_previa'];
+            } */
 
-                $_SESSION['fecha'] = $datosOriginalesReserva['fecha_reserva'];
-                $_SESSION['hora'] = $datosOriginalesReserva['hora_reserva'];
-                $_SESSION['comensales'] = $datosOriginalesReserva['numero_comensales'];
-                $_SESSION['comanda'] = $datosOriginalesReserva['comanda_previa'];
-            } else {
-                unset($_SESSION['modificar_reserva']);
+            
+                unset($_SESSION['fecha']);
+                unset($_SESSION['hora']);
+                unset($_SESSION['comensales']);
+                unset($_SESSION['comanda']);
                 $_SESSION['fecha'] = $_POST['fecha'];
                 $_SESSION['hora'] = $_POST['hora'];
                 $_SESSION['comensales'] = $_POST['comensales'];
                 $_SESSION['comanda'] = $_POST['comanda'];
-            }
+                //$_SESSION['numero_mesa'] = $_POST['numero_mesa'];
+                //$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
+            
 
 
 
@@ -151,10 +160,10 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
             <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
             <section class="container_form">
                 <?php
-                if (isset($_SESSION['modificar_reserva']) || isset($_POST['reservar'])) {
+                if (isset($_POST['reservar']) || isset($_POST['modificar'])) { ?>
 
 
-                ?>
+                
                     <!-- Fecha -->
                     <div>
                         <label for="fecha_reserva">Selecciona la fecha:</label>
@@ -163,6 +172,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     </div>
 
                     <!-- Hora -->
+
                     <div>
                         <label for="hora">Hora:</label>
                         <select id="hora" name="hora" required>
@@ -243,7 +253,14 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     ?>
 
                     <div>
-                        <button type="submit" id="boton-confirmar-reserva" name="confirmarReserva" disabled>Confirmar reserva</button>
+                        <?php if (isset($_POST['reservar'])): ?>
+                            <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>
+                            <button type="submit" id="boton-confirmar-reserva" name="confirmarReserva" disabled>Confirmar reserva</button>
+                        <?php endif;
+                        if (isset($_POST['modificar'])): ?>
+                            <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>
+                            <button type="submit" id="boton-confirmar-reserva" name="confirmarModificacionReserva" disabled>Modificar reserva</button>
+                        <?php endif; ?>
                     </div>
                 </form>
             </section>
@@ -259,7 +276,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 
 
     <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservar'])): ?>
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']))): ?>
 
         <script src="/assets/js/validacionMesa.js"></script>
 

@@ -28,7 +28,7 @@
         </div>
         <?= isset($_SESSION['id_usuario']) ? '
             <div class="container_carrito">
-                <a href="/controllers/frontend/CarritoController.php" class="carrito" title="Ir al carrito">
+                <a href="/views/frontend/carrito.php" class="carrito" title="Ir al carrito">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
             </div>

@@ -17,12 +17,14 @@ class Usuario
     private string $apellidos_usuario;
     private string $password_usuario;
     private string $email_usuario;
+    private string $telefono_usuario;
 
-    public function __construct($nombre_usuario, $apellidos_usuario, $password_usuario, $email_usuario) {
+    public function __construct($nombre_usuario, $apellidos_usuario, $password_usuario, $email_usuario, $telefono_usuario) {
         $this->nombre_usuario = $nombre_usuario;
         $this->apellidos_usuario = $apellidos_usuario;
         $this->password_usuario = $password_usuario;
         $this->email_usuario = $email_usuario;
+        $this->telefono_usuario = $telefono_usuario;
     }
 
     //Metodos getters
@@ -48,6 +50,10 @@ class Usuario
 
     public function getEmailUsuario(): string {
         return $this->email_usuario;
+    }
+
+    public function getTelefonoUsuario(): string {
+        return $this->telefono_usuario;
     }
 
     /*

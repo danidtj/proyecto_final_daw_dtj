@@ -33,7 +33,7 @@ session_start();
                 
                     echo "<input type='text' name='user' id='user' value=" . $_SESSION['usuario'] . " >";
                 } else {
-                    echo "<input type='text' name='user' id='user' placeholder='Usuario'>";
+                    echo "<input type='text' name='user' id='user' placeholder='Dirección de email'>";
                 }
                 ?>
 

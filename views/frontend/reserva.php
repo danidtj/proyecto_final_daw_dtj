@@ -33,9 +33,9 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
         <?php if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar']) || isset($_POST['modificarReserva'])):
             unset($_SESSION['modificar_reserva']);
             unset($_SESSION['fecha']);
-            unset($_SESSION['hora']);
-            unset($_SESSION['comensales']);
-            unset($_SESSION['comanda']);
+            unset($_SESSION['hora_inicio']);
+            unset($_SESSION['numero_comensales']);
+            unset($_SESSION['comanda_previa']);
         ?>
             <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
             <section class="container_form">
@@ -46,16 +46,16 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 
                     <!-- Fecha -->
                     <div>
-                        <label for="fecha_reserva">Selecciona la fecha:</label>
-                        <input type="date" id="fecha_reserva" name="fecha" title="Elige la fecha" onkeydown="return false" required value="<?php echo date('Y-m-d'); ?>">
+                        <label for="fecha">Selecciona la fecha:</label>
+                        <input type="date" id="fecha" name="fecha" title="Elige la fecha" onkeydown="return false" required value="<?php echo date('Y-m-d'); ?>">
 
                         <p class="mensaje-error" id="error-fecha" role="alert" aria-live="assertive"></p>
                     </div>
 
                     <!-- Hora -->
                     <div>
-                        <label for="hora">Hora:</label>
-                        <select id="hora" name="hora" required>
+                        <label for="hora_inicio">Hora:</label>
+                        <select id="hora_inicio" name="hora_inicio" required>
 
                             <optgroup label="Mediodía">
                                 <option value="13:30">13:30</option>
@@ -84,8 +84,8 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 
                     <!-- Comensales -->
                     <div>
-                        <label for="comensales">Número de comensales:</label>
-                        <select id="comensales" name="comensales">
+                        <label for="numero_comensales">Número de comensales:</label>
+                        <select id="numero_comensales" name="numero_comensales">
                             <option value="1">1</option>
                             <option value="2" selected>2</option>
                             <option value="3">3</option>
@@ -104,8 +104,8 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <!-- Comanda -->
                     <div>
                         <p>¿Quieres realizar ya tu comanda?</p>
-                        <label><input type="radio" name="comanda" value="1" required> Sí</label>
-                        <label><input type="radio" name="comanda" value="0" required> No</label>
+                        <label><input type="radio" name="comanda_previa" value="1" required> Sí</label>
+                        <label><input type="radio" name="comanda_previa" value="0" required> No</label>
                         <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                     </div>
 
@@ -140,13 +140,13 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 
             
                 unset($_SESSION['fecha']);
-                unset($_SESSION['hora']);
-                unset($_SESSION['comensales']);
-                unset($_SESSION['comanda']);
+                unset($_SESSION['hora_inicio']);
+                unset($_SESSION['numero_comensales']);
+                unset($_SESSION['comanda_previa']);
                 $_SESSION['fecha'] = $_POST['fecha'];
-                $_SESSION['hora'] = $_POST['hora'];
-                $_SESSION['comensales'] = $_POST['comensales'];
-                $_SESSION['comanda'] = $_POST['comanda'];
+                $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
+                $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
+                $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
                 //$_SESSION['numero_mesa'] = $_POST['numero_mesa'];
                 //$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
             
@@ -154,7 +154,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 
 
             $mesa = new Mesa();
-            $idMesasDisponibles = $mesa->obtenerMesasDisponibles($_SESSION['fecha'], $_SESSION['hora'], $_SESSION['comensales']);
+            $idMesasDisponibles = $mesa->obtenerMesasDisponibles($_SESSION['fecha'], $_SESSION['hora_inicio'], $_SESSION['numero_comensales']);
 
         ?>
             <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
@@ -174,18 +174,18 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <!-- Hora -->
 
                     <div>
-                        <label for="hora">Hora:</label>
-                        <select id="hora" name="hora" required>
-                            <option value="<?= $_SESSION['hora']; ?>" selected><?= $_SESSION['hora']; ?></option>
+                        <label for="hora_inicio">Hora:</label>
+                        <select id="hora_inicio" name="hora_inicio" required>
+                            <option value="<?= $_SESSION['hora_inicio']; ?>" selected><?= $_SESSION['hora_inicio']; ?></option>
                         </select>
                         <p class="mensaje-error" id="error-hora" role="alert" aria-live="assertive"></p>
                     </div>
 
                     <!-- Comensales -->
                     <div>
-                        <label for="comensales">Número de comensales:</label>
-                        <select id="comensales" name="comensales">
-                            <option value="<?= $_SESSION['comensales']; ?>" selected><?= $_SESSION['comensales']; ?></option>
+                        <label for="numero_comensales">Número de comensales:</label>
+                        <select id="numero_comensales" name="numero_comensales">
+                            <option value="<?= $_SESSION['numero_comensales']; ?>" selected><?= $_SESSION['numero_comensales']; ?></option>
                         </select>
 
 
@@ -195,8 +195,8 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <!-- Comanda -->
                     <div>
                         <p>¿Quieres realizar ya tu comanda?</p>
-                        <label><input type="radio" name="comanda" value="1" <?= $_SESSION['comanda'] === '1' ? 'checked' : ''; ?>> Sí</label>
-                        <label><input type="radio" name="comanda" value="0" <?= $_SESSION['comanda'] === '0' ? 'checked' : ''; ?>> No</label>
+                        <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['comanda_previa'] === '1' ? 'checked' : ''; ?>> Sí</label>
+                        <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['comanda_previa'] === '0' ? 'checked' : ''; ?>> No</label>
 
                         <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                     </div>

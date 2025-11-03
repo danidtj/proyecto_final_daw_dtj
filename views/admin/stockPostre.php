@@ -29,7 +29,7 @@ session_start();
 
             ?>
 
-            <table border="1">
+            <table border="1" cellpadding="5" cellspacing="0">
                 <tr>
                     <th>Nombre</th>
                     <th>Unidades</th>
@@ -45,19 +45,19 @@ session_start();
                     Producto::eliminarProducto($_POST['codigo_producto']);
                 }
 
-                $postres = Producto::getProductos('postre');
+                $postres = Producto::getProductos('Postre');
 
                 foreach ($postres as $postre) {
                     echo "<tr>";
-                    echo "<td>" . $postre->productos['nombre_producto'] . "</td>";
-                    echo "<td>" . $postre->productos['uds_producto'] . "</td>";
-                    echo "<td>" . $postre->productos['precio_producto'] . "</td>";
-                    echo "<td>" . $postre->productos['codigo_producto'] . "</td>";
-                    echo "<td>" . $postre->productos['tipo_producto'] . "</td>";
+                    echo "<td>" . $postre->productos['nombre_corto'] . "</td>";
+                    echo "<td>" . $postre->productos['uds_stock'] . "</td>";
+                    echo "<td>" . $postre->productos['precio_unitario'] . "</td>";
+                    echo "<td>" . $postre->productos['id_producto'] . "</td>";
+                    echo "<td>" . $postre->productos['tipo_categoria'] . "</td>";
                     echo "<td>" . $postre->productos['modalidad_producto'] . "</td>";
                     echo "<td>";
                     echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
-                    echo '<input type="hidden" name="codigo_producto" value="' . $postre->productos['codigo_producto'] . '">';
+                    echo '<input type="hidden" name="codigo_producto" value="' . $postre->productos['id_producto'] . '">';
                     echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
                     echo '</form>';
                     echo "</td>";
@@ -68,7 +68,7 @@ session_start();
                 echo "</table>";
 
 
-    
+
 
                 ?>
         </section>
@@ -78,65 +78,38 @@ session_start();
             <form action="/controllers/admin/ProductoController.php" method="post">
 
                 <h4>Postres</h4><br>
-                <table border="1">
-                    <tr>
-                        <th>Postre</th>
-                        <th>Uds</th>
-                        <th>Precio</th>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Tarta de chocolate
-                            <input type="hidden" name="postres[0][codigo_producto]" value="0047">
-                            <input type="hidden" name="postres[0][nombre_producto]" value="Tarta de chocolate">
-                            <input type="hidden" name="postres[0][categoria_producto]" value="postre">
-                            <input type="hidden" name="postres[0][tipo_producto]" value="Dulce">
-                            <input type="hidden" name="postres[0][modalidad_producto]" value="Tarta">
-                        </td>
-                        <td><input type="number" name="postres[0][uds_producto]" id="tarta-chocolate"></td>
-                        <td><input type="number" name="postres[0][precio_producto]" id="precio-tarta-chocolate" min="0" step="0.01"></td>
-                    </tr>
-
-                    
-                    <tr>
-                        <td>
-                            Tarta de queso:
-                            <input type="hidden" name="postres[1][codigo_producto]" value="0048">
-                            <input type="hidden" name="postres[1][nombre_producto]" value="Tarta de queso">
-                            <input type="hidden" name="postres[1][categoria_producto]" value="postre">
-                            <input type="hidden" name="postres[1][tipo_producto]" value="Dulce">
-                            <input type="hidden" name="postres[1][modalidad_producto]" value="Tarta">
-                        </td>
-                        <td><input type="number" name="postres[1][uds_producto]" id="tarta-queso"></td>
-                        <td><input type="number" name="postres[1][precio_producto]" id="precio-tarta-queso" min="0" step="0.01"></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Tarta red velvet:
-                            <input type="hidden" name="postres[2][codigo_producto]" value="0049">
-                            <input type="hidden" name="postres[2][nombre_producto]" value="Tarta red velvet">
-                            <input type="hidden" name="postres[2][categoria_producto]" value="postre">
-                            <input type="hidden" name="postres[2][tipo_producto]" value="Dulce"> 
-                            <input type="hidden" name="postres[2][modalidad_producto]" value="Tarta">
-                        </td>
-                        <td><input type="number" name="postres[2][uds_producto]" id="tarta-velvet"></td>
-                        <td><input type="number" name="postres[2][precio_producto]" id="precio-tarta-velvet" min="0" step="0.01"></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            Variado de frutas:
-                            <input type="hidden" name="postres[3][codigo_producto]" value="0050">
-                            <input type="hidden" name="postres[3][nombre_producto]" value="Variado de frutas">
-                            <input type="hidden" name="postres[3][categoria_producto]" value="postre">
-                            <input type="hidden" name="postres[3][tipo_producto]" value="Fruta">
-                            <input type="hidden" name="postres[3][modalidad_producto]" value="Variado">
-                        </td>
-                        <td><input type="number" name="postres[3][uds_producto]" id="fruta"></td>
-                        <td><input type="number" name="postres[3][precio_producto]" id="precio-fruta" min="0" step="0.01"></td>
-                    </tr>
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Postre</th>
+                            <th>Uds</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($postres as $index => $postre): ?>
+                            <tr>
+                                <td>
+                                    <?= htmlspecialchars($postre->productos['nombre_corto']) ?>
+                                    <!-- Inputs ocultos -->
+                                    <input type="hidden" name="postres[<?= $index ?>][id_producto]" value="<?= htmlspecialchars($postre->productos['id_producto']) ?>">
+                                    <input type="hidden" name="postres[<?= $index ?>][nombre_corto]" value="<?= htmlspecialchars($postre->productos['nombre_corto']) ?>">
+                                    <input type="hidden" name="postres[<?= $index ?>][nombre_categoria]" value="<?= htmlspecialchars($postre->productos['nombre_categoria']) ?>">
+                                    <input type="hidden" name="postres[<?= $index ?>][tipo_categoria]" value="<?= htmlspecialchars($postre->productos['tipo_categoria']) ?>">
+                                    <input type="hidden" name="postres[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($postre->productos['modalidad_producto']) ?>">
+                                </td>
+                                <td>
+                                    <input type="number" name="postres[<?= $index ?>][uds_stock]"
+                                        value="" min="0">
+                                </td>
+                                <td>
+                                    <input type="number" name="postres[<?= $index ?>][precio_unitario]"
+                                        value="" min="0" step="0.01">
+                                </td>
+                               
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table><br>
 
                 <input type="submit" value="Enviar" name="modificarPostre"><br>

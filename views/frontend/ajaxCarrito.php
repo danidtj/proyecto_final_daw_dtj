@@ -10,7 +10,7 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
 
     if (isset($_SESSION['carrito'])) {
         foreach ($_SESSION['carrito'] as $index => $producto) {
-            if ($producto['codigo_producto'] == $codigoEliminar) {
+            if ($producto['id_producto'] == $codigoEliminar) {
                 //Elimina de la superglobal el producto mediante el índice
                 unset($_SESSION['carrito'][$index]);
                 // Con array_values recuperamos los índices consecutivos del array ya que con unset se quedan los índices originales
@@ -23,7 +23,7 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
     //Comprobamos que el producto aún existe en el carrito después de la eliminación
     $productoExiste = false;
     foreach ($_SESSION['carrito'] as $producto) {
-        if ($producto['codigo_producto'] == $codigoEliminar) {
+        if ($producto['id_producto'] == $codigoEliminar) {
             $productoExiste = true;
             break;
         }
@@ -31,13 +31,13 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
 
     //Calculamos el subtotal del producto eliminado (si aún existe en el carrito) teniendo en cuenta el número de unidades restantes
     $subtotal = 0;
-    $resultado = array_count_values(array_column($_SESSION['carrito'], 'codigo_producto'));
+    $resultado = array_count_values(array_column($_SESSION['carrito'], 'id_producto'));
 
     if ($productoExiste) {
         $cantidadRestante = $resultado[$codigoEliminar];
         foreach ($_SESSION['carrito'] as $producto) {
-            if ($producto['codigo_producto'] == $codigoEliminar) {
-                $subtotal = $producto['precio_producto'] * $cantidadRestante;
+            if ($producto['id_producto'] == $codigoEliminar) {
+                $subtotal = $producto['precio_unitario'] * $cantidadRestante;
                 break;
             }
         }
@@ -47,7 +47,7 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
     $nuevoPrecioTotal = 0;
     if (!empty($_SESSION['carrito'])) {
         foreach ($_SESSION['carrito'] as $producto) {
-            $nuevoPrecioTotal += $producto['precio_producto'];
+            $nuevoPrecioTotal += $producto['precio_unitario'];
         }
     }
 
@@ -58,7 +58,7 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
         "total" => $nuevoPrecioTotal,
         "productoExiste" => $productoExiste,
         "cantidadRestante" => $productoExiste ? count(array_filter($_SESSION['carrito'], function ($prod) use ($codigoEliminar) {
-            return $prod['codigo_producto'] == $codigoEliminar;
+            return $prod['id_producto'] == $codigoEliminar;
         })) : 0,
         "subtotal" => $subtotal,
     ]);

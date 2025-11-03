@@ -24,24 +24,31 @@ class Mesa
     }
 
     //Método para obtener las mesas con disponibilidad =1 de la DB en base a la fecha de reserva, la hora de la reserva y el número de comensales
-    public function obtenerMesasDisponibles($fecha_reserva, $hora_reserva, $numero_comensales)
+    public function obtenerMesasDisponibles($fecha_reserva, $hora_inicio, $numero_comensales)
     {
         try {
 
-            $sql = "SELECT numero_mesa FROM mesas WHERE disponibilidad_mesa = 1 AND capacidad_mesa >= :numero_comensales AND numero_mesa NOT IN (
-                        SELECT numero_mesa FROM reservas 
-                        WHERE fecha_reserva = :fecha_reserva 
-                        AND hora_reserva = :hora_reserva
-                    )";
+            // Definir duración de la reserva
+            $hora_fin = date('H:i:s', strtotime($hora_inicio . ' +1 hour 30 minutes'));
+
+            $sql = "SELECT id_mesa FROM mesas 
+            WHERE disponibilidad_mesa = 1
+            AND capacidad_mesa >= :numero_comensales
+            AND id_mesa NOT IN (
+            SELECT id_mesa FROM reservas_mesas 
+            WHERE fecha = :fecha_reserva
+            AND (:hora_inicio < hora_fin AND :hora_fin > hora_inicio)
+            )";
 
             $stmt = $this->connection->prepare($sql);
             $stmt->bindParam(':numero_comensales', $numero_comensales);
             $stmt->bindParam(':fecha_reserva', $fecha_reserva);
-            $stmt->bindParam(':hora_reserva', $hora_reserva);
+            $stmt->bindParam(':hora_inicio', $hora_inicio);
+            $stmt->bindParam(':hora_fin', $hora_fin);
 
             $stmt->execute();
             //Almacena en un array solamente los números de las mesas disponibles
-            $mesasDisponibles = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'numero_mesa');
+            $mesasDisponibles = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'id_mesa');
 
             return $mesasDisponibles;
         } catch (PDOException $e) {
@@ -52,7 +59,7 @@ class Mesa
     public function obtenerDisponibilidadMesa($id_mesa)
     {
         try {
-            $sql = "SELECT disponibilidad_mesa FROM mesas WHERE numero_mesa = :id_mesa";
+            $sql = "SELECT disponibilidad_mesa FROM mesas WHERE id_mesa = :id_mesa";
 
             $stmt = $this->connection->prepare($sql);
             $stmt->bindParam(':id_mesa', $id_mesa);

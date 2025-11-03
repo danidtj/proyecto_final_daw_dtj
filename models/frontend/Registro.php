@@ -20,7 +20,7 @@ class Registro
     }
     
 
-    public function realizarRegistroUsuarioNuevo($nom_usuario, $apellidos_usuario, $pswd_usuario, $email_usuario): void
+    public function realizarRegistroUsuarioNuevo($nom_usuario, $apellidos_usuario, $pswd_usuario, $email_usuario, $telefono_usuario): void
     {
         try {
 
@@ -32,21 +32,22 @@ class Registro
                 if (empty($nom_usuario) || empty($pswd_usuario)) {
                     echo "<p style='color:white'>Debe introducir tanto un nombre de usuario como su contraseña.</p>";
                 } else {
-                    // Conocer el número de registros afectados por la coincidencia del nombre de usuario que se quiere registrar
-                    $sql = "SELECT COUNT(*) FROM usuarios WHERE nombre_usuario = :nom_usuario";
+                    // Conocer el número de registros afectados por la coincidencia del email de usuario que se quiere registrar
+                    $sql = "SELECT COUNT(*) FROM usuarios WHERE email_usuario = :email_usuario";
                     $result = $this->connection->prepare($sql);
-                    $result->execute([":nom_usuario" => $nom_usuario]);
+                    $result->execute([":email_usuario" => $email_usuario]);
 
                     // Recuperar el resultado único que devuelve la consulta
                     $count = $result->fetchColumn();
 
                     if ($count > 0) {
                         // Redirigir al home si es exitoso
-                        echo "<p style='color:white'>Este nombre de usuario ya está registrado.</p>";
+                        echo "<p style='color:white'>Este email ya está registrado.</p>";
                     } else {
-                        $sql = "INSERT INTO usuarios (nombre_usuario, apellidos_usuario, password_usuario, email_usuario) VALUES (:nom_usuario, :apellidos_usuario, :psswd, :email_usuario)";
+
+                        $sql = "INSERT INTO usuarios (id_rol, nombre_usuario, apellidos_usuario, password_usuario, email_usuario, telefono_usuario) VALUES ('1', :nom_usuario, :apellidos_usuario, :psswd, :email_usuario, :telefono_usuario)";
                         $result = $this->connection->prepare($sql);
-                        $insert = $result->execute([":nom_usuario" => $nom_usuario, ":apellidos_usuario" => $apellidos_usuario, ":psswd" => password_hash($pswd_usuario, PASSWORD_DEFAULT), ":email_usuario" => $email_usuario]);
+                        $insert = $result->execute([":nom_usuario" => $nom_usuario, ":apellidos_usuario" => $apellidos_usuario, ":psswd" => password_hash($pswd_usuario, PASSWORD_DEFAULT), ":email_usuario" => $email_usuario, ":telefono_usuario" => $telefono_usuario]);
                         if (!$insert) {
                             echo "<p style='color:white'>El registro no se ha podido completar. Inténtalo de nuevo.</p>";
                         } else {

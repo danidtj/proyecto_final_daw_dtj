@@ -16,6 +16,7 @@
                     <li><a class="link_menu" href="/views/admin/stockBebida.php">BEBIDAS</a></li>
                     <!-- <li><a class="link_menu" href="#carrito">CARRITO</a></li> -->
                     <li><a class="link_menu" href="/views/admin/stockPostre.php">POSTRES</a></li>
+                    <li><a class="link_menu" href="/views/admin/nuevosProductos.php">PRODUCTOS</a></li>
                     <li><a class="link_menu" href="/views/admin/reservas.php">RESERVAS</a></li>
                 </ul>
             </nav>

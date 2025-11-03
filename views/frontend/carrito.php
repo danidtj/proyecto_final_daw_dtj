@@ -42,17 +42,17 @@ require_once dirname(__DIR__, 2) . '/controllers/frontend/CarritoController.php'
                     $precioTotalCarrito = 0;
 
                     //array_count_values para contar las cantidades de cada producto en la cesta y array_column para obtener una columna específica del ID
-                    $resultado = array_count_values(array_column($productosCarrito, 'codigo_producto'));
+                    $resultado = array_count_values(array_column($productosCarrito, 'id_producto'));
 
                     foreach ($resultado as $id => $cantidad) {
                         foreach ($productosCarrito as $producto) {
-                            if ($producto['codigo_producto'] == $id) {
-                                $precioTotalCarrito += ($producto['precio_producto'] * $cantidad);
+                            if ($producto['id_producto'] == $id) {
+                                $precioTotalCarrito += ($producto['precio_unitario'] * $cantidad);
 
                                 // Sustituimos el formulario tradicional por un botón AJAX
-                                echo "<div id='producto-{$producto['codigo_producto']}'>";
-                                echo $producto['nombre_producto'] . " .... x" . "<span class='cantidad'>$cantidad</span><span class='subtotal'> ........ Subtotal: $" . ($producto['precio_producto'] * $cantidad) . "</span>";
-                                echo "<button type='button' onclick='eliminar(\"" . $producto['codigo_producto'] . "\")'>X</button>";
+                                echo "<div id='producto-{$producto['id_producto']}'>";
+                                echo $producto['nombre_corto'] . " .... x" . "<span class='cantidad'>$cantidad</span><span class='subtotal'> ........ Subtotal: $" . ($producto['precio_unitario'] * $cantidad) . "</span>";
+                                echo "<button type='button' onclick='eliminar(\"" . $producto['id_producto'] . "\")'>X</button>";
                                 echo "</div>";
 
                                 break;

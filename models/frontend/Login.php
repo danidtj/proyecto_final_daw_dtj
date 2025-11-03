@@ -29,19 +29,19 @@ class Login
         $this->bool = false;
     }
 
-    public function comprobarCredencialesAcceso($nom_usuario, $pswd_usuario): void
+    public function comprobarCredencialesAcceso($email_usuario, $pswd_usuario): void
     {
         try {
             //PARA EL REGISTRO DE NUEVOS USUARIOS: usar la función password_hash() para hashear la contraseña y después almacenar el resultado en la DB.
             //PARA LA COMPROBACIÓN DE LA CONTRASEÑA EN EL INICIO DE SESIÓN: como en la DB está almacenado el hash, utilizar password_verify().
             // Verificar que los campos no estén vacíos
-            if (empty($nom_usuario) || empty($pswd_usuario)) {
-                echo "<p style='color:white'>Debe introducir tanto un nombre de usuario como su contraseña.</p>";
+            if (empty($email_usuario) || empty($pswd_usuario)) {
+                echo "<p style='color:white'>Debe introducir tanto un email como su contraseña.</p>";
             } else {
                 // Consulta preparada con parámetros
-                $sql = "SELECT id_usuario, nombre_usuario, password_usuario FROM usuarios WHERE nombre_usuario = :nom_usuario";
+                $sql = "SELECT id_usuario, email_usuario, password_usuario FROM usuarios WHERE email_usuario = :email_usuario";
                 $result = $this->connection->prepare($sql);
-                $result->execute([":nom_usuario" => $nom_usuario]);
+                $result->execute([":email_usuario" => $email_usuario]);
 
                 // Recuperar el resultado
                 $row = $result->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +61,7 @@ class Login
                     if (password_verify($pswd_usuario, $psswdHash)) {
 
                         $_SESSION['id_usuario'] = $row['id_usuario'];
-                        if ($nom_usuario === "admin") {
+                        if ($email_usuario === "admin@admin.com") {
                             header("Location: /views/admin/admin.php");
                         } else {
                             header("Location: ../../home");

@@ -39,6 +39,11 @@
                     <p class="mensaje-error" id="error-password" role="alert" aria-live="assertive"></p><!-- Espacio para imprimir por pantalla el mensaje de error en validación -->
                 </div>
                 <div>
+                    <label for="telefono_usuario">Teléfono:</label><br>
+                    <input type="number" name="telefono_usuario" id="telefono_usuario" placeholder="Escribe tu teléfono" title="Introduzca su teléfono" required aria-required="true"/>
+                    <p class="mensaje-error" id="error-telefono" role="alert" aria-live="assertive"></p><!-- Espacio para imprimir por pantalla el mensaje de error en validación -->
+                </div>
+                <div>
                     <button type="submit" name="registro" class="btn">Regístrate</button>
                 </div>
             </form>

@@ -26,11 +26,12 @@ class RegistroController
             $apellidos_usuario = htmlspecialchars($_POST['apellidos_usuario'], ENT_QUOTES, 'UTF-8');
             $email_usuario = htmlspecialchars($_POST['email_usuario'], ENT_QUOTES, 'UTF-8');
             $pswd_usuario = htmlspecialchars($_POST['password_usuario'], ENT_QUOTES, 'UTF-8');
+            $telefono_usuario = htmlspecialchars($_POST['telefono_usuario'], ENT_QUOTES, 'UTF-8');
 
-            $nuevoUsuario = new Usuario(trim($nom_usuario), trim($apellidos_usuario), trim($pswd_usuario), trim($email_usuario));
+            $nuevoUsuario = new Usuario(trim($nom_usuario), trim($apellidos_usuario), trim($pswd_usuario), trim($email_usuario), trim($telefono_usuario));
 
             $registro = new Registro();
-            $registro->realizarRegistroUsuarioNuevo($nuevoUsuario->getNombreUsuario(), $nuevoUsuario->getApellidosUsuario(), $nuevoUsuario->getPasswordUsuario(), $nuevoUsuario->getEmailUsuario());
+            $registro->realizarRegistroUsuarioNuevo($nuevoUsuario->getNombreUsuario(), $nuevoUsuario->getApellidosUsuario(), $nuevoUsuario->getPasswordUsuario(), $nuevoUsuario->getEmailUsuario(), $nuevoUsuario->getTelefonoUsuario());
         }
     }
 

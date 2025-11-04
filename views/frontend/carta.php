@@ -29,7 +29,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
     <?php include_once __DIR__ . '/../partials/header.php'; ?>
     <main>
 
-        <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) || $_SESSION['comanda_previa'] === '1'
+        <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) || isset($_SESSION['comanda_previa']) && $_SESSION['comanda_previa'] === '1'
         || isset($_SESSION['confirmarModificacionReserva'])) { ?>
             <section class="container_form">
                 <h2 class="titulo_form">CARTA</h2>

@@ -26,12 +26,24 @@ function eliminar(codigo) {
                     }
 
                     // Actualizamos el total del carrito en pantalla
-                    let totalElem = document.getElementById('precioTotal');
-                    if (totalElem) {
+                    
+
+                    let totalCarritoElem = document.getElementById('precioTotal');
+                    if (totalCarritoElem) {
                         if (respuesta.total > 0) {
-                            totalElem.textContent = "Precio total del carrito: $" + respuesta.total;
+                            totalCarritoElem.textContent = "Precio total del carrito: $" + respuesta.total;
                         } else {
-                            totalElem.textContent = "";
+                            totalCarritoElem.textContent = "";
+                        }
+                    }
+
+                    let pagoAdelantadoElem = document.getElementById('pagoAdelantado');
+
+                    if (pagoAdelantadoElem) {
+                        if (respuesta.nuevoPagoAdelantado > 0) {
+                            pagoAdelantadoElem.textContent = "Precio a pagar por adelantado (10% del carrito): $" + respuesta.nuevoPagoAdelantado;
+                        } else {
+                            pagoAdelantadoElem.textContent = "";
                         }
                     }
 

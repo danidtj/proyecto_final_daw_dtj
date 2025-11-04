@@ -1,11 +1,13 @@
 <?php
 
 use ControllerFrontend\CarritoController;
+use ModelsFrontend\Orden;
 
 @session_start();
 
 
 require_once dirname(__DIR__, 2) . '/controllers/frontend/CarritoController.php';
+require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 ?>
 
 <!DOCTYPE html>
@@ -61,10 +63,28 @@ require_once dirname(__DIR__, 2) . '/controllers/frontend/CarritoController.php'
                     }
 
                     if ($precioTotalCarrito > 0) {
+                        $nuevoPagoAdelantado = $precioTotalCarrito * 0.1;
                         echo "--------------------------\n";
                         echo "<div id='precioTotal'>Precio total del carrito: $" . $precioTotalCarrito . "</div>\n";
+                        echo "<div id='pagoAdelantado'>Precio a pagar por adelantado (10% del carrito): $" . $nuevoPagoAdelantado . "</div>\n";
                     } else {
                         echo "<div id='carritoVacio'>El carrito está vacío.</div>";
+                    }
+
+                    //Botón para proceder a la compra
+                    if ($precioTotalCarrito > 0) {
+                        echo "<form method='POST' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>
+                        <button type='submit' id='botonPagar' name='pagarCarrito'>Pagar</button>
+                      </form>";
+                    }
+
+                    if(isset($_POST['pagarCarrito'])) {
+                        $orden = new Orden();
+                        $idOrdenCreada = $orden->crearOrden($_SESSION['id_reserva_nueva'], 'Tarjeta de crédito', $precioTotalCarrito, $nuevoPagoAdelantado, $_SESSION['carrito']);
+                        unset($_SESSION['carrito']);// Vaciamos el carrito después de crear la orden
+                        unset($_SESSION['id_reserva_nueva']); 
+                        header("Location: /home");
+                        exit();
                     }
                 } else {
                     /*echo '<script>
@@ -76,8 +96,7 @@ require_once dirname(__DIR__, 2) . '/controllers/frontend/CarritoController.php'
                     /*header("Refresh: 3; URL=../../home"); // Espera 3 segundos y redirige
         exit();*/
 
-                    $carritoController = new CarritoController();
-                    $carritoController->mostrarVistaCarrito();
+                    echo "<div id='carritoVacio'>El carrito está vacío.</div>";
                 }
             }
 

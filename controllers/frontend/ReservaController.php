@@ -25,28 +25,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
 
     $_SESSION['confirmarReserva'] = true;
 
+    //Creamos la nueva reserva y almacenados su id
     $codigo_reserva = $reserva->realizarReserva(
         $_SESSION['fecha'],
-        $_SESSION['hora'],
-        $_SESSION['comensales'],
-        $_SESSION['comanda'],
+        $_SESSION['hora_inicio'],
+        $_SESSION['numero_comensales'],
+        $_SESSION['comanda_previa'],
         $_POST['mesa_id'],
         $_SESSION['id_usuario']
     );
 
-    /*$orden->crearOrden(
-        $codigo_reserva,
-        $_SESSION['id_usuario'],
-        $_POST['mesa_id']
-    );*/
+    //Almacenamos el id de la nueva reserva en session
+    $_SESSION['id_reserva_nueva'] = $codigo_reserva;
 
-    if ($_SESSION['comanda'] === "1") {
-
+    if ($_SESSION['comanda_previa'] === "1") {
         //Si el usuario ha hecho una comanda previa, redirige a la carta
         header("Location: /views/frontend/carta.php");
         exit();
     } else {
-
         //Si no ha hecho comanda previa, redirige a la página principal
         header("Location: /home");
         exit();

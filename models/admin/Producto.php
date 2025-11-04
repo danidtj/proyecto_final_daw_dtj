@@ -73,13 +73,14 @@ class Producto
 
 
     //Método para crear un producto nuevo en la base de datos e introducir su categoría
-    public function crearProductoNuevo(array $producto, array $categoria)
+    public static function crearProductoNuevo(array $producto, array $categoria)
     {
         try {
+            $connection = DB::getInstance()->getConnection();
             //Llama a la base de datos para obtener el id_categoria en base a nombre_categoria de la tabla categorias
             $sqlCategoria = "SELECT id_categoria FROM categorias WHERE nombre_categoria = :nombre_categoria AND
             tipo_categoria = :tipo_categoria AND modalidad_producto = :modalidad_producto";
-            $result = $this->connection->prepare($sqlCategoria);
+            $result = $connection->prepare($sqlCategoria);
             $result->execute([
                 ":nombre_categoria" => $categoria['nombre_categoria'],
                 ":tipo_categoria" => $categoria['tipo_categoria'],
@@ -91,18 +92,18 @@ class Producto
                 //crear la categoría si no existe
                 $sqlNuevaCategoria = "INSERT INTO categorias (nombre_categoria, tipo_producto, modalidad_producto) VALUES 
                 (:nombre_categoria, :tipo_producto, :modalidad_producto)";
-                $result = $this->connection->prepare($sqlNuevaCategoria);
+                $result = $connection->prepare($sqlNuevaCategoria);
                 $result->execute([
                     ":nombre_categoria" => $categoria['nombre_categoria'],
                     ":tipo_producto" => $categoria['tipo_producto'],
                     ":modalidad_producto" => $categoria['modalidad_producto']
                 ]);
-                $id_categoria = $this->connection->lastInsertId();
+                $id_categoria = $connection->lastInsertId();
             }
 
             $sqlProductos = "INSERT INTO productos (id_categoria, uds_stock, nombre_corto, nombre_largo, descripcion, precio_unitario) VALUES 
             (:id_categoria, :uds_stock, :nombre_corto, :nombre_largo, :descripcion, :precio_unitario)";
-            $result = $this->connection->prepare($sqlProductos);
+            $result = $connection->prepare($sqlProductos);
             $result->execute([
                 ":id_categoria" => $id_categoria,
                 ":uds_stock" => $producto['uds_stock'],
@@ -125,6 +126,36 @@ class Producto
                 ":tipo_producto" => $producto['tipo_producto'],
                 ":modalidad_producto" => $producto['modalidad_producto']
             ]);*/
+        } catch (Exception $e) {
+            die("Error de conexión: " . $e->getMessage());
+        }
+    }
+
+    //Método para actualizar las uds_stock de los productos añadidos al carrito
+    public static function actualizarStockProductosCarrito(array $productosCarrito): void
+    {
+        try {
+            $resultado = array_count_values(array_column($productosCarrito, 'id_producto'));
+            $connection = DB::getInstance()->getConnection();
+
+            foreach ($resultado as $id_producto => $cantidad_pedida) {
+                //Obtenemos el stock actual del producto
+                $sqlStockActual = "SELECT uds_stock FROM productos WHERE id_producto = :id_producto";
+                $result = $connection->prepare($sqlStockActual);
+                $result->execute([':id_producto' => $id_producto]);
+                $stockActual = (int)$result->fetchColumn();
+
+                //Calculamos el nuevo stock
+                $nuevoStock = $stockActual - $cantidad_pedida;
+
+                //Actualizamos el stock en la base de datos
+                $sqlActualizarStock = "UPDATE productos SET uds_stock = :uds_stock WHERE id_producto = :id_producto";
+                $result = $connection->prepare($sqlActualizarStock);
+                $result->execute([
+                    ':uds_stock' => $nuevoStock,
+                    ':id_producto' => $id_producto
+                ]);
+            }
         } catch (Exception $e) {
             die("Error de conexión: " . $e->getMessage());
         }
@@ -217,7 +248,7 @@ class Producto
             $result->execute([':nombre_categoria' => $nombre_categoria]);
 
             if ($result) {
-                $row = $result->fetch(PDO::FETCH_ASSOC);
+                //$row = $result->fetch(PDO::FETCH_ASSOC);
 
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     $productosDB[] = new Producto($row);

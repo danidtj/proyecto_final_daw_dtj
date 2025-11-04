@@ -51,6 +51,9 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
         }
     }
 
+    //Recalculamos el nuevo precio a pagar por adelantado (10% del total)
+    $nuevoPagoAdelantado = $nuevoPrecioTotal * 0.1;
+
     // Devolvemos JSON con estado y total
     header('Content-Type: application/json');
     echo json_encode([
@@ -61,6 +64,7 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
             return $prod['id_producto'] == $codigoEliminar;
         })) : 0,
         "subtotal" => $subtotal,
+        "nuevoPagoAdelantado" => $nuevoPagoAdelantado,
     ]);
     exit;
 }

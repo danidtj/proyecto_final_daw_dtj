@@ -71,12 +71,12 @@ if(isset($_POST['crearNuevoProducto'])){
         'modalidad_producto' => $_POST['modalidad_producto']
     ];
 
-    $producto = new Producto($nuevoProducto);
+    
     if(isset($_SESSION['producto_creado'])){
         unset($_SESSION['producto_creado']);
-        $_SESSION['producto_creado'] = $producto->crearProductoNuevo($nuevoProducto, $categoria);
+        $_SESSION['producto_creado'] = Producto::crearProductoNuevo($nuevoProducto, $categoria);
     } else {
-        $_SESSION['producto_creado'] = $producto->crearProductoNuevo($nuevoProducto, $categoria);
+        $_SESSION['producto_creado'] = Producto::crearProductoNuevo($nuevoProducto, $categoria);
     }
 }
 

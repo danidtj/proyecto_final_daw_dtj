@@ -45,7 +45,7 @@ session_start();
                     Producto::eliminarProducto($_POST['codigo_producto']);
                 }
 
-                $comidas = Producto::getProductos('Comida');
+                $comidas = Producto::getProductos('comida');
 
                 foreach ($comidas as $comida) {
                     echo "<tr>";

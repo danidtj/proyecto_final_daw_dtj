@@ -88,7 +88,7 @@ $categorias = Categoria::obtenerCategorias();
                 ?>
                 <br><br>
 
-                <input type="submit" value="Crear producto" name="crearNuevoProducto"><br>
+                <input type="submit" class="btn_crearProducto" value="Crear producto" name="crearNuevoProducto"><br>
             </form>
             <?php
             if (isset($_SESSION['producto_creado'])) {

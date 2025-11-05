@@ -41,9 +41,12 @@ class Reserva
             //Obtenemos el id de la reserva insertada
             $id_reserva = $this->connection->lastInsertId();
 
-            //Calculamos la duración de la reserva en base a la hora de inicio
-            $hora_inicio = date('Y-m-d H:i:s', strtotime($hora_reserva));
-            $hora_fin = date('Y-m-d H:i:s', strtotime($hora_inicio . ' +1 hour 30 minutes'));
+            $fechaHoraInicio = strtotime("$fecha_reserva $hora_reserva");
+
+            $calculoHoraFin = strtotime("+1 hour 30 minutes", $fechaHoraInicio);
+
+            $hora_inicio = date('Y-m-d H:i:s', $fechaHoraInicio);
+            $hora_fin = date('Y-m-d H:i:s', $calculoHoraFin);
 
             //Insertamos en la tabla RESERVAS_MESAS los datos de la mesa asignada a la reserva
             $sqlMesa = "INSERT INTO reservas_mesas (id_reserva, id_mesa, fecha, hora_inicio, hora_fin)

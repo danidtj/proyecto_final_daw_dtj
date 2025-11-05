@@ -112,11 +112,11 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <!-- Botón -->
                     <?php if (!isset($_POST['modificarReserva'])): ?>
                         <div>
-                            <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar">Reservar</button>
+                            <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar btn_reservar">Reservar</button>
                         </div>
                     <?php else: ?>
                         <div>
-                            <button type="submit" id="boton-reservar" name="modificar" class="btn-reservar">Modificar reserva</button>
+                            <button type="submit" id="boton-reservar" name="modificar" class="btn-reservar btn_reservar">Modificar reserva</button>
                         </div>
                     <?php endif; ?>
                 </form>
@@ -255,11 +255,11 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <div>
                         <?php if (isset($_POST['reservar'])): ?>
                             <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>
-                            <button type="submit" id="boton-confirmar-reserva" name="confirmarReserva" disabled>Confirmar reserva</button>
+                            <button type="submit" id="boton-confirmar-reserva" class="btn_reservar" name="confirmarReserva" disabled>Confirmar reserva</button>
                         <?php endif;
                         if (isset($_POST['modificar'])): ?>
                             <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>
-                            <button type="submit" id="boton-confirmar-reserva" name="confirmarModificacionReserva" disabled>Modificar reserva</button>
+                            <button type="submit" id="boton-confirmar-reserva" class="btn_reservar" name="confirmarModificacionReserva" disabled>Modificar reserva</button>
                         <?php endif; ?>
                     </div>
                 </form>

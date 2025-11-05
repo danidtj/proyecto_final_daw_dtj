@@ -34,7 +34,7 @@
             </div>
         ' : '' ?>
 
-        <div class="container_buscador">
+        <!--<div class="container_buscador">
             <input list="busqueda" id="buscador" name="buscador" placeholder="¿Qué buscas?">
             <datalist id="busqueda">
                 <option value="carta">
@@ -42,12 +42,12 @@
                 <option value="reserva">
                 <option value="carrito">
             </datalist>
-        </div>
+        </div>-->
         <div class="cotainer_form">
 
             <?php if (isset($_SESSION['id_usuario'])) { ?>
 
-                <a href="/views/frontend/logoff.php">Cerrar Sesión</a>
+                <a href="/views/frontend/logoff.php" class="btn_logoff">Cerrar Sesión</a>
 
             <?php
 
@@ -56,7 +56,7 @@
             ?>
 
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="post">
-                    <input type="submit" value="Iniciar Sesión" name="iniciarSesion">
+                    <input type="submit" class="btn_login" value="Iniciar Sesión" name="iniciarSesion">
                 </form>
 
             <?php } ?>

@@ -203,7 +203,7 @@ class Producto
                                 ":precio_unitario" => $producto['precio_unitario'],
                                 ":id_producto" => $producto['id_producto']
                             ]);
-                        } 
+                        }
                         if (!empty($producto['uds_stock'])) {
                             $sql = "UPDATE productos SET uds_stock = :uds_stock WHERE id_producto = :id_producto";
                             $result = $this->connection->prepare($sql);
@@ -315,6 +315,36 @@ class Producto
             }
         } catch (PDOException $e) {
             throw new Exception("Error al eliminar producto con código {$codigo}: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener los productos asociados a una reserva y orden
+    public static function obtenerProductosReservaOrden($id_usuario, $id_reserva, $id_orden)
+    {
+        try {
+            //Consultamos para obtener el nombre corto y la cantidad por producto
+            $sql = "SELECT productos_ordenes.cantidad_pedido, productos.nombre_corto FROM productos
+                JOIN productos_ordenes ON productos_ordenes.id_producto = productos.id_producto
+                JOIN ordenes ON productos_ordenes.id_orden = ordenes.id_orden
+                JOIN reservas ON reservas.id_reserva = ordenes.id_reserva
+                JOIN usuarios ON usuarios.id_usuario = reservas.id_usuario
+                WHERE usuarios.id_usuario = :id_usuario
+                AND reservas.id_reserva = :id_reserva
+                AND ordenes.id_orden = :id_orden;";
+
+            $connection = DB::getInstance()->getConnection();
+            $result = $connection->prepare($sql);
+            $result->execute([
+                ':id_usuario' => $id_usuario,
+                ':id_reserva' => $id_reserva,
+                ':id_orden' => $id_orden
+            ]);
+
+            $productos = $result->fetchAll(PDO::FETCH_ASSOC);
+
+            return $productos;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener los productos asociados a una reserva y orden: " . $e->getMessage());
         }
     }
 }

@@ -28,8 +28,12 @@ class Mesa
     {
         try {
 
-            // Definir duración de la reserva
-            $hora_fin = date('H:i:s', strtotime($hora_inicio . ' +1 hour 30 minutes'));
+            $fechaHoraInicio = strtotime("$fecha_reserva $hora_inicio");
+
+            $calculoHoraFin = strtotime("+1 hour 30 minutes", $fechaHoraInicio);
+
+            $hora_inicio_completa = date('Y-m-d H:i:s', $fechaHoraInicio);
+            $hora_fin = date('Y-m-d H:i:s', $calculoHoraFin);
 
             $sql = "SELECT id_mesa FROM mesas 
             WHERE disponibilidad_mesa = 1
@@ -43,7 +47,7 @@ class Mesa
             $stmt = $this->connection->prepare($sql);
             $stmt->bindParam(':numero_comensales', $numero_comensales);
             $stmt->bindParam(':fecha_reserva', $fecha_reserva);
-            $stmt->bindParam(':hora_inicio', $hora_inicio);
+            $stmt->bindParam(':hora_inicio', $hora_inicio_completa);
             $stmt->bindParam(':hora_fin', $hora_fin);
 
             $stmt->execute();

@@ -114,9 +114,8 @@ session_start();
 
                 </table><br>
 
-                <input type="submit" value="Enviar" name="modificarComida"><br>
+                <input type="submit" class="btn_modificarStock" value="Modificar" name="modificarComida"><br>
             </form>
-            <br><a href="/views/admin/admin.php">Volver</a>
         </section>
     </main>
 </body>

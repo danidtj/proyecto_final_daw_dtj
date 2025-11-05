@@ -28,7 +28,7 @@
                     <input type="text" id="email" name="email" required>
                     <label for="mensaje">Escribe lo que desees:</label>
                     <textarea name="mensaje" id="mensaje"></textarea>
-                    <input type="submit" value="Enviar">
+                    <input type="submit" class="btn_contacto" value="Enviar">
                 </form>            
         </section>
     </main>

@@ -49,6 +49,9 @@
         </section>
         <section class="container_plano">
             <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
+            <section class="header_reserva">
+                <p>¿Quieres reservar una mesa en nuestro restaurante? ¡Inicia sesión o regístrate si aún no lo has hecho!</p>
+            </section>
             <table class="tabla">
                 <tr class="fila">
                     <td class="celda">
@@ -129,7 +132,7 @@
                     <td class="celda"></td>
                 </tr>
             </table>
-
+            
         </section>
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php' ?>

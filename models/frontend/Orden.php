@@ -69,13 +69,13 @@ class Orden
 
 
     //Método para obtener la orden por código de reserva
-    /*public function obtenerOrden($codigo_reserva)
+    public function obtenerOrdenPorCodigoReserva($id_reserva)
     {
         try {
-            $sql = "SELECT * FROM ordenes WHERE codigo_reserva = :codigo_reserva";
+            $sql = "SELECT * FROM ordenes WHERE id_reserva = :id_reserva";
 
             $stmt = $this->connection->prepare($sql);
-            $stmt->bindParam(':codigo_reserva', $codigo_reserva);
+            $stmt->bindParam(':id_reserva', $id_reserva);
             $stmt->execute();
 
             $orden = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -84,5 +84,5 @@ class Orden
         } catch (PDOException $e) {
             throw new Exception("Error al obtener la orden: " . $e->getMessage());
         }
-    }*/
+    }
 }

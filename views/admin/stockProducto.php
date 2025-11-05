@@ -63,7 +63,7 @@ session_start();
                     echo "<td>";
                     echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
                     echo '<input type="hidden" name="codigo_producto" value="' . $producto->productos['codigo_producto'] . '">';
-                    echo '<input type="submit" value="X" name="eliminarProducto" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                    echo '<input type="submit" class="btn_crearProducto" value="X" name="eliminarProducto">';
                     echo '</form>';
                     echo "</td>";
                     echo "</tr>";

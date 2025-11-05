@@ -24,7 +24,7 @@
         
         <div class="cotainer_form">
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="post">
-                <input type="submit" value="Cerrar Sesión" name="cerrarSesion">
+                <input type="submit" class="btn_logoff" value="Cerrar Sesión" name="cerrarSesion">
             </form>
         </div>
     </header>

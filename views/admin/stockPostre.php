@@ -112,9 +112,8 @@ session_start();
                     </tbody>
                 </table><br>
 
-                <input type="submit" value="Enviar" name="modificarPostre"><br>
+                <input type="submit" class="btn_modificarStock" value="Modificar" name="modificarPostre"><br>
             </form>
-            <br><a href="/views/admin/admin.php">Volver</a>
         </section>
     </main>
 </body>

@@ -57,7 +57,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
@@ -73,7 +73,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
@@ -92,7 +92,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
@@ -107,7 +107,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
@@ -121,7 +121,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
@@ -135,7 +135,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
@@ -149,7 +149,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                     echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                     echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                     echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                    echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                    echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                     echo "</form>";
                 }
 

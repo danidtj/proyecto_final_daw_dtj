@@ -39,7 +39,7 @@ $reservas = $reserva->obtenerTodasLasReservas();
                 <label for="fecha_reserva">Fecha de la reserva:</label>
                 <input type="date" id="fecha_reserva" name="fecha_reserva" >
 
-                <button type="submit" name="buscar_reserva">Buscar Reserva</button>
+                <button type="submit" class="btn_buscarReserva" name="buscar_reserva">Buscar Reserva</button>
             </form>
 
             <?php

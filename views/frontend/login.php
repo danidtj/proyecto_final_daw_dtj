@@ -29,8 +29,11 @@ session_start();
                 <?php
 
                 if (!empty($_POST['user'])) {
+                    if (isset($_SESSION['id_usuario'])) {
+                        unset($_SESSION['id_usuario']);
+                    }
                     $_SESSION['usuario'] = $_POST['user'];
-                
+
                     echo "<input type='text' name='user' id='user' value=" . $_SESSION['usuario'] . " >";
                 } else {
                     echo "<input type='text' name='user' id='user' placeholder='Dirección de email'>";
@@ -39,9 +42,9 @@ session_start();
 
 
                 <input type="password" name="password" id="password" placeholder="Contraseña">
-                <input type="submit" value="Iniciar sesión" name="submit">
+                <input type="submit" class="btn_login" value="Iniciar sesión" name="submit"><br><br>
             </form>
-            <p>¿Aún no estás registrado?<a href="/controllers/frontend/RegistroController.php">¡Hazlo!</a></p>
+            <p>¿Aún no estás registrado?  <a href="/controllers/frontend/RegistroController.php" class="btn_login">¡Hazlo!</a></p>
         </section>
     </main>
 

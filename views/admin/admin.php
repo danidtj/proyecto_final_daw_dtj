@@ -25,19 +25,16 @@ session_start();
         <hr id="hr4">
 
         <section class="container_form">
-            <p>Modificar el stock de BEBIDAS</p>
-            <a href="/views/admin/stockBebida.php">Modificar</a>
+            <p>Modificar el stock de BEBIDAS</p><br>
+            <a href="/views/admin/stockBebida.php" class="btn_modificarStock">Modificar</a>
         </section>
         <section class="container_form">            
-            <p>Modificar el stock de COMIDAS</p>
-            <a href="/views/admin/stockComida.php">Modificar</a>
+            <p>Modificar el stock de COMIDAS</p><br>
+            <a href="/views/admin/stockComida.php" class="btn_modificarStock">Modificar</a>
         </section>
         <section class="container_form">
-            <p>Modificar el stock de POSTRES</p>
-            <a href="/views/admin/stockPostre.php">Modificar</a>
-        </section>
-        <section class="container_form">
-            ¿Quieres volver al inicio de sesión? <a href="/views/frontend/login.php">¡Clica aquí!</a>
+            <p>Modificar el stock de POSTRES</p><br>
+            <a href="/views/admin/stockPostre.php" class="btn_modificarStock">Modificar</a>
         </section>
     </main>
 </body>

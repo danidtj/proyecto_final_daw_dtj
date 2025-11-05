@@ -23,9 +23,10 @@ session_start();
         <section class="container_form">
             <h2 class="titulo_form">STOCK BEBIDAS</h2>
             <?php
-            require_once dirname(__DIR__, 2) . '/models/admin/Bebida.php';
+            //require_once dirname(__DIR__, 2) . '/models/admin/Bebida.php';
 
             use ModelsAdmin\Producto;
+            require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 
             ?>
 

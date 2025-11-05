@@ -162,7 +162,7 @@ class Producto
     }
 
     //Método para insertar productos en la tabla PRODUCTOS de la base de datos
-    public function insertarBaseDatos(array $productos): void
+    public static function insertarBaseDatos(array $productos): void
     {
         try {
             foreach ($productos as $producto) {
@@ -175,7 +175,7 @@ class Producto
                         //Si no existe, lo insertamos
                         $sqlProductos = "INSERT INTO productos (id_producto, id_categoria, nombre_producto, precio_unitario, uds_stock) VALUES 
                         (:id_producto, :id_categoria, :nombre_producto, :precio_unitario, :uds_stock)";
-                        $result = $this->connection->prepare($sqlProductos);
+                        $result = DB::getInstance()->getConnection()->prepare($sqlProductos);
                         $result->execute([
                             ":id_producto" => $producto['id_producto'],
                             ":id_categoria" => $producto['id_categoria'],
@@ -186,7 +186,7 @@ class Producto
 
                         $sqlCategorias = "INSERT INTO categorias (codigo_producto, categoria_producto, tipo_producto, modalidad_producto) VALUES 
                         (:codigo_producto, :categoria_producto, :tipo_producto, :modalidad_producto)";
-                        $result = $this->connection->prepare($sqlCategorias);
+                        $result = DB::getInstance()->getConnection()->prepare($sqlCategorias);
                         $result->execute([
                             ":codigo_producto" => $producto['codigo_producto'],
                             ":categoria_producto" => $producto['categoria_producto'],
@@ -198,7 +198,7 @@ class Producto
                         //$totalPrecio = (float)$existe['precio'] + (float)$producto['precio'];
                         if (!empty($producto['precio_unitario'])) {
                             $sql = "UPDATE productos SET precio_unitario = :precio_unitario WHERE id_producto = :id_producto";
-                            $result = $this->connection->prepare($sql);
+                            $result = DB::getInstance()->getConnection()->prepare($sql);
                             $result->execute([
                                 ":precio_unitario" => $producto['precio_unitario'],
                                 ":id_producto" => $producto['id_producto']
@@ -206,7 +206,7 @@ class Producto
                         }
                         if (!empty($producto['uds_stock'])) {
                             $sql = "UPDATE productos SET uds_stock = :uds_stock WHERE id_producto = :id_producto";
-                            $result = $this->connection->prepare($sql);
+                            $result = DB::getInstance()->getConnection()->prepare($sql);
                             $result->execute([
                                 ":uds_stock" => $producto['uds_stock'],
                                 ":id_producto" => $producto['id_producto']
@@ -214,7 +214,7 @@ class Producto
                         } elseif (empty($producto['uds_stock']) && empty($producto['precio_unitario'])) {
 
                             $sql = "UPDATE productos SET uds_stock = :uds_stock, precio_unitario = :precio_unitario WHERE id_producto = :id_producto";
-                            $result = $this->connection->prepare($sql);
+                            $result = DB::getInstance()->getConnection()->prepare($sql);
                             $result->execute([
                                 ":uds_stock" => $producto['uds_stock'],
                                 ":precio_unitario" => $producto['precio_unitario'],

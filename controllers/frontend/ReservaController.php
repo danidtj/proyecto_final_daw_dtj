@@ -84,7 +84,8 @@ if (isset($_POST['confirmarModificacionReserva'])) {
     } else {
 
         //Si no ha hecho comanda previa, redirige a la página principal
-        echo "entro";
+        header("Location: /home");
+        exit();
     }
 }
 

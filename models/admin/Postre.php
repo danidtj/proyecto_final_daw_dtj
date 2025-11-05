@@ -21,10 +21,7 @@ class Postre extends Producto
         $this->postres = $postres;
     }
 
-    public function insertarBaseDatos(array $postres): void
-    {
-        parent::insertarBaseDatos($postres);
-    }
+  
 
     public static function getPostres()
     {

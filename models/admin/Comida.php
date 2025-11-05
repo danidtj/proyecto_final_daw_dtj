@@ -21,10 +21,10 @@ class Comida extends Producto
         $this->comidas = $comidas;
     }
 
-    public function insertarBaseDatos(array $comidas): void
+    /*public function insertarBaseDatos(array $comidas): void
     {
         parent::insertarBaseDatos($comidas);
-    }
+    }*/
 
     public static function getComidas()
     {

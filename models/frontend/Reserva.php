@@ -205,6 +205,7 @@ class Reserva
     public function modificarReserva($id_reserva, $id_mesa, $fecha, $hora_inicio, $numero_comensales, $comanda_previa)
     {
         try {
+            $this->connection->beginTransaction();
 
             //Calculamos la duración de la reserva en base a la hora de inicio
             $hora_inicio = date('Y-m-d H:i:s', strtotime($hora_inicio));
@@ -213,18 +214,9 @@ class Reserva
             // Actualizamos datos de la reserva
             $sql1 = "UPDATE reservas 
                 SET numero_comensales = :numero_comensales, 
-                comanda_previa = :comanda_previa 
+                comanda_previa = :comanda_previa
                 WHERE id_reserva = :id_reserva";
 
-                // Actualizamos mesa y horarios en reservas_mesas para una mesa específica
-            $sql2 = "UPDATE reservas_mesas 
-                SET fecha = :fecha,
-                hora_inicio = :hora_inicio,
-                hora_fin = :hora_fin
-                WHERE id_reserva = :id_reserva
-                AND id_mesa = :id_mesa";
-
-            //Ejecutamos los datos de la reserva
             $stmt = $this->connection->prepare($sql1);
             $stmt->bindParam(':numero_comensales', $numero_comensales);
             $stmt->bindParam(':comanda_previa', $comanda_previa);
@@ -232,16 +224,26 @@ class Reserva
 
             $stmt->execute();
 
-            //Ejecutamos los datos de reservas_mesas
-            $stmt = $this->connection->prepare($sql2);
+            //Al tener tabla intermedia con PK compuesta, eliminamos la relación existente
+            $sqlEliminar = "DELETE FROM reservas_mesas WHERE id_reserva = :id_reserva";
+            $stmt = $this->connection->prepare($sqlEliminar);
+            $stmt->bindParam(':id_reserva', $id_reserva);
+            $stmt->execute();
+
+            //Una vez eliminada la relación anterior, insertamos los datos actualizados
+            $sqlInsertar = "INSERT INTO reservas_mesas (id_reserva, id_mesa, fecha, hora_inicio, hora_fin) 
+                      VALUES (:id_reserva, :id_mesa, :fecha, :hora_inicio, :hora_fin)";
+            $stmt = $this->connection->prepare($sqlInsertar);
+            $stmt->bindParam(':id_reserva', $id_reserva);
+            $stmt->bindParam(':id_mesa', $id_mesa);
             $stmt->bindParam(':fecha', $fecha);
             $stmt->bindParam(':hora_inicio', $hora_inicio);
             $stmt->bindParam(':hora_fin', $hora_fin);
-            $stmt->bindParam(':id_reserva', $id_reserva);
-            $stmt->bindParam(':id_mesa', $id_mesa);
-
             $stmt->execute();
+
+            $this->connection->commit();
         } catch (PDOException $e) {
+            $this->connection->rollBack();
             throw new Exception("Error al modificar la reserva: " . $e->getMessage());
         }
     }

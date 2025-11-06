@@ -255,11 +255,11 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <div>
                         <?php if (isset($_POST['reservar'])): ?>
                             <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>
-                            <button type="submit" id="boton-confirmar-reserva" class="btn_reservar" name="confirmarReserva" disabled>Confirmar reserva</button>
+                            <button type="submit" id="boton-confirmar-reserva" class="btn_reservar boton-confirmar-reserva" name="confirmarReserva" disabled>Confirmar reserva</button>
                         <?php endif;
                         if (isset($_POST['modificar'])): ?>
                             <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>
-                            <button type="submit" id="boton-confirmar-reserva" class="btn_reservar" name="confirmarModificacionReserva" disabled>Modificar reserva</button>
+                            <button type="submit" id="boton-confirmar-modificacion" class="btn_reservar boton-confirmar-reserva" name="confirmarModificacionReserva" disabled>Modificar reserva</button>
                         <?php endif; ?>
                     </div>
                 </form>
@@ -276,7 +276,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 
 
     <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']))): ?>
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']) || isset($_POST['confirmarModificacionReserva']))): ?>
 
         <script src="/assets/js/validacionMesa.js"></script>
 

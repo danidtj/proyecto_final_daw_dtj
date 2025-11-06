@@ -57,7 +57,7 @@ if (isset($_POST['modificarReserva'])) {
     $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
     $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
     $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
-    $_SESSION['id_mesa'] = $_POST['id_mesa'];
+    //$_SESSION['id_mesa'] = $_POST['id_mesa'];
 }
 
 
@@ -69,7 +69,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
 
     $reserva->modificarReserva(
         $_SESSION['id_reserva'],
-        $_SESSION['id_mesa'],
+        $_POST['mesa_id'],
         $_SESSION['fecha'],
         $_SESSION['hora_inicio'],
         $_SESSION['numero_comensales'],

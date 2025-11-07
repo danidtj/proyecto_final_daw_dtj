@@ -30,7 +30,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
     <main>
 
         <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) || isset($_SESSION['comanda_previa']) && $_SESSION['comanda_previa'] === '1'
-        || isset($_SESSION['confirmarModificacionReserva'])) { ?>
+        || isset($_SESSION['confirmarModificacionReserva']) || isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true) { ?>
             <section class="container_form">
                 <h2 class="titulo_form">CARTA</h2>
                 <!--<form action="/controllers/frontend/CarritoController.php" method="post">-->

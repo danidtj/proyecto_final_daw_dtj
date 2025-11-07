@@ -89,6 +89,10 @@ if (isset($_POST['confirmarModificacionReserva'])) {
     }
 }
 
+if(isset($_POST['modificarOrden'])){
+    
+}
+
 $reservaController = new ReservaController();
 //La vista de Reserva siempre tiene que ejecutarse independientemente de si se envía o no el formulario.
 $reservaController->mostrarVistaReserva();

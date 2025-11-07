@@ -60,7 +60,6 @@ class Orden
             }
             //Actualizamos el stock de los productos de la orden
             Producto::actualizarStockProductosCarrito($_SESSION['carrito']);
-
         } catch (PDOException $e) {
             throw new Exception("Error al crear la orden: " . $e->getMessage());
         }
@@ -83,6 +82,144 @@ class Orden
             return $orden;
         } catch (PDOException $e) {
             throw new Exception("Error al obtener la orden: " . $e->getMessage());
+        }
+    }
+
+    //Método para modificar una orden asociada a una reserva
+    public function modificarOrdenPorCodigoOrden($precio_total, $montante_adelantado, $id_orden, $id_producto, $cantidad_pedido, $id_reserva)
+    {
+        try {
+
+            $this->connection->beginTransaction();
+            $orden = self::obtenerOrdenPorCodigo($id_orden);
+            $pago = array();
+            if ($orden['montante_adelantado'] > $montante_adelantado) {
+                $pago['abonar'] = abs(($orden['montante_adelantado'] - $montante_adelantado) * 0.1);
+            } elseif ($orden['montante_adelantado'] < $montante_adelantado) {
+                $pago['devolver'] = abs(($montante_adelantado - $orden['montante_adelantado']) * 0.1);
+            } else {
+                $pago['diferenca'] = 0;
+            }
+
+
+
+            // Actualizamos datos de la reserva
+            $sql1 = "UPDATE ordenes 
+                SET fecha = CURDATE(), 
+                precio_total = :precio_total,
+                montante_adelantado = :montante_adelantado
+                WHERE id_orden = :id_orden
+                AND id_reserva = :id_reserva";
+
+            $stmt = $this->connection->prepare($sql1);
+            $stmt->bindParam(':precio_total', $precio_total);
+            $stmt->bindParam(':montante_adelantado', $montante_adelantado);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->bindParam(':id_reserva', $id_reserva);
+
+            $stmt->execute();
+
+            $sqlEliminar = "DELETE FROM productos_ordenes WHERE id_orden = :id_orden";
+            $stmt = $this->connection->prepare($sqlEliminar);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->execute();
+
+            $resultado = array_count_values(array_column($_SESSION['carrito'], 'id_producto'));
+
+            $sql2 = "INSERT INTO productos_ordenes (id_orden, id_producto, cantidad_pedido)
+         VALUES (:id_orden, :id_producto, :cantidad_pedido)";
+
+            $stmt2 = $this->connection->prepare($sql2);
+
+            foreach ($resultado as $id_producto => $cantidad) {
+                $stmt2->bindParam(':id_orden', $id_orden);
+                $stmt2->bindParam(':id_producto', $id_producto);
+                $stmt2->bindParam(':cantidad_pedido', $cantidad);
+                $stmt2->execute();
+            }
+
+
+
+
+
+            //Al tener tabla intermedia con PK compuesta, eliminamos la relación existente
+            /*$sqlEliminar = "DELETE FROM productos_ordenes WHERE id_orden = :id_orden";
+            $stmt = $this->connection->prepare($sqlEliminar);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->execute();
+
+            //Una vez eliminada la relación anterior, insertamos los datos actualizados
+            $sqlInsertar = "INSERT INTO productos_ordenes (id_orden, id_producto, cantidad_pedido) 
+                      VALUES (:id_orden, :id_producto, :cantidad_pedido)";
+            $stmt = $this->connection->prepare($sqlInsertar);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->bindParam(':id_producto', $id_producto);
+            $stmt->bindParam(':cantidad_pedido', $cantidad_pedido);
+            $stmt->execute();*/
+
+            $this->connection->commit();
+
+            return $pago;
+        } catch (PDOException $e) {
+            $this->connection->rollBack();
+            throw new Exception("Error al modificar la reserva: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener una orden mediante su código
+    public function obtenerOrdenPorCodigo($id_orden)
+    {
+        try {
+            $sql = "SELECT * FROM ordenes WHERE id_orden = :id_orden";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->execute();
+
+            $orden = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $orden;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener la orden: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener los productos de una orden
+    public function obtenerProductosPorOrden($id_orden)
+    {
+        try {
+            $sql = "SELECT * FROM productos_ordenes WHERE id_orden = :id_orden";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->execute();
+
+            $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $productos;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener los productos de la orden: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener los datos de productos y productos_ordenes
+    public function obtenerDetallesProductosPorOrden($id_orden)
+    {
+        try {
+            $sql = "SELECT productos_ordenes.id_producto, productos.nombre_corto, productos.descripcion_corta, productos.precio_unitario, productos_ordenes.cantidad_pedido
+            FROM productos_ordenes
+            JOIN productos ON productos_ordenes.id_producto = productos.id_producto
+            WHERE productos_ordenes.id_orden = :id_orden";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->execute();
+
+            $detallesProductos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $detallesProductos;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener los detalles de los productos de la orden: " . $e->getMessage());
         }
     }
 }

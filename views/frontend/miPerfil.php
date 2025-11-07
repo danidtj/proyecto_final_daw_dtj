@@ -1,5 +1,5 @@
 <?php
-@session_start();
+session_start();
 
 use ModelsFrontend\Reserva;
 use ModelsFrontend\Orden;
@@ -11,6 +11,37 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 $nuevaReserva = new Reserva();
 $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuario']);
 $orden = new Orden();
+
+if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_POST['id_reserva'])) {
+
+    $_SESSION['carrito'] = [];
+    $_SESSION['modificar_orden'] = true;
+
+    $recuperarOrden = $orden->obtenerProductosPorOrden($_POST['id_orden']);
+    foreach ($recuperarOrden as $productoOrden) {
+        $datosProducto = Producto::getUnProducto($productoOrden['id_producto']);
+        if (!empty($datosProducto)) {
+            foreach (range(1, $productoOrden['cantidad_pedido']) as $i) {
+            $_SESSION['carrito'][] = [
+                'id_producto' => $productoOrden['id_producto'],
+                //'cantidad_pedido' => $productoOrden['cantidad_pedido'],
+                //'id_orden' => $productoOrden['id_orden'],
+                'nombre_corto' => $datosProducto['nombre_corto'],
+                'precio_unitario' => $datosProducto['precio_unitario'],
+                //'id_reserva' => $_POST['id_reserva']
+            ];
+            $_SESSION['orden_original'][] = [
+                'cantidad_pedido' => $productoOrden['cantidad_pedido'],
+                'id_orden' => $productoOrden['id_orden'],
+                'id_reserva' => $_POST['id_reserva']
+            ];
+        }
+    }
+    }
+
+    header("Location: /views/frontend/carrito.php");
+    exit();
+}
 
 ?>
 
@@ -56,21 +87,18 @@ $orden = new Orden();
                             <span><strong>Comensales:</strong> " . htmlspecialchars($reserva['numero_comensales']) . "</span></div>
                           ";
 
-                    if ($reserva['comanda_previa'] == 1) {
+                    $ordenes = $orden->obtenerOrdenPorCodigoReserva($reserva['id_reserva']);
+                    if (!empty($ordenes)) {
                         echo "<div class='productos_reserva'>";
-                        $ordenes = $orden->obtenerOrdenPorCodigoReserva($reserva['id_reserva']);
+                        $productosOrden = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $reserva['id_reserva'], $ordenes['id_orden']);
 
-                        if (!empty($ordenes) && $reserva['comanda_previa'] == 1) {
-                            $productosOrden = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $reserva['id_reserva'], $ordenes['id_orden']);
-
-                            foreach ($productosOrden as $producto) {
-                                echo "<p>" . htmlspecialchars($producto['nombre_corto']) . " ..... " . htmlspecialchars($producto['cantidad_pedido']) . " uds</p>";
-                            }
-                            echo "<br><p><strong>Precio total: " . htmlspecialchars($ordenes['precio_total']) . " €</strong></p>";
-                            echo "<p><strong>Montante adelantado: " . htmlspecialchars($ordenes['montante_adelantado']) . " €</strong></p><br>";
-                            //echo "<p>Número de mesa: " . htmlspecialchars($ordenes['id_mesa']) . "</p>";
-
+                        foreach ($productosOrden as $producto) {
+                            echo "<p>" . htmlspecialchars($producto['nombre_corto']) . " ..... " . htmlspecialchars($producto['cantidad_pedido']) . " uds</p>";
                         }
+                        echo "<br><p><strong>Precio total: " . htmlspecialchars($ordenes['precio_total']) . " €</strong></p>";
+                        echo "<p><strong>Montante adelantado: " . htmlspecialchars($ordenes['montante_adelantado']) . " €</strong></p><br>";
+                        //echo "<p>Número de mesa: " . htmlspecialchars($ordenes['id_mesa']) . "</p>";
+
                         echo "</div>";
                     }
 
@@ -94,9 +122,9 @@ $orden = new Orden();
                         </form>
 
                         <?php
-                        if (!empty($ordenes) && $reserva['comanda_previa'] == 1) {
+                        if (!empty($ordenes)) {
                             //Formulario para modificar la orden
-                            echo "<form action=\"/controllers/frontend/ReservaController.php\" method=\"post\">";
+                            echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
                             echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
                             echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
                             echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
@@ -118,13 +146,11 @@ $orden = new Orden();
                 $nuevaReserva->cancelarReserva($_POST['id_reserva']);
             }
 
-            /*if (isset($_POST['modificarReserva'])) {
-                $_SESSION['modificar_reserva'] = $_POST['id_reserva'];
-                header("Location: /views/frontend/reserva.php");
-            }*/
+
             ?>
 
         </section>
+
 
     </main>
 

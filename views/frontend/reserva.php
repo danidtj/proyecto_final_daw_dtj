@@ -101,16 +101,17 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                         <p class="mensaje-error" id="error-comensales" role="alert" aria-live="assertive"></p>
                     </div>
 
-                    <!-- Comanda -->
-                    <div>
-                        <p>¿Quieres realizar ya tu comanda?</p>
-                        <label><input type="radio" name="comanda_previa" value="1" required> Sí</label>
-                        <label><input type="radio" name="comanda_previa" value="0" required> No</label>
-                        <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
-                    </div>
-
                     <!-- Botón -->
                     <?php if (!isset($_POST['modificarReserva'])): ?>
+
+                        
+                        <!-- Comanda -->
+                        <div>
+                            <p>¿Quieres realizar ya tu comanda?</p>
+                            <label><input type="radio" name="comanda_previa" value="1" required> Sí</label>
+                            <label><input type="radio" name="comanda_previa" value="0" required> No</label>
+                            <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                        </div>
                         <div>
                             <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar btn_reservar">Reservar</button>
                         </div>
@@ -138,18 +139,18 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                 $_SESSION['comanda'] = $_POST['comanda_previa'];
             } */
 
-            
-                unset($_SESSION['fecha']);
-                unset($_SESSION['hora_inicio']);
-                unset($_SESSION['numero_comensales']);
-                unset($_SESSION['comanda_previa']);
-                $_SESSION['fecha'] = $_POST['fecha'];
-                $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
-                $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
-                $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
-                //$_SESSION['numero_mesa'] = $_POST['numero_mesa'];
-                //$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
-            
+
+            unset($_SESSION['fecha']);
+            unset($_SESSION['hora_inicio']);
+            unset($_SESSION['numero_comensales']);
+            unset($_SESSION['comanda_previa']);
+            $_SESSION['fecha'] = $_POST['fecha'];
+            $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
+            $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
+            $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
+            //$_SESSION['numero_mesa'] = $_POST['numero_mesa'];
+            //$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
+
 
 
 
@@ -163,7 +164,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                 if (isset($_POST['reservar']) || isset($_POST['modificar'])) { ?>
 
 
-                
+
                     <!-- Fecha -->
                     <div>
                         <label for="fecha_reserva">Selecciona la fecha:</label>

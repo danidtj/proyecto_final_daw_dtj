@@ -2,13 +2,16 @@
 
 use ControllerFrontend\CarritoController;
 use ModelsFrontend\Orden;
+use ModelsFrontend\Reserva;
 
 @session_start();
 
 
 require_once dirname(__DIR__, 2) . '/controllers/frontend/CarritoController.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
+require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 $orden = new Orden();
+$reserva = new Reserva();
 ?>
 
 <!DOCTYPE html>
@@ -85,15 +88,14 @@ $orden = new Orden();
                             foreach ($_SESSION['carrito'] as $producto) {
                                 foreach ($_SESSION['orden_original'] as $ordenOriginal) {
                                     $orden->modificarOrdenPorCodigoOrden(
-                                    $precioTotalCarrito,
-                                    $nuevoPagoAdelantado,
-                                    $ordenOriginal['id_orden'],
-                                    $producto['id_producto'],
-                                    array_count_values(array_column($_SESSION['carrito'], 'id_producto'))[$producto['id_producto']] ?? 0,
-                                    $ordenOriginal['id_reserva']
-                                );
+                                        $precioTotalCarrito,
+                                        $nuevoPagoAdelantado,
+                                        $ordenOriginal['id_orden'],
+                                        $producto['id_producto'],
+                                        array_count_values(array_column($_SESSION['carrito'], 'id_producto'))[$producto['id_producto']] ?? 0,
+                                        $ordenOriginal['id_reserva']
+                                    );
                                 }
-                                
                             }
                             unset($_SESSION['confirmarModificacionReserva']);
                             unset($_SESSION['modificar_orden']);
@@ -102,13 +104,24 @@ $orden = new Orden();
                             header("Location: /views/frontend/miPerfil.php");
                             exit();
                         } else {
+                            $codigo_reserva = $reserva->realizarReserva(
+                                $_SESSION['fecha'],
+                                $_SESSION['hora_inicio'],
+                                $_SESSION['numero_comensales'],
+                                $_SESSION['comanda_previa'],
+                                $_SESSION['mesa_id'],
+                                $_SESSION['id_usuario']
+                            );
+
+                            //Almacenamos el id de la nueva reserva en session
+                            $_SESSION['id_reserva_nueva'] = $codigo_reserva;
 
                             $idOrdenCreada = $orden->crearOrden($_SESSION['id_reserva_nueva'], 'Tarjeta de crédito', $precioTotalCarrito, $nuevoPagoAdelantado, $_SESSION['carrito']);
                             unset($_SESSION['confirmarReserva']);
                             unset($_SESSION['comanda_previa']);
                             unset($_SESSION['carrito']); // Vaciamos el carrito después de crear la orden
                             unset($_SESSION['id_reserva_nueva']);
-                            header("Location: /home");
+                            header("Location: /views/frontend/miPerfil.php");
                             exit();
                         }
                     }
@@ -140,7 +153,7 @@ $orden = new Orden();
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
     <script>
-        
+
     </script>
     <script src="/assets/js/validacionCarrito.js"></script>
 

@@ -26,23 +26,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
     $_SESSION['confirmarReserva'] = true;
 
     //Creamos la nueva reserva y almacenados su id
-    $codigo_reserva = $reserva->realizarReserva(
+    /*$codigo_reserva = $reserva->realizarReserva(
         $_SESSION['fecha'],
         $_SESSION['hora_inicio'],
         $_SESSION['numero_comensales'],
         $_SESSION['comanda_previa'],
         $_POST['mesa_id'],
         $_SESSION['id_usuario']
-    );
+    );*/
 
     //Almacenamos el id de la nueva reserva en session
-    $_SESSION['id_reserva_nueva'] = $codigo_reserva;
+    //$_SESSION['id_reserva_nueva'] = $codigo_reserva;
 
     if ($_SESSION['comanda_previa'] === "1") {
+        $_SESSION['mesa_id'] = $_POST['mesa_id'];
         //Si el usuario ha hecho una comanda previa, redirige a la carta
         header("Location: /views/frontend/carta.php");
         exit();
     } else {
+        $reserva->realizarReserva(
+            $_SESSION['fecha'],
+            $_SESSION['hora_inicio'],
+            $_SESSION['numero_comensales'],
+            $_SESSION['comanda_previa'],
+            $_POST['mesa_id'],
+            $_SESSION['id_usuario']
+        );
+
+        //Almacenamos el id de la nueva reserva en session
+        //$_SESSION['id_reserva_nueva'] = $codigo_reserva;
         //Si no ha hecho comanda previa, redirige a la página principal
         header("Location: /home");
         exit();
@@ -75,23 +87,11 @@ if (isset($_POST['confirmarModificacionReserva'])) {
         $_SESSION['numero_comensales'],
         $_SESSION['comanda_previa']
     );
-
-    if ($_SESSION['comanda_previa'] === "1") {
-
-        //Si el usuario ha hecho una comanda previa, redirige a la carta
-        header("Location: /views/frontend/carta.php");
-        exit();
-    } else {
-
-        //Si no ha hecho comanda previa, redirige a la página principal
-        header("Location: /home");
-        exit();
-    }
+    //Redirige a la página del perfil del ususario
+    header("Location: /views/frontend/miPerfil.php");
+    exit();
 }
 
-if(isset($_POST['modificarOrden'])){
-    
-}
 
 $reservaController = new ReservaController();
 //La vista de Reserva siempre tiene que ejecutarse independientemente de si se envía o no el formulario.

@@ -9,7 +9,9 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 $nuevaReserva = new Reserva();
-$reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuario']);
+if (isset($_SESSION['id_usuario'])) {
+    $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuario']);
+}
 $orden = new Orden();
 
 if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_POST['id_reserva'])) {
@@ -22,21 +24,21 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
         $datosProducto = Producto::getUnProducto($productoOrden['id_producto']);
         if (!empty($datosProducto)) {
             foreach (range(1, $productoOrden['cantidad_pedido']) as $i) {
-            $_SESSION['carrito'][] = [
-                'id_producto' => $productoOrden['id_producto'],
-                //'cantidad_pedido' => $productoOrden['cantidad_pedido'],
-                //'id_orden' => $productoOrden['id_orden'],
-                'nombre_corto' => $datosProducto['nombre_corto'],
-                'precio_unitario' => $datosProducto['precio_unitario'],
-                //'id_reserva' => $_POST['id_reserva']
-            ];
-            $_SESSION['orden_original'][] = [
-                'cantidad_pedido' => $productoOrden['cantidad_pedido'],
-                'id_orden' => $productoOrden['id_orden'],
-                'id_reserva' => $_POST['id_reserva']
-            ];
+                $_SESSION['carrito'][] = [
+                    'id_producto' => $productoOrden['id_producto'],
+                    //'cantidad_pedido' => $productoOrden['cantidad_pedido'],
+                    //'id_orden' => $productoOrden['id_orden'],
+                    'nombre_corto' => $datosProducto['nombre_corto'],
+                    'precio_unitario' => $datosProducto['precio_unitario'],
+                    //'id_reserva' => $_POST['id_reserva']
+                ];
+                $_SESSION['orden_original'][] = [
+                    'cantidad_pedido' => $productoOrden['cantidad_pedido'],
+                    'id_orden' => $productoOrden['id_orden'],
+                    'id_reserva' => $_POST['id_reserva']
+                ];
+            }
         }
-    }
     }
 
     header("Location: /views/frontend/carrito.php");
@@ -75,7 +77,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                     <div class='reserva_detalles'>
                     <div class='cabecera_reserva'>
                             <span><strong>Código:</strong> " . htmlspecialchars($reserva['id_reserva']) . "</span>                            
-                            <span><strong>Fecha:</strong> " . htmlspecialchars(date('Y-m-d', strtotime($reserva['fecha']))) . "</span>
+                            <span><strong>Fecha:</strong> " . htmlspecialchars(date('d/m/Y', strtotime($reserva['fecha']))) . "</span>
                             <span><strong>Hora:</strong> " . htmlspecialchars($reserva['hora_inicio']) . "</span>
                             <span><strong>Mesa:</strong> " . htmlspecialchars($reserva['id_mesa']) . "</span>";
                     if ($reserva['comanda_previa'] == 1) {
@@ -93,10 +95,11 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                         $productosOrden = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $reserva['id_reserva'], $ordenes['id_orden']);
 
                         foreach ($productosOrden as $producto) {
-                            echo "<p>" . htmlspecialchars($producto['nombre_corto']) . " ..... " . htmlspecialchars($producto['cantidad_pedido']) . " uds</p>";
+                            echo "<p>" . htmlspecialchars($producto['nombre_corto']) . " ..... " . htmlspecialchars($producto['cantidad_pedido']) . " uds ..... " .
+                                number_format(htmlspecialchars($producto['precio_unitario']) * htmlspecialchars($producto['cantidad_pedido']), 2, ',', '.') . " €</p>";
                         }
-                        echo "<br><p><strong>Precio total: " . htmlspecialchars($ordenes['precio_total']) . " €</strong></p>";
-                        echo "<p><strong>Montante adelantado: " . htmlspecialchars($ordenes['montante_adelantado']) . " €</strong></p><br>";
+                        echo "<br><p><strong>Precio total: " . number_format($ordenes['precio_total'], 2, ',', '.') . " €</strong></p>";
+                        echo "<p><strong>Montante adelantado (10%): " . number_format($ordenes['montante_adelantado'], 2, ',', '.') . " €</strong></p><br>";
                         //echo "<p>Número de mesa: " . htmlspecialchars($ordenes['id_mesa']) . "</p>";
 
                         echo "</div>";

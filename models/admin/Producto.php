@@ -322,8 +322,8 @@ class Producto
     public static function obtenerProductosReservaOrden($id_usuario, $id_reserva, $id_orden)
     {
         try {
-            //Consultamos para obtener el nombre corto y la cantidad por producto
-            $sql = "SELECT productos_ordenes.cantidad_pedido, productos.nombre_corto FROM productos
+            //Consultamos para obtener el nombre corto, la cantidad por producto y su precio unitario
+            $sql = "SELECT productos_ordenes.cantidad_pedido, productos.nombre_corto, productos.precio_unitario FROM productos
                 JOIN productos_ordenes ON productos_ordenes.id_producto = productos.id_producto
                 JOIN ordenes ON productos_ordenes.id_orden = ordenes.id_orden
                 JOIN reservas ON reservas.id_reserva = ordenes.id_reserva

@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 use ControllerFrontend\CarritoController;
 use ModelsFrontend\Orden;
 use ModelsFrontend\Reserva;
@@ -12,6 +15,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 $orden = new Orden();
 $reserva = new Reserva();
+$carritoController = new CarritoController();
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +29,7 @@ $reserva = new Reserva();
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <title>Restaurante XITO</title>
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body>
@@ -75,12 +80,16 @@ $reserva = new Reserva();
                         echo "<div id='carritoVacio'>El carrito está vacío.</div>";
                     }
 
+
                     //Botón para proceder a la compra
                     if ($precioTotalCarrito > 0) {
-                        echo "<form method='POST' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>
+
+                        echo "<form method='POST' id='formPagar' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>
+
                         <button type='submit' id='botonPagar' name='pagarCarrito'>Pagar</button>
                       </form>";
                     }
+
 
                     if (isset($_POST['pagarCarrito'])) {
 
@@ -93,7 +102,8 @@ $reserva = new Reserva();
                                         $ordenOriginal['id_orden'],
                                         $producto['id_producto'],
                                         array_count_values(array_column($_SESSION['carrito'], 'id_producto'))[$producto['id_producto']] ?? 0,
-                                        $ordenOriginal['id_reserva']
+                                        $ordenOriginal['id_reserva'],
+                                        $_SESSION['carrito']
                                     );
                                 }
                             }
@@ -149,11 +159,68 @@ $reserva = new Reserva();
             ?>
 
         </section>
+        <section class="container_form">
+            <div id="card-container">
+                <div id="card-element"><!-- Stripe Card Element se montará aquí --></div>
+                <div id="card-errors" role="alert" style="color:red;"></div>
+            </div>
+        </section>
+
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
     <script>
+        // Clave pública de Stripe (modo prueba)
+        const stripe = Stripe('pk_test_51SMCTFC5kWSf4beJPvCblJMqF4QJaefwzvuun7PTsCezbS1fh9iPYGw72uVJ0QE5NrveHW1hOJSZbKltpFxQERYB00wN4miWCQ');
 
+        const elements = stripe.elements();
+        const card = elements.create('card');
+        card.mount('#card-element');
+
+        const botonPagar = document.getElementById('botonPagar');
+
+        botonPagar.addEventListener('click', async () => {
+            botonPagar.disabled = true;
+
+            // Creamos PaymentIntent en el servidor
+            const response = await fetch('crearPaymentIntent.php', {
+                method: 'POST'
+            });
+
+            const data = await response.json();
+            const clientSecret = data.clientSecret;
+
+            if (!clientSecret) {
+                document.getElementById('card-errors').textContent = 'Error al crear PaymentIntent';
+                botonPagar.disabled = false;
+                return;
+            }
+
+            // Confirmamos el pago
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card
+                }
+            });
+
+            if (result.error) {
+                // Mostrar error al usuario
+                document.getElementById('card-errors').textContent = result.error.message;
+                botonPagar.disabled = false;
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    // Pago exitoso
+                    alert('Pago realizado con éxito!');
+
+                    // Vaciar carrito en el servidor
+                    await fetch('vaciarCarrito.php', {
+                        method: 'POST'
+                    });
+                    // Aquí puedes enviar formulario o redirigir
+                    window.location.href = '/views/frontend/miPerfil.php';
+                }
+            }
+        });
     </script>
     <script src="/assets/js/validacionCarrito.js"></script>
 

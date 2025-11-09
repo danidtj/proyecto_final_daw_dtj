@@ -86,12 +86,15 @@ class Orden
     }
 
     //Método para modificar una orden asociada a una reserva
-    public function modificarOrdenPorCodigoOrden($precio_total, $montante_adelantado, $id_orden, $id_producto, $cantidad_pedido, $id_reserva)
+    public function modificarOrdenPorCodigoOrden($precio_total, $montante_adelantado, $id_orden, $id_producto, $cantidad_pedido, $id_reserva, $carrito)
     {
         try {
 
             $this->connection->beginTransaction();
             $orden = self::obtenerOrdenPorCodigo($id_orden);
+            if (!$orden) {
+                throw new Exception("La orden no existe.");
+            }
             $pago = array();
             if ($orden['montante_adelantado'] > $montante_adelantado) {
                 $pago['abonar'] = abs(($orden['montante_adelantado'] - $montante_adelantado) * 0.1);
@@ -101,8 +104,6 @@ class Orden
                 $pago['diferenca'] = 0;
             }
 
-
-
             // Actualizamos datos de la reserva
             $sql1 = "UPDATE ordenes 
                 SET fecha = CURDATE(), 
@@ -111,51 +112,81 @@ class Orden
                 WHERE id_orden = :id_orden
                 AND id_reserva = :id_reserva";
 
-            $stmt = $this->connection->prepare($sql1);
-            $stmt->bindParam(':precio_total', $precio_total);
-            $stmt->bindParam(':montante_adelantado', $montante_adelantado);
-            $stmt->bindParam(':id_orden', $id_orden);
-            $stmt->bindParam(':id_reserva', $id_reserva);
+            $stmt1 = $this->connection->prepare($sql1);
+            $stmt1->execute([
+                ':precio_total' => $precio_total,
+                ':montante_adelantado' => $montante_adelantado,
+                ':id_orden' => $id_orden,
+                ':id_reserva' => $id_reserva
+            ]);
 
-            $stmt->execute();
-
+            //Eliminamos la orden anterior
             $sqlEliminar = "DELETE FROM productos_ordenes WHERE id_orden = :id_orden";
-            $stmt = $this->connection->prepare($sqlEliminar);
-            $stmt->bindParam(':id_orden', $id_orden);
-            $stmt->execute();
+            $stmtEliminar = $this->connection->prepare($sqlEliminar);
+            $stmtEliminar->execute([':id_orden' => $id_orden]);
 
-            $resultado = array_count_values(array_column($_SESSION['carrito'], 'id_producto'));
+            //Obtenemos la cantidad de unidades que se van a pedir de cada producto
+            $resultado = array_count_values(array_column($carrito, 'id_producto'));
 
+            //Insertamos los productos de la orden modificada respetando su id_orden
             $sql2 = "INSERT INTO productos_ordenes (id_orden, id_producto, cantidad_pedido)
-         VALUES (:id_orden, :id_producto, :cantidad_pedido)";
+                        VALUES (:id_orden, :id_producto, :cantidad_pedido)";
 
             $stmt2 = $this->connection->prepare($sql2);
 
-            foreach ($resultado as $id_producto => $cantidad) {
-                $stmt2->bindParam(':id_orden', $id_orden);
-                $stmt2->bindParam(':id_producto', $id_producto);
-                $stmt2->bindParam(':cantidad_pedido', $cantidad);
-                $stmt2->execute();
+            foreach ($resultado as $idProd => $cant) {
+                $stmt2->execute([
+                    ':id_orden' => $id_orden,
+                    ':id_producto' => $idProd,
+                    ':cantidad_pedido' => $cant
+                ]);
             }
 
 
+            //Obtenemos los datos de la orden para actualizar el stock
+            $datosOrdenProducto = $this->obtenerProductosPorOrden($id_orden);
 
+            $sqlStock = "UPDATE productos SET uds_stock = :uds_stock WHERE id_producto = :id_producto";
+            $stmtStock = $this->connection->prepare($sqlStock);
 
+            //Recorrer datosOrdenProducto para encontrar el producto correspondiente y actualizar el stock
+            foreach ($datosOrdenProducto as $producto) {
 
-            //Al tener tabla intermedia con PK compuesta, eliminamos la relación existente
-            /*$sqlEliminar = "DELETE FROM productos_ordenes WHERE id_orden = :id_orden";
-            $stmt = $this->connection->prepare($sqlEliminar);
-            $stmt->bindParam(':id_orden', $id_orden);
-            $stmt->execute();
+                $nuevaCantidad = 0;
+                //Comprobamos que el producto modificado está en el carrito
+                foreach ($carrito as $itemCarrito) {
+                    if ($itemCarrito['id_producto'] == $producto['id_producto']) {
+                        $nuevaCantidad++;
+                    }
+                }
 
-            //Una vez eliminada la relación anterior, insertamos los datos actualizados
-            $sqlInsertar = "INSERT INTO productos_ordenes (id_orden, id_producto, cantidad_pedido) 
-                      VALUES (:id_orden, :id_producto, :cantidad_pedido)";
-            $stmt = $this->connection->prepare($sqlInsertar);
-            $stmt->bindParam(':id_orden', $id_orden);
-            $stmt->bindParam(':id_producto', $id_producto);
-            $stmt->bindParam(':cantidad_pedido', $cantidad_pedido);
-            $stmt->execute();*/
+                //Almacenamos los datos del producto para actualizar el stock
+                $datosProducto = Producto::getUnProducto($producto['id_producto']);
+                //Almacenamos el stock actual del producto a comprobar
+                $nuevoStock = $datosProducto['uds_stock'];
+
+                //Comprobamos si es mayor o menor la cantidad pedida para actualizar el stock
+                if ($producto['cantidad_pedido'] > $nuevaCantidad) {
+                    $diferencia = $producto['cantidad_pedido'] - $nuevaCantidad;
+                    $nuevoStock += $diferencia;
+                } elseif ($producto['cantidad_pedido'] < $nuevaCantidad) {
+                    $diferencia = $nuevaCantidad - $producto['cantidad_pedido'];
+                    $nuevoStock -= $diferencia;
+                } else {
+                    continue;
+                }
+
+                //Comprobamos que el stock no sea negativo
+                if ($nuevoStock < 0) {
+                    throw new Exception("Stock insuficiente para el producto ID $idProd");
+                }
+
+                $stmtStock->execute([
+                    ':uds_stock' => $nuevoStock,
+                    ':id_producto' => $producto['id_producto']
+
+                ]);
+            }
 
             $this->connection->commit();
 

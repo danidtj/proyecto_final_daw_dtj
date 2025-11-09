@@ -131,8 +131,38 @@ class Producto
         }
     }
 
-    //Método para actualizar las uds_stock de los productos añadidos al carrito
+    //Método para actualizar las uds_stock a restar de los productos añadidos a una orden mediante el carrito
     public static function actualizarStockProductosCarrito(array $productosCarrito): void
+    {
+        try {
+            $resultado = array_count_values(array_column($productosCarrito, 'id_producto'));
+            $connection = DB::getInstance()->getConnection();
+
+            foreach ($resultado as $id_producto => $cantidad_pedida) {
+                //Obtenemos el stock actual del producto
+                $sqlStockActual = "SELECT uds_stock FROM productos WHERE id_producto = :id_producto";
+                $result = $connection->prepare($sqlStockActual);
+                $result->execute([':id_producto' => $id_producto]);
+                $stockActual = (int)$result->fetchColumn();
+
+                //Calculamos el nuevo stock
+                $nuevoStock = $stockActual - $cantidad_pedida;
+
+                //Actualizamos el stock en la base de datos
+                $sqlActualizarStock = "UPDATE productos SET uds_stock = :uds_stock WHERE id_producto = :id_producto";
+                $result = $connection->prepare($sqlActualizarStock);
+                $result->execute([
+                    ':uds_stock' => $nuevoStock,
+                    ':id_producto' => $id_producto
+                ]);
+            }
+        } catch (Exception $e) {
+            die("Error de conexión: " . $e->getMessage());
+        }
+    }
+
+    //Método para actualizar las uds_stock a devolver de los productos añadidos a una orden y que ha sido modificada o cancelada
+    public static function devolverStockProductosCarrito(array $productosCarrito): void
     {
         try {
             $resultado = array_count_values(array_column($productosCarrito, 'id_producto'));

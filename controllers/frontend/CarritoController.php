@@ -6,6 +6,19 @@ namespace ControllerFrontend;
 
 
 
+ // Clave secreta (reemplazar con la clave real)
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*if (isset($_SESSION['id_usuario'])) {
         //echo "Sesión iniciada como: " . $_SESSION['usuario']['nombre_usuario'];
@@ -53,6 +66,8 @@ class CarritoController
     {
         require_once dirname(__DIR__, 2) . '/views/frontend/carrito.php';
     }
+
+    
 }
 
 /*require_once dirname(__DIR__, 2) . '/views/frontend/cesta.php';

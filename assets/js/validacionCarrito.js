@@ -1,3 +1,6 @@
+
+
+
 function eliminar(codigo) {
     // Objeto para enviar y recibir datos del servidor sin recargar la página
     var xhttp = new XMLHttpRequest();

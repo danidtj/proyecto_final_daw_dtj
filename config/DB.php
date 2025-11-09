@@ -1,4 +1,5 @@
 <?php
+
 namespace Config;
 // Introducimos el gestor de dependencias a través del archivo autoload.php para cargar cualquier clase sin require
 require_once dirname(__DIR__) . '/vendor/autoload.php';
@@ -16,6 +17,14 @@ if (file_exists(dirname(__DIR__))) {
 } else {
     die('.env file not found');
 }
+
+// Carga del archivo .env
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
+// Variables disponibles globalmente
+define('STRIPE_SECRET_KEY', $_ENV['STRIPE_SECRET_KEY']);
+define('STRIPE_PUBLIC_KEY', $_ENV['STRIPE_PUBLIC_KEY']);
 
 class DB
 {
@@ -45,7 +54,7 @@ class DB
         }
     }
 
-    
+
     //Devuelve la instancia si ya está creada o la crea en caso contrario
     public static function getInstance()
     {

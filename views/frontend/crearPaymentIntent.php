@@ -1,10 +1,11 @@
 <?php
 
 @session_start();
+require_once dirname(__DIR__, 2) . '/config/config.php';
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 // Clave secreta de Stripe (modo prueba)
-\Stripe\Stripe::setApiKey('sk_test_51SMCTFC5kWSf4beJX0HWNTKELeKQv7730Nm6T9X20DwX6iCuCWy9Fd3ilc7xnTIuLkDiUnbSkCimfz2HMRISNInA008L6bVTGq');
+\Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
 
 header('Content-Type: application/json');
 

@@ -9,6 +9,9 @@ use ModelsFrontend\Reserva;
 
 session_start();
 
+require_once dirname(__DIR__, 2) . '/config/DB.php';
+
+
 
 require_once dirname(__DIR__, 2) . '/controllers/frontend/CarritoController.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
@@ -113,7 +116,7 @@ $carritoController = new CarritoController();
 
     <script>
         // Clave pública de Stripe (modo prueba)
-        const stripe = Stripe('pk_test_51SMCTFC5kWSf4beJPvCblJMqF4QJaefwzvuun7PTsCezbS1fh9iPYGw72uVJ0QE5NrveHW1hOJSZbKltpFxQERYB00wN4miWCQ');
+        const stripe = Stripe('<?php echo STRIPE_PUBLIC_KEY; ?>');
 
         const elements = stripe.elements();
         const card = elements.create('card');

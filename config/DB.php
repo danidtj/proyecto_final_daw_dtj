@@ -19,8 +19,8 @@ if (file_exists(dirname(__DIR__))) {
 }
 
 // Carga del archivo .env
-$dotenv = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
+//$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+//$dotenv->load();
 
 // Variables disponibles globalmente
 define('STRIPE_SECRET_KEY', $_ENV['STRIPE_SECRET_KEY']);

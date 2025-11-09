@@ -97,18 +97,22 @@ class Reserva
     }*/
 
     //Método para obtener una reserva mediante el número de teléfono y la fecha de la reserva
-    public function obtenerReservaPorTelefonoYFecha($telefono_usuario, $fecha_reserva)
+    public function obtenerReservaPorTelefonoYFecha($telefono_usuario, $fecha)
     {
         try {
-            $sql = "SELECT r.* 
+            $sql = "SELECT r.*, rm.id_mesa, rm.fecha, rm.hora_inicio, rm.hora_fin, 
+            DATE(rm.fecha) AS fecha, 
+            TIME_FORMAT(rm.hora_inicio, '%H:%i') AS hora_inicio, 
+            TIME_FORMAT(rm.hora_fin, '%H:%i') AS hora_fin
                     FROM reservas r
                     JOIN usuarios u ON r.id_usuario = u.id_usuario
+                    JOIN reservas_mesas rm ON r.id_reserva = rm.id_reserva
                     WHERE u.telefono_usuario = :telefono_usuario 
-                    AND r.fecha_reserva = :fecha_reserva";
+                    AND rm.fecha = :fecha";
 
             $stmt = $this->connection->prepare($sql);
             $stmt->bindParam(':telefono_usuario', $telefono_usuario);
-            $stmt->bindParam(':fecha_reserva', $fecha_reserva);
+            $stmt->bindParam(':fecha', $fecha);
             $stmt->execute();
 
             $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -116,6 +120,55 @@ class Reserva
             return $reserva;
         } catch (PDOException $e) {
             throw new Exception("Error al obtener la reserva por teléfono y fecha: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener todas las reservas por el número de teléfono del usuario
+    public function obtenerReservasPorTelefono($telefono_usuario)
+    {
+        try {
+            $sql = "SELECT r.*, rm.id_mesa, rm.fecha, rm.hora_inicio, rm.hora_fin, 
+            DATE(rm.fecha) AS fecha,
+            TIME_FORMAT(rm.hora_inicio, '%H:%i') AS hora_inicio, 
+            TIME_FORMAT(rm.hora_fin, '%H:%i') AS hora_fin
+            FROM reservas r
+            JOIN usuarios u ON r.id_usuario = u.id_usuario
+            JOIN reservas_mesas rm ON r.id_reserva = rm.id_reserva
+                        WHERE u.telefono_usuario = :telefono_usuario";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':telefono_usuario', $telefono_usuario);
+            $stmt->execute();
+
+            $reserva = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $reserva;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener la reserva por teléfono: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener todas las reservas de una fecha en concreto
+    public function obtenerReservasPorFecha($fecha)
+    {
+        try {
+            $sql = "SELECT reservas.id_reserva, reservas.id_usuario, reservas.numero_comensales, reservas.comanda_previa, reservas_mesas.id_mesa,  
+            DATE(reservas_mesas.fecha) AS fecha,
+            TIME_FORMAT(reservas_mesas.hora_inicio, '%H:%i') AS hora_inicio, 
+            TIME_FORMAT(reservas_mesas.hora_fin, '%H:%i') AS hora_fin
+            FROM reservas
+            JOIN reservas_mesas ON reservas.id_reserva = reservas_mesas.id_reserva
+            WHERE reservas_mesas.fecha = :fecha
+            ORDER BY reservas_mesas.hora_inicio ASC;";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':fecha', $fecha);
+            $stmt->execute();
+
+            $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $reservas;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener las reservas por fecha: " . $e->getMessage());
         }
     }
 

@@ -48,19 +48,22 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo "<h4>&nbsp;&nbsp;&nbspRefrescos</h4><br>";
                 foreach ($productos as $producto) {
 
+
                     if ($producto->productos['tipo_categoria'] === 'Refresco') {
-                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        //echo "<input type=\"checkbox\" name=\"codigo_producto\" id=\"" . $producto->getNombreProducto() . "\" value=\"" . $producto->getCodigoProducto() . "\"> ";
-                        //echo "<label for=\"" . $producto->getNombreProducto() . "\">" . $producto->getNombreProducto() . "</label> <span class=\"precio_producto\">...................." . $producto->getPrecioProducto() . " €</span><br>";
-                        //echo "<input type=\"hidden\" name=\"productosCarrito[nombre_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getNombreProducto(), ENT_QUOTES, 'UTF-8') . "\">";
-                        //echo "<input type=\"hidden\" name=\"productosCarrito[precio_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getPrecioProducto(), ENT_QUOTES, 'UTF-8') . "\">";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                        echo "............" . $producto->getPrecioUnitario() . "\n";
-                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
-                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
-                        echo "</form>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                            //echo "<input type=\"checkbox\" name=\"codigo_producto\" id=\"" . $producto->getNombreProducto() . "\" value=\"" . $producto->getCodigoProducto() . "\"> ";
+                            //echo "<label for=\"" . $producto->getNombreProducto() . "\">" . $producto->getNombreProducto() . "</label> <span class=\"precio_producto\">...................." . $producto->getPrecioProducto() . " €</span><br>";
+                            //echo "<input type=\"hidden\" name=\"productosCarrito[nombre_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getNombreProducto(), ENT_QUOTES, 'UTF-8') . "\">";
+                            //echo "<input type=\"hidden\" name=\"productosCarrito[precio_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getPrecioProducto(), ENT_QUOTES, 'UTF-8') . "\">";
+                            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
+                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                            echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                            echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                            echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                            echo "</form>";
+                        }
                     }
                 }
 
@@ -69,14 +72,16 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
 
                     if ($producto->productos['tipo_categoria'] === 'Con alcohol') {
-                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                        echo "............" . $producto->getPrecioUnitario() . "\n";
-                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
-                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
-                        echo "</form>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
+                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                            echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                            echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                            echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                            echo "</form>";
+                        }
                     }
                 }
 
@@ -88,71 +93,84 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
 
                     if ($producto->productos['tipo_categoria'] === 'Tapa') {
-                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                        echo "............" . $producto->getPrecioUnitario() . "\n";
-                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
-                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
-                        echo "</form>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
+                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                            echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                            echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                            echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                            echo "</form>";
+                        }
                     }
                 }
                 //RACIONES Y VARIADOS
                 echo "<h4>&nbsp;&nbsp;&nbspRaciones</h4><br>";
                 echo "<h5>&nbsp;&nbsp;&nbspVariados</h5><br>";
                 foreach ($productos as $producto) {
+
                     if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado') {
-                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                        echo "............" . $producto->getPrecioUnitario() . "\n";
-                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
-                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
-                        echo "</form>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
+                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                            echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                            echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                            echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                            echo "</form>";
+                        }
                     }
                 }
                 //RACIONES Y CARNES
                 echo "<h5>&nbsp;&nbsp;&nbspCarnes</h5><br>";
                 foreach ($productos as $producto) {
+
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne') {
-                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                        echo "............" . $producto->getPrecioUnitario() . "\n";
-                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
-                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
-                        echo "</form>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
+                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                            echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                            echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                            echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                            echo "</form>";
+                        }
                     }
                 }
                 //RACIONES Y PESCADOS
                 echo "<h5>&nbsp;&nbsp;&nbspPescados</h5><br>";
                 foreach ($productos as $producto) {
+
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado') {
-                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                        echo "............" . $producto->getPrecioUnitario() . "\n";
-                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
-                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
-                        echo "</form>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
+                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                            echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                            echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                            echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                            echo "</form>";
+                        }
                     }
                 }
                 //POSTRES
                 echo "<h3>&nbsp;&nbsp;&nbspPostres</h3><br>";
                 $productos = Producto::getProductos('postre');
                 foreach ($productos as $producto) {
-                    echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                    echo "............" . $producto->getPrecioUnitario() . "\n";
-                    echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
-                    echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
-                    echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
-                    echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
-                    echo "</form>";
+                    if ($producto->getUdsStock() > 0) {
+                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
+                        echo "............" . $producto->getPrecioUnitario() . "\n";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                        echo "</form>";
+                    }
                 }
 
                 ?>
@@ -191,7 +209,9 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
 
                     if ($producto->productos['tipo_categoria'] === 'Refresco') {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        }
                     }
                 }
 
@@ -200,7 +220,9 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
 
                     if ($producto->productos['tipo_categoria'] === 'Con alcohol') {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        }
                     }
                 }
 
@@ -211,10 +233,11 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 
                 //ENTRANTES
                 echo "<h4>&nbsp;&nbsp;&nbspEntrantes</h4><br>";
-
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Tapa') {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        }
                     }
                 }
 
@@ -223,8 +246,11 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo "<h5>&nbsp;&nbsp;&nbspVariados</h5><br>";
 
                 foreach ($productos as $producto) {
+
                     if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado') {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        }
                     }
                 }
 
@@ -233,7 +259,9 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne') {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        }
                     }
                 }
 
@@ -242,7 +270,9 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado') {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        if ($producto->getUdsStock() > 0) {
+                            echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                        }
                     }
                 }
 
@@ -252,7 +282,9 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 $productos = Producto::getProductos('postre');
 
                 foreach ($productos as $producto) {
-                    echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                    if ($producto->getUdsStock() > 0) {
+                        echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
+                    }
                 }
                 ?>
 

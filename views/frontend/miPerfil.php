@@ -95,8 +95,8 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                         $productosOrden = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $reserva['id_reserva'], $ordenes['id_orden']);
 
                         foreach ($productosOrden as $producto) {
-                            echo "<p>" . htmlspecialchars($producto['nombre_corto']) . " ..... " . htmlspecialchars($producto['cantidad_pedido']) . " uds ..... " .
-                                number_format(htmlspecialchars($producto['precio_unitario']) * htmlspecialchars($producto['cantidad_pedido']), 2, ',', '.') . " €</p>";
+                            echo "<p>" . htmlspecialchars($producto['nombre_corto']) . " ..... " . htmlspecialchars($producto['cantidad_pedido']) . " u ..... " .
+                                number_format(htmlspecialchars($producto['precio_unitario']), 2, ',', '.') . " € ..... " . number_format(htmlspecialchars($producto['precio_unitario']) * htmlspecialchars($producto['cantidad_pedido']), 2, ',', '.') . " €</p>";
                         }
                         echo "<br><p><strong>Precio total: " . number_format($ordenes['precio_total'], 2, ',', '.') . " €</strong></p>";
                         echo "<p><strong>Montante adelantado (10%): " . number_format($ordenes['montante_adelantado'], 2, ',', '.') . " €</strong></p><br>";

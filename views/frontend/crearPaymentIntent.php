@@ -9,7 +9,7 @@ require dirname(__DIR__, 2) . '/vendor/autoload.php';
 header('Content-Type: application/json');
 
 // Puedes calcular el monto desde tu carrito, ejemplo: 10€ -> 1000 céntimos
-$amount = 1000;
+$amount = $_SESSION['nuevoPagoAdelantado'] * 100; 
 
 $paymentIntent = \Stripe\PaymentIntent::create([
     'amount' => $amount,

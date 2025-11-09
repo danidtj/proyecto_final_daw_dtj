@@ -48,6 +48,21 @@ session_start();
                 $bebidas = Producto::getProductos('bebida');
 
                 foreach ($bebidas as $bebida) {
+                    if($bebida->productos['uds_stock'] <= 10){
+                    echo "<tr style='background-color: #f23232ff;'>";
+                    echo "<td>" . $bebida->productos['nombre_corto'] . "</td>";
+                    echo "<td>" . $bebida->productos['uds_stock'] . "</td>";
+                    echo "<td>" . $bebida->productos['precio_unitario'] . "</td>";
+                    echo "<td>" . $bebida->productos['id_producto'] . "</td>";
+                    echo "<td>" . $bebida->productos['tipo_categoria'] . "</td>";
+                    echo "<td>";
+                    echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
+                    echo '<input type="hidden" name="codigo_producto" value="' . $bebida->productos['id_producto'] . '">';
+                    echo '<input type="submit" value="X" name="eliminarBebida" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                    echo '</form>';
+                    echo "</td>";
+                    echo "</tr>";
+                } else {
                     echo "<tr>";
                     echo "<td>" . $bebida->productos['nombre_corto'] . "</td>";
                     echo "<td>" . $bebida->productos['uds_stock'] . "</td>";
@@ -62,6 +77,8 @@ session_start();
                     echo "</td>";
                     echo "</tr>";
                 }
+                }
+
 
                 echo "</table>";
 

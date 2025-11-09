@@ -48,20 +48,37 @@ session_start();
                 $postres = Producto::getProductos('Postre');
 
                 foreach ($postres as $postre) {
-                    echo "<tr>";
-                    echo "<td>" . $postre->productos['nombre_corto'] . "</td>";
-                    echo "<td>" . $postre->productos['uds_stock'] . "</td>";
-                    echo "<td>" . $postre->productos['precio_unitario'] . "</td>";
-                    echo "<td>" . $postre->productos['id_producto'] . "</td>";
-                    echo "<td>" . $postre->productos['tipo_categoria'] . "</td>";
-                    echo "<td>" . $postre->productos['modalidad_producto'] . "</td>";
-                    echo "<td>";
-                    echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
-                    echo '<input type="hidden" name="codigo_producto" value="' . $postre->productos['id_producto'] . '">';
-                    echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
-                    echo '</form>';
-                    echo "</td>";
-                    echo "</tr>";
+                    if ($postre->productos['uds_stock'] <= 5) {
+                        echo "<tr style='background-color: #f23232ff;'>";
+                        echo "<td>" . $postre->productos['nombre_corto'] . "</td>";
+                        echo "<td>" . $postre->productos['uds_stock'] . "</td>";
+                        echo "<td>" . $postre->productos['precio_unitario'] . "</td>";
+                        echo "<td>" . $postre->productos['id_producto'] . "</td>";
+                        echo "<td>" . $postre->productos['tipo_categoria'] . "</td>";
+                        echo "<td>" . $postre->productos['modalidad_producto'] . "</td>";
+                        echo "<td>";
+                        echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
+                        echo '<input type="hidden" name="codigo_producto" value="' . $postre->productos['id_producto'] . '">';
+                        echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        echo '</form>';
+                        echo "</td>";
+                        echo "</tr>";
+                    } else {
+                        echo "<tr>";
+                        echo "<td>" . $postre->productos['nombre_corto'] . "</td>";
+                        echo "<td>" . $postre->productos['uds_stock'] . "</td>";
+                        echo "<td>" . $postre->productos['precio_unitario'] . "</td>";
+                        echo "<td>" . $postre->productos['id_producto'] . "</td>";
+                        echo "<td>" . $postre->productos['tipo_categoria'] . "</td>";
+                        echo "<td>" . $postre->productos['modalidad_producto'] . "</td>";
+                        echo "<td>";
+                        echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
+                        echo '<input type="hidden" name="codigo_producto" value="' . $postre->productos['id_producto'] . '">';
+                        echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        echo '</form>';
+                        echo "</td>";
+                        echo "</tr>";
+                    }
                 }
 
 
@@ -106,7 +123,7 @@ session_start();
                                     <input type="number" name="postres[<?= $index ?>][precio_unitario]"
                                         value="" min="0" step="0.01">
                                 </td>
-                               
+
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

@@ -44,27 +44,38 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
     }
 
     //Una vez se ha eliminado el producto, recalculamos el nuevo precio total del carrito
+    // Una vez se ha eliminado el producto, recalculamos el nuevo precio total del carrito
     $nuevoPrecioTotal = 0;
     if (!empty($_SESSION['carrito'])) {
-        foreach ($_SESSION['carrito'] as $producto) {
-            $nuevoPrecioTotal += $producto['precio_unitario'];
+        $resultado = array_count_values(array_column($_SESSION['carrito'], 'id_producto'));
+        foreach ($resultado as $id => $cantidad) {
+            foreach ($_SESSION['carrito'] as $producto) {
+                if ($producto['id_producto'] == $id) {
+                    $nuevoPrecioTotal += $producto['precio_unitario'] * $cantidad;
+                    break;
+                }
+            }
         }
     }
 
+
     //Recalculamos el nuevo precio a pagar por adelantado (10% del total)
     $nuevoPagoAdelantado = $nuevoPrecioTotal * 0.1;
+    $_SESSION['precioTotalCarrito'] = $nuevoPrecioTotal;
+    $_SESSION['nuevoPagoAdelantado'] = $nuevoPagoAdelantado;
 
     // Devolvemos JSON con estado y total
     header('Content-Type: application/json');
     echo json_encode([
         "status" => "ok",
-        "total" => $nuevoPrecioTotal,
+        "total" => $nuevoPrecioTotal, 
+        "nuevoPagoAdelantado" => $nuevoPagoAdelantado, 
+        "subtotal" => $subtotal, 
         "productoExiste" => $productoExiste,
-        "cantidadRestante" => $productoExiste ? count(array_filter($_SESSION['carrito'], function ($prod) use ($codigoEliminar) {
-            return $prod['id_producto'] == $codigoEliminar;
-        })) : 0,
-        "subtotal" => $subtotal,
-        "nuevoPagoAdelantado" => $nuevoPagoAdelantado,
+        "cantidadRestante" => $productoExiste
+            ? (isset($resultado[$codigoEliminar]) ? $resultado[$codigoEliminar] : 0)
+            : 0
     ]);
+
     exit;
 }

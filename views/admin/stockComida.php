@@ -48,20 +48,37 @@ session_start();
                 $comidas = Producto::getProductos('comida');
 
                 foreach ($comidas as $comida) {
-                    echo "<tr>";
-                    echo "<td>" . $comida->productos['nombre_corto'] . "</td>";
-                    echo "<td>" . $comida->productos['uds_stock'] . "</td>";
-                    echo "<td>" . $comida->productos['precio_unitario'] . "</td>";
-                    echo "<td>" . $comida->productos['id_producto'] . "</td>";
-                    echo "<td>" . $comida->productos['tipo_categoria'] . "</td>";
-                    echo "<td>" . $comida->productos['modalidad_producto'] . "</td>";
-                    echo "<td>";
-                    echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
-                    echo '<input type="hidden" name="codigo_producto" value="' . $comida->productos['id_producto'] . '">';
-                    echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:pointer;">';
-                    echo '</form>';
-                    echo "</td>";
-                    echo "</tr>";
+                    if ($comida->productos['uds_stock'] <= 10) {
+                        echo "<tr style='background-color: #f23232ff;'>";
+                        echo "<td>" . $comida->productos['nombre_corto'] . "</td>";
+                        echo "<td>" . $comida->productos['uds_stock'] . "</td>";
+                        echo "<td>" . $comida->productos['precio_unitario'] . "</td>";
+                        echo "<td>" . $comida->productos['id_producto'] . "</td>";
+                        echo "<td>" . $comida->productos['tipo_categoria'] . "</td>";
+                        echo "<td>" . $comida->productos['modalidad_producto'] . "</td>";
+                        echo "<td>";
+                        echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
+                        echo '<input type="hidden" name="codigo_producto" value="' . $comida->productos['id_producto'] . '">';
+                        echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        echo '</form>';
+                        echo "</td>";
+                        echo "</tr>";
+                    } else {
+                        echo "<tr>";
+                        echo "<td>" . $comida->productos['nombre_corto'] . "</td>";
+                        echo "<td>" . $comida->productos['uds_stock'] . "</td>";
+                        echo "<td>" . $comida->productos['precio_unitario'] . "</td>";
+                        echo "<td>" . $comida->productos['id_producto'] . "</td>";
+                        echo "<td>" . $comida->productos['tipo_categoria'] . "</td>";
+                        echo "<td>" . $comida->productos['modalidad_producto'] . "</td>";
+                        echo "<td>";
+                        echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
+                        echo '<input type="hidden" name="codigo_producto" value="' . $comida->productos['id_producto'] . '">';
+                        echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        echo '</form>';
+                        echo "</td>";
+                        echo "</tr>";
+                    }
                 }
 
                 echo "</table>";

@@ -104,7 +104,7 @@ class Orden
                 $pago['diferenca'] = 0;
             }
 
-            // Actualizamos datos de la reserva
+            // Actualizamos datos de la orden
             $sql1 = "UPDATE ordenes 
                 SET fecha = CURDATE(), 
                 precio_total = :precio_total,
@@ -120,7 +120,10 @@ class Orden
                 ':id_reserva' => $id_reserva
             ]);
 
-            //Eliminamos la orden anterior
+            //Obtenemos los datos de la orden para actualizar el stock
+            $datosOrdenProducto = $this->obtenerProductosPorOrden($id_orden);
+
+            //Eliminamos los productos asociados a la orden
             $sqlEliminar = "DELETE FROM productos_ordenes WHERE id_orden = :id_orden";
             $stmtEliminar = $this->connection->prepare($sqlEliminar);
             $stmtEliminar->execute([':id_orden' => $id_orden]);
@@ -143,22 +146,20 @@ class Orden
             }
 
 
-            //Obtenemos los datos de la orden para actualizar el stock
-            $datosOrdenProducto = $this->obtenerProductosPorOrden($id_orden);
-
             $sqlStock = "UPDATE productos SET uds_stock = :uds_stock WHERE id_producto = :id_producto";
             $stmtStock = $this->connection->prepare($sqlStock);
 
             //Recorrer datosOrdenProducto para encontrar el producto correspondiente y actualizar el stock
             foreach ($datosOrdenProducto as $producto) {
 
-                $nuevaCantidad = 0;
                 //Comprobamos que el producto modificado está en el carrito
-                foreach ($carrito as $itemCarrito) {
-                    if ($itemCarrito['id_producto'] == $producto['id_producto']) {
-                        $nuevaCantidad++;
+                $nuevaCantidad = 0;
+                foreach ($resultado as $idProd => $cant) {
+                    if ($idProd == $producto['id_producto']) {
+                        $nuevaCantidad += $cant;
                     }
                 }
+
 
                 //Almacenamos los datos del producto para actualizar el stock
                 $datosProducto = Producto::getUnProducto($producto['id_producto']);

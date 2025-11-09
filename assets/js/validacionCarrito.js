@@ -9,7 +9,7 @@ function eliminar(codigo) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             try {
-                
+
                 //Almacena la respuesta del servidor que viene a través de JSON
                 let respuesta = JSON.parse(this.responseText);
 
@@ -21,8 +21,8 @@ function eliminar(codigo) {
                         // Si aún quedan unidades del producto
                         if (respuesta.cantidadRestante > 0) {
                             // Actualizamos la cantidad y subtotal 
+                            let subtotalFormateado = parseFloat(respuesta.subtotal).toLocaleString('es-ES', { minimumFractionDigits: 2 });
                             prod.querySelector('.cantidad').textContent = respuesta.cantidadRestante;
-                            prod.querySelector('.subtotal').textContent = " ........ Subtotal: $" + respuesta.subtotal;
                         } else {
                             // Si no quedan unidades, eliminamos todo el producto
                             prod.remove();
@@ -30,12 +30,13 @@ function eliminar(codigo) {
                     }
 
                     // Actualizamos el total del carrito en pantalla
-                    
+
 
                     let totalCarritoElem = document.getElementById('precioTotal');
                     if (totalCarritoElem) {
                         if (respuesta.total > 0) {
-                            totalCarritoElem.textContent = "Precio total del carrito: $" + respuesta.total;
+                            let totalFormateado = parseFloat(respuesta.total).toLocaleString('es-ES', { minimumFractionDigits: 2 });
+                            totalCarritoElem.textContent = "Precio total del carrito: " + totalFormateado + " €";
                         } else {
                             totalCarritoElem.textContent = "";
                         }
@@ -45,7 +46,8 @@ function eliminar(codigo) {
 
                     if (pagoAdelantadoElem) {
                         if (respuesta.nuevoPagoAdelantado > 0) {
-                            pagoAdelantadoElem.textContent = "Precio a pagar por adelantado (10% del carrito): $" + respuesta.nuevoPagoAdelantado;
+                            let pagoAdelantadoFormateado = parseFloat(respuesta.nuevoPagoAdelantado).toLocaleString('es-ES', { minimumFractionDigits: 2 });
+                            pagoAdelantadoElem.textContent = "Precio a pagar por adelantado (10% del carrito): " + pagoAdelantadoFormateado + " €";
                         } else {
                             pagoAdelantadoElem.textContent = "";
                         }
@@ -68,3 +70,23 @@ function eliminar(codigo) {
     // Envía la solicitud al servidor
     xhttp.send();
 }
+
+// Función para vaciar el carrito completo
+document.getElementById('botonVaciarCarrito').addEventListener('click', async () => {
+    if (!confirm('¿Deseas vaciar el carrito?')) return;
+
+    try {
+        const response = await fetch('vaciarCarrito.php', { method: 'POST' });
+        const data = await response.json();
+
+        if (data.success) {
+            // Vaciar carrito en la interfaz
+            const contenedor = document.querySelector('.container_form');
+            contenedor.innerHTML = '<div id="carritoVacio">El carrito está vacío.</div>';
+            alert('Carrito vaciado correctamente.');
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Error al vaciar el carrito.');
+    }
+});

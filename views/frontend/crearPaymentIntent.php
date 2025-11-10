@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once dirname(__DIR__, 2) . '/config/config.php';
+require_once dirname(__DIR__, 2) . '/config/DB.php';
 require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 // Configurar Stripe con la clave secreta cargada desde .env

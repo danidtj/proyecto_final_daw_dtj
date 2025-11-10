@@ -52,7 +52,7 @@ session_start();
                         echo "<tr style='background-color: #f23232ff;'>";
                         echo "<td>" . $postre->productos['nombre_corto'] . "</td>";
                         echo "<td>" . $postre->productos['uds_stock'] . "</td>";
-                        echo "<td>" . $postre->productos['precio_unitario'] . "</td>";
+                        echo "<td>" . number_format($postre->productos['precio_unitario'], 2, ',', '.') . " €</td>";
                         echo "<td>" . $postre->productos['id_producto'] . "</td>";
                         echo "<td>" . $postre->productos['tipo_categoria'] . "</td>";
                         echo "<td>" . $postre->productos['modalidad_producto'] . "</td>";
@@ -67,7 +67,7 @@ session_start();
                         echo "<tr>";
                         echo "<td>" . $postre->productos['nombre_corto'] . "</td>";
                         echo "<td>" . $postre->productos['uds_stock'] . "</td>";
-                        echo "<td>" . $postre->productos['precio_unitario'] . "</td>";
+                        echo "<td>" . number_format($postre->productos['precio_unitario'], 2, ',', '.') . " €</td>";
                         echo "<td>" . $postre->productos['id_producto'] . "</td>";
                         echo "<td>" . $postre->productos['tipo_categoria'] . "</td>";
                         echo "<td>" . $postre->productos['modalidad_producto'] . "</td>";
@@ -94,7 +94,6 @@ session_start();
             <h2 class="titulo_form">MODIFICAR STOCK POSTRES</h2>
             <form action="/controllers/admin/ProductoController.php" method="post">
 
-                <h4>Postres</h4><br>
                 <table border="1" cellpadding="5" cellspacing="0">
                     <thead>
                         <tr>

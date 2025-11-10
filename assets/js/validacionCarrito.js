@@ -71,22 +71,4 @@ function eliminar(codigo) {
     xhttp.send();
 }
 
-// Función para vaciar el carrito completo
-document.getElementById('botonVaciarCarrito').addEventListener('click', async () => {
-    if (!confirm('¿Deseas vaciar el carrito?')) return;
 
-    try {
-        const response = await fetch('vaciarCarrito.php', { method: 'POST' });
-        const data = await response.json();
-
-        if (data.success) {
-            // Vaciar carrito en la interfaz
-            const contenedor = document.querySelector('.container_form');
-            contenedor.innerHTML = '<div id="carritoVacio">El carrito está vacío.</div>';
-            alert('Carrito vaciado correctamente.');
-        }
-    } catch (err) {
-        console.error(err);
-        alert('Error al vaciar el carrito.');
-    }
-});

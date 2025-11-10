@@ -11,20 +11,24 @@ use PDO;
 use PDOException;
 use Exception;
 
-if (file_exists(dirname(__DIR__))) {
-    $dotenv = Dotenv::createImmutable(dirname(__DIR__), 'secrets.env'); //Con este método se crea una instancia de la clase Dotenv y la devuelve
-    $dotenv->load(); //Carga las variables definidas en .env
+// Cargar variables de entorno
+$envPath = dirname(__DIR__);
+if (file_exists($envPath . '/secrets.env')) {
+    $dotenv = Dotenv::createImmutable($envPath, 'secrets.env');
+    $dotenv->load(); // ← Ahora $_ENV ya está disponible
 } else {
     die('.env file not found');
 }
+
+//Definición de constantes para las claves de Stripe
+define('STRIPE_SECRET_KEY', $_ENV['STRIPE_SECRET_KEY']);
+define('STRIPE_PUBLIC_KEY', $_ENV['STRIPE_PUBLIC_KEY']);
 
 // Carga del archivo .env
 //$dotenv = Dotenv::createImmutable(dirname(__DIR__));
 //$dotenv->load();
 
-// Variables disponibles globalmente
-define('STRIPE_SECRET_KEY', $_ENV['STRIPE_SECRET_KEY']);
-define('STRIPE_PUBLIC_KEY', $_ENV['STRIPE_PUBLIC_KEY']);
+
 
 class DB
 {

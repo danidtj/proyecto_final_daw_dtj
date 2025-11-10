@@ -2,10 +2,18 @@
 @session_start();
 
 use ModelsFrontend\Reserva;
+use ModelsFrontend\Orden;
+use ModelsAdmin\Producto;
 
 require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
+require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
+require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
+
 $reserva = new Reserva();
 $reservas = $reserva->obtenerTodasLasReservas();
+
+$orden = new Orden();
+
 
 ?>
 <!DOCTYPE html>
@@ -54,18 +62,48 @@ $reservas = $reserva->obtenerTodasLasReservas();
                     // Buscar reserva por teléfono y fecha
                     $reserva_encontrada = $reserva->obtenerReservaPorTelefonoYFecha($telefono, $fecha_reserva);
 
+                    //Bloque de los detalles de la reserva
                     if ($reserva_encontrada) {
-                        echo "<br><h2>Detalles de la reserva con teléfono: " . htmlspecialchars($telefono) . " y fecha " . date('d/m/Y', strtotime($fecha_reserva)) . "</h2><br>";
-                        echo "<p>Código de Reserva: " . htmlspecialchars($reserva_encontrada['id_reserva']) . "</p>";
-                        echo "<p>Número de mesa: " . htmlspecialchars($reserva_encontrada['id_mesa']) . "</p>";
-                        echo "<p>Comensales: " . htmlspecialchars($reserva_encontrada['numero_comensales']) . "</p>";
-                        if($reserva_encontrada['comanda_previa'] == 1){
-                            echo "<p>Comanda Previa: Sí</p>";
+                        echo "<div class='reserva_detalles_admin'>";
+                        echo "<br><p>Detalles de la reserva con teléfono " . htmlspecialchars($telefono) . " y fecha " .
+                            date('d/m/Y', strtotime($fecha_reserva)) . "</p><br>";
+                        echo "<div class='cabecera_reserva_admin'>";
+
+                        echo "<span class='codigo_reserva'>Reserva: " . htmlspecialchars($reserva_encontrada['id_reserva']) . "</span>";
+                        echo "<span>Mesa: " . htmlspecialchars($reserva_encontrada['id_mesa']) . "</span>";
+                        echo "<span>Comensales: " . htmlspecialchars($reserva_encontrada['numero_comensales']) . "</span>";
+                        if ($reserva_encontrada['comanda_previa'] == 1) {
+                            echo "<span>Comanda Previa: Sí</span>";
                         } else {
-                            echo "<p>Comanda Previa: No</p>";
+                            echo "<span>Comanda Previa: No</span>";
                         }
-                        echo "<p>Hora de Inicio: " . htmlspecialchars($reserva_encontrada['hora_inicio']) . "</p>";
-                        echo "<p>Hora de Fin: " . htmlspecialchars($reserva_encontrada['hora_fin']) . "</p>";
+                        echo "<span>Horario: " . htmlspecialchars($reserva_encontrada['hora_inicio']) . " - " .
+                            htmlspecialchars($reserva_encontrada['hora_fin']) . "</span><br>";
+                        echo "</div>";
+                        echo "<div class='productos_reserva_admin'>";
+                        //Bloque de la orden asociada a la reserva
+                        if ($reserva_encontrada['comanda_previa'] == 1) {
+
+                            $orden_reserva = $orden->obtenerOrdenPorCodigoReserva($reserva_encontrada['id_reserva']);
+                            $productosOrden = Producto::obtenerProductosReservaOrden($reserva_encontrada['id_usuario'], $reserva_encontrada['id_reserva'], $orden_reserva['id_orden']);
+                            if ($orden_reserva) {
+                                echo "<p>Código de la orden: " . htmlspecialchars($orden_reserva['id_orden']) . "</p>";
+                                echo "<p>Precio total: " . number_format($orden_reserva['precio_total'], 2, ',', '.') . " €</p>";
+                                echo "<p>Montante adelantado (10%): " . number_format($orden_reserva['montante_adelantado'], 2, ',', '.') . " €</p>";
+                            }
+                            //Productos de la orden
+                            if ($productosOrden) {
+                                echo "<p>Productos de la orden:</p>";
+                                foreach ($productosOrden as $producto) {
+                                    echo "<p>" . htmlspecialchars($producto['nombre_corto']) . ": " .
+                                        " ..... " . htmlspecialchars($producto['cantidad_pedido']) . "u ..... " . "
+                                     " . number_format(htmlspecialchars($producto['precio_unitario']), 2, ',', '.') . " € ..... " . number_format(htmlspecialchars($producto['precio_unitario'])
+                                            * htmlspecialchars($producto['cantidad_pedido']), 2, ',', '.') . " €</p>";
+                                }
+                            }
+                            echo "</div>";
+                            echo "</div>";
+                        }
                     } else {
                         echo "<p>No se encontró ninguna reserva para el teléfono y la fecha proporcionados.</p>";
                     }
@@ -74,20 +112,47 @@ $reservas = $reserva->obtenerTodasLasReservas();
                     $reservas = $reserva->obtenerReservasPorFecha($fecha_reserva);
 
                     if ($reservas) {
-                        echo "<br><h2>Reservas para la fecha " . date('d/m/Y', strtotime($fecha_reserva)) . "</h2><br>";
+                        echo "<div class='reserva_detalles_admin'>";
+                        echo "<br><p>Reservas para la fecha " . date('d/m/Y', strtotime($fecha_reserva)) . "</p><br>";
+                        
                         foreach ($reservas as $r) {
-                            echo "<p>Código de Reserva: " . htmlspecialchars($r['id_reserva']) . "</p>";
-                            echo "<p>Número de mesa: " . htmlspecialchars($r['id_mesa']) . "</p>";
-                            echo "<p>Comensales: " . htmlspecialchars($r['numero_comensales']) . "</p>";
-                            if($r['comanda_previa'] == 1){
-                                echo "<p>Comanda Previa: Sí</p>";
+                            echo "<div class='cabecera_reserva_admin'>";
+                            echo "<span>Reserva: " . htmlspecialchars($r['id_reserva']) . "</span>";
+                            echo "<span>Mesa: " . htmlspecialchars($r['id_mesa']) . "</span>";
+                            echo "<span>Comensales: " . htmlspecialchars($r['numero_comensales']) . "</span>";
+                            if ($r['comanda_previa'] == 1) {
+                                echo "<span>Comanda Previa: Sí</span>";
                             } else {
-                                echo "<p>Comanda Previa: No</p>";
+                                echo "<span>Comanda Previa: No</span>";
                             }
-                            echo "<p>Hora de Inicio: " . htmlspecialchars($r['hora_inicio']) . "</p>";
-                            echo "<p>Hora de Fin: " . htmlspecialchars($r['hora_fin']) . "</p>";
-                            echo "<p>Fecha de Reserva: " . htmlspecialchars(date('d/m/Y', strtotime($r['fecha']))) . "</p><br>";
+                            echo "<span>Horario: " . htmlspecialchars($r['hora_inicio']) . " - " .
+                                htmlspecialchars($r['hora_fin']) . "</span><br>";
+                            echo "</div>";
+                            echo "<div class='productos_reserva_admin'>";
+                            if ($r['comanda_previa'] == 1) {
+                                $orden_reserva = $orden->obtenerOrdenPorCodigoReserva($r['id_reserva']);
+                                $productosOrden = Producto::obtenerProductosReservaOrden($r['id_usuario'], $r['id_reserva'], $orden_reserva['id_orden']);
+
+                                if ($orden_reserva) {
+                                    echo "<p>Código de la orden: " . htmlspecialchars($orden_reserva['id_orden']) . "</p>";
+                                    echo "<p>Precio total: " . number_format($orden_reserva['precio_total'], 2, ',', '.') . " €</p>";
+                                    echo "<p>Montante adelantado (10%): " . number_format($orden_reserva['montante_adelantado'], 2, ',', '.') . " €</p>";
+                                }
+                                //Productos de la orden
+                                if ($productosOrden) {
+                                    echo "<p>Productos de la orden:</p>";
+                                    foreach ($productosOrden as $producto) {
+                                        echo "<p>" . htmlspecialchars($producto['nombre_corto']) . ": " .
+                                            " ..... " . htmlspecialchars($producto['cantidad_pedido']) . "u ..... " . "
+                                     " . number_format(htmlspecialchars($producto['precio_unitario']), 2, ',', '.') . " € ..... " . number_format(htmlspecialchars($producto['precio_unitario'])
+                                                * htmlspecialchars($producto['cantidad_pedido']), 2, ',', '.') . " €</p>";
+                                    }
+                                    echo "</div>";
+                                }
+                            }
                         }
+                        
+                        
                     } else {
                         echo "<p>No se encontraron reservas para la fecha proporcionada.</p>";
                     }
@@ -96,20 +161,56 @@ $reservas = $reserva->obtenerTodasLasReservas();
                     $reservas = $reserva->obtenerReservasPorTelefono($telefono);
 
                     if ($reservas) {
-                        echo "<br><h2>Reservas para el teléfono " . htmlspecialchars($telefono) . "</h2><br>";
+                        echo "<div class='reserva_detalles_admin'>";
+                        echo "<br><p>Reservas para el teléfono " . htmlspecialchars($telefono) . "</p><br>";
+                        
                         foreach ($reservas as $r) {
-                            echo "<p>Código de Reserva: " . htmlspecialchars($r['id_reserva']) . "</p>";
-                            echo "<p>Número de mesa: " . htmlspecialchars($r['id_mesa']) . "</p>";
-                            echo "<p>Comensales: " . htmlspecialchars($r['numero_comensales']) . "</p>";
-                            if(htmlspecialchars($r['comanda_previa']) === "1"){
-                                echo "<p>Comanda Previa: Sí</p>";
+                            echo "<div class='cabecera_reserva_admin'>";
+                            echo "<span>Reserva: " . htmlspecialchars($r['id_reserva']) . "</span>";
+                            echo "<span>Mesa: " . htmlspecialchars($r['id_mesa']) . "</span>";
+                            echo "<span>Comensales: " . htmlspecialchars($r['numero_comensales']) . "</span>";
+                            if (htmlspecialchars($r['comanda_previa']) === "1") {
+                                echo "<span>Comanda Previa: Sí</span>";
                             } else {
-                                echo "<p>Comanda Previa: No</p>";
+                                echo "<span>Comanda Previa: No</span>";
                             }
-                            echo "<p>Hora de Inicio: " . htmlspecialchars($r['hora_inicio']) . "</p>";
-                            echo "<p>Hora de Fin: " . htmlspecialchars($r['hora_fin']) . "</p>";
-                            echo "<p>Fecha de Reserva: " . htmlspecialchars(date('d/m/Y', strtotime($r['fecha']))) . "</p><br>";
+                            echo "<span>Horario: " . htmlspecialchars($r['hora_inicio']) . " - " .
+                                htmlspecialchars($r['hora_fin']) . "</span><br>";
+                            echo "<span>Fecha: " . htmlspecialchars(date('d/m/Y', strtotime($r['fecha']))) . "</span><br>";
+
+                            
+                            echo "</div>";
+                            echo "<div class='productos_reserva_admin'>";
+                            if ($r['comanda_previa'] == 1) {
+                                $orden_reserva = $orden->obtenerOrdenPorCodigoReserva($r['id_reserva']);
+                                $productosOrden = Producto::obtenerProductosReservaOrden($r['id_usuario'], $r['id_reserva'], $orden_reserva['id_orden']);
+
+                                if ($orden_reserva) {
+                                    echo "<p>Código de la orden: " . htmlspecialchars($orden_reserva['id_orden']) . "</p>";
+                                    echo "<p>Precio total: " . number_format($orden_reserva['precio_total'], 2, ',', '.') . " €</p>";
+                                    echo "<p>Montante adelantado (10%): " . number_format($orden_reserva['montante_adelantado'], 2, ',', '.') . " €</p>";
+                                }
+                            }
+                            //Productos de la orden
+                            if ($productosOrden) {
+                                echo "<p>Productos de la orden:</p>";
+                                foreach ($productosOrden as $producto) {
+                                    echo "<p>" . htmlspecialchars($producto['nombre_corto']) . ": " .
+                                        " ..... " . htmlspecialchars($producto['cantidad_pedido']) . "u ..... " . "
+                                     " . number_format(htmlspecialchars($producto['precio_unitario']), 2, ',', '.') . " € ..... " . number_format(htmlspecialchars($producto['precio_unitario'])
+                                            * htmlspecialchars($producto['cantidad_pedido']), 2, ',', '.') . " €</p>";
+                                     break;
+                                }
+                                echo "</div>";
+                            }
+                            
+                            continue;
+                            
                         }
+
+
+                        
+                        
                     } else {
                         echo "<p>No se encontraron reservas para el teléfono proporcionado.</p>";
                     }

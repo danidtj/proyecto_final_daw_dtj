@@ -1,8 +1,4 @@
 <?php
-
-
-
-
 use ControllerFrontend\CarritoController;
 use ModelsFrontend\Orden;
 use ModelsFrontend\Reserva;

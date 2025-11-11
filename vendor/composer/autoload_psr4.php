@@ -11,6 +11,7 @@ return array(
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Stripe\\' => array($vendorDir . '/stripe/stripe-php/lib'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'ModelsFrontend\\' => array($baseDir . '/models/frontend'),
     'ModelsAdmin\\' => array($baseDir . '/models/admin'),
     'Interfaces\\' => array($baseDir . '/interfaces'),

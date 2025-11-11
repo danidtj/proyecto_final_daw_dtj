@@ -29,6 +29,9 @@ if (isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true
     unset($_SESSION['orden_original']);
     unset($_SESSION['carrito']); // Vaciamos el carrito después de modificar la orden
     header("Location: /views/frontend/miPerfil.php");
+
+    $emailDestinatario;
+
     exit();
 } else {
     $codigo_reserva = $reserva->realizarReserva(

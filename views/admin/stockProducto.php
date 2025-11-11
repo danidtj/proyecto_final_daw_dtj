@@ -77,6 +77,7 @@ session_start();
                 <br><a href="/views/admin/producto.php">Volver</a>
         </section>
     </main>
+    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 </body>
 
 </html>

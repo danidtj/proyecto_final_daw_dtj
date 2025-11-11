@@ -37,6 +37,7 @@ session_start();
             <a href="/views/admin/stockPostre.php" class="btn_modificarStock">Modificar</a>
         </section>
     </main>
+    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 </body>
 
 </html>

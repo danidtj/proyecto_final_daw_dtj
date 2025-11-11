@@ -102,6 +102,7 @@ $categorias = Categoria::obtenerCategorias();
 
         </section>
     </main>
+    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
     <script src="/assets/js/validacionNuevoProducto.js"></script>
 </body>
 

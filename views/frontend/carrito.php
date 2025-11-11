@@ -1,4 +1,5 @@
 <?php
+
 use ControllerFrontend\CarritoController;
 use ModelsFrontend\Orden;
 use ModelsFrontend\Reserva;
@@ -102,6 +103,9 @@ $carritoController = new CarritoController();
         </section>
         <section class="container_form">
             <div id="card-container">
+                <label for="cardholder-name">Nombre en la tarjeta</label>
+                <input id="cardholder-name" type="text" placeholder="Ej: Juan Pérez" required>
+
                 <div id="card-element"><!-- Stripe Card Element se montará aquí --></div>
                 <div id="card-errors" role="alert" style="color:red;"></div>
             </div>
@@ -123,9 +127,24 @@ $carritoController = new CarritoController();
         botonPagar.addEventListener('click', async () => {
             botonPagar.disabled = true;
 
-            // Creamos PaymentIntent en el servidor
+            // Capturamos el nombre del titular
+            const cardholderName = document.getElementById('cardholder-name').value.trim();
+
+            if (!cardholderName) {
+                document.getElementById('card-errors').textContent = 'Por favor, introduce el nombre en la tarjeta.';
+                botonPagar.disabled = false;
+                return;
+            }
+
+            // Creamos el PaymentIntent en el servidor
             const response = await fetch('crearPaymentIntent.php', {
-                method: 'POST'
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: cardholderName
+                }) 
             });
 
             const data = await response.json();
@@ -137,10 +156,13 @@ $carritoController = new CarritoController();
                 return;
             }
 
-            // Confirmamos el pago
+            // Confirmamos el pago con el nombre incluido
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
-                    card: card
+                    card: card,
+                    billing_details: {
+                        name: cardholderName 
+                    }
                 }
             });
 
@@ -150,19 +172,20 @@ $carritoController = new CarritoController();
                 botonPagar.disabled = false;
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    // Pago exitoso
                     alert('Pago realizado con éxito!');
 
-                    // Comprobaciones y creación/modificación de orden
+                    // Llamamos a tu backend para registrar la orden
                     await fetch('comprobacionesPago.php', {
                         method: 'POST'
                     });
-                    // Aquí puedes enviar formulario o redirigir
+
+                    // Redirigimos al perfil
                     window.location.href = '/views/frontend/miPerfil.php';
                 }
             }
         });
     </script>
+
     <script src="/assets/js/validacionCarrito.js"></script>
 
 </body>

@@ -29,14 +29,15 @@ session_start();
 
             ?>
 
-            <table border="1" cellpadding="5" cellspacing="0">
+            <table class="tabla_stock">
                 <tr>
-                    <th>Nombre</th>
-                    <th>Unidades</th>
-                    <th>Precio</th>
-                    <th>Código</th>
-                    <th>Tipo</th>
-                    <th>Modalidad</th>
+                    <th class="th_stock">Nombre</th>
+                    <th class="th_stock">Unidades</th>
+                    <th class="th_stock">Precio</th>
+                    <th class="th_stock">Código</th>
+                    <th class="th_stock">Tipo</th>
+                    <th class="th_stock">Modalidad</th>
+                    <th class="th_stock">Eliminar</th>
                 </tr>
 
                 <?php
@@ -80,12 +81,7 @@ session_start();
                         echo "</tr>";
                     }
                 }
-
-
                 echo "</table>";
-
-
-
 
                 ?>
         </section>
@@ -94,12 +90,12 @@ session_start();
             <h2 class="titulo_form">MODIFICAR STOCK POSTRES</h2>
             <form action="/controllers/admin/ProductoController.php" method="post">
 
-                <table border="1" cellpadding="5" cellspacing="0">
+                <table class="tabla_stock">
                     <thead>
                         <tr>
-                            <th>Postre</th>
-                            <th>Uds</th>
-                            <th>Precio</th>
+                            <th class="th_stock">Postre</th>
+                            <th class="th_stock">Uds</th>
+                            <th class="th_stock">Precio</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -132,6 +128,7 @@ session_start();
             </form>
         </section>
     </main>
+    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 </body>
 
 </html>

@@ -10,19 +10,23 @@ require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 header('Content-Type: application/json');
 
 try {
-    // Verificar que el monto esté definido en la sesión
+    // Verificar que el montante esté definido en la sesión
     if (!isset($_SESSION['nuevoPagoAdelantado']) || $_SESSION['nuevoPagoAdelantado'] <= 0) {
-        throw new Exception('Monto inválido o no definido en la sesión.');
+        throw new Exception('Montante inválido o no definido en la sesión.');
     }
 
-    // Convertimos a céntimos 
     $amount = intval(round($_SESSION['nuevoPagoAdelantado'] * 100));
+    $input = json_decode(file_get_contents('php://input'), true);
+    $cardholderName = $input['name'] ?? 'Sin nombre';
 
     // Crear el PaymentIntent
     $paymentIntent = \Stripe\PaymentIntent::create([
         'amount' => $amount,
         'currency' => 'eur',
         'automatic_payment_methods' => ['enabled' => true],
+        'metadata' => [
+            'cardholder_name' => $cardholderName
+        ],
     ]);
 
     echo json_encode(['clientSecret' => $paymentIntent->client_secret]);

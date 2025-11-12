@@ -22,13 +22,13 @@
         <section class="container_form">
             <h2 class="titulo_form">Formulario de contacto</h2>
                 <form action="/controllers/frontend/ContactoController.php" method="post" class="formulario">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                    <label for="email">Email de contacto:</label>
-                    <input type="text" id="email" name="email" required>
-                    <label for="mensaje">Escribe lo que desees:</label>
-                    <textarea name="mensaje" id="mensaje"></textarea>
-                    <input type="submit" class="btn_contacto" value="Enviar">
+                    <div><label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required></div>
+                    <div><label for="email">Email de contacto:</label>
+                    <input type="text" id="email" name="email" required></div>
+                    <div><label for="mensaje">Escribe lo que desees:</label>
+                    <textarea name="mensaje" id="mensaje"></textarea></div>
+                    <div><input type="submit" class="btn_contacto" value="Enviar"></div>
                 </form>            
         </section>
     </main>

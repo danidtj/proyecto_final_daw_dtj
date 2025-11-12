@@ -4,9 +4,7 @@ session_start();
 use ModelsAdmin\Producto;
 use ModelsAdmin\Categoria;
 
-require_once dirname(__DIR__, 2) . '/models/admin/Postre.php';
 require_once dirname(__DIR__, 2) . '/models/admin/Categoria.php';
-
 
 $categorias = Categoria::obtenerCategorias();
 
@@ -65,7 +63,8 @@ $categorias = Categoria::obtenerCategorias();
                 foreach ($categorias as $categoria) {
                     if (!in_array($categoria->getTipoCategoria(), $tipoNoRepetido)) {
                         $tipoNoRepetido[] = $categoria->getTipoCategoria();
-                        echo '<option value="' . htmlspecialchars($categoria->getTipoCategoria()) . '" data-nombre="' . htmlspecialchars($categoria->getNombreCategoria()) . '">' . htmlspecialchars($categoria->getTipoCategoria()) . '</option>';
+                        echo '<option value="' . htmlspecialchars($categoria->getTipoCategoria()) . '" data-nombre="' . 
+                        htmlspecialchars($categoria->getNombreCategoria()) . '">' . htmlspecialchars($categoria->getTipoCategoria()) . '</option>';
                     }
                 }
                 echo '</select>';
@@ -81,7 +80,9 @@ $categorias = Categoria::obtenerCategorias();
 
                     if (!in_array($clave, $modalidNoRepetida)) {
                         $modalidNoRepetida[] = $clave;
-                        echo '<option value="' . htmlspecialchars($categoria->getModalidadCategoria()) . '" data-nombre="' . htmlspecialchars($categoria->getNombreCategoria()) . '" data-tipo="' . htmlspecialchars($categoria->getTipoCategoria()) . '">' . htmlspecialchars($categoria->getModalidadCategoria()) . '</option>';
+                        echo '<option value="' . htmlspecialchars($categoria->getModalidadCategoria()) . '" data-nombre="' . 
+                        htmlspecialchars($categoria->getNombreCategoria()) . '" data-tipo="' . htmlspecialchars($categoria->getTipoCategoria()) . '">' . 
+                        htmlspecialchars($categoria->getModalidadCategoria()) . '</option>';
                     }
                 }
                 echo '</select>';

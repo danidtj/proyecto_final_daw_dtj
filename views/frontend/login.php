@@ -42,11 +42,20 @@ session_start();
 
 
                 <input type="password" name="password" id="password" placeholder="Contraseña">
+                <button type="button" id="togglePassword">👁️</button>
                 <input type="submit" class="btn_login" value="Iniciar sesión" name="submit"><br><br>
             </form>
-            <p>¿Aún no estás registrado?  <a href="/controllers/frontend/RegistroController.php" class="btn_login">¡Hazlo!</a></p>
+            <p>¿Aún no estás registrado? <a href="/controllers/frontend/RegistroController.php" class="btn_login">¡Hazlo!</a></p>
         </section>
     </main>
+
+    <!-- Se da la opción al usuario de poder visualizar la contraseña por si tuviera dudas de lo escrito -->
+    <script>
+        document.querySelector("#togglePassword").onclick = () => {
+            const p = document.querySelector("#password");
+            p.type = p.type === "password" ? "text" : "password";
+        };
+    </script>
 
 </body>
 

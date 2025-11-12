@@ -353,7 +353,8 @@ class Producto
     {
         try {
             //Consultamos para obtener el nombre corto, la cantidad por producto y su precio unitario
-            $sql = "SELECT productos_ordenes.cantidad_pedido, productos.nombre_corto, productos.precio_unitario FROM productos
+            $sql = "SELECT productos_ordenes.cantidad_pedido, productos.nombre_corto, productos.precio_unitario
+             FROM productos
                 JOIN productos_ordenes ON productos_ordenes.id_producto = productos.id_producto
                 JOIN ordenes ON productos_ordenes.id_orden = ordenes.id_orden
                 JOIN reservas ON reservas.id_reserva = ordenes.id_reserva

@@ -39,7 +39,10 @@ class Login
                 echo "<p style='color:white'>Debe introducir tanto un email como su contraseña.</p>";
             } else {
                 // Consulta preparada con parámetros
-                $sql = "SELECT id_usuario, email_usuario, password_usuario FROM usuarios WHERE email_usuario = :email_usuario";
+                $sql = "SELECT id_usuario, nombre_usuario, email_usuario, password_usuario, roles.nombre_rol 
+                FROM usuarios
+                JOIN roles ON usuarios.id_rol = roles.id_rol
+                WHERE email_usuario = :email_usuario";
                 $result = $this->connection->prepare($sql);
                 $result->execute([":email_usuario" => $email_usuario]);
 
@@ -61,9 +64,12 @@ class Login
                     if (password_verify($pswd_usuario, $psswdHash)) {
 
                         $_SESSION['id_usuario'] = $row['id_usuario'];
-                        if ($email_usuario === "admin@admin.com") {
+                        if ($email_usuario === "admin@admin.com" && $row['nombre_rol'] === "Administrador" 
+                        || $email_usuario === "camarero1@camarero.com" && $row['nombre_rol'] === "Camarero") {
                             header("Location: /views/admin/admin.php");
                         } else {
+                            $_SESSION['nombre_usuario'] = $row['nombre_usuario'];
+                            $_SESSION['email_usuario'] = $email_usuario;
                             header("Location: ../../home");
                         }
 

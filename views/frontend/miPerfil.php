@@ -147,6 +147,31 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
             //Cancelar una reserva
             if (isset($_POST['cancelarReserva'])) {
                 $nuevaReserva->cancelarReserva($_POST['id_reserva']);
+
+                $emailDestinatario = $_SESSION['email_usuario'];
+                $nombreDestinatario = $_SESSION['nombre_usuario'];
+
+
+                $ordenEmail = $orden->obtenerOrdenPorCodigoReserva($idReservaEmail);
+                $reservaEmail = $reserva->obtenerReservaPorCodigo($idReservaEmail);
+
+                $contenidoCorreo = "";
+
+                if (!empty($reservaEmail)) {
+
+                    $contenidoCorreo = "<h2>Cancelación de su reserva en Restaurante XITO</h2>";
+                    $contenidoCorreo .= "<p>Estimado/a " . htmlspecialchars($nombreDestinatario) . ",</p>";
+                    $contenidoCorreo .= "<p>Su reserva con ID <strong>" . htmlspecialchars($reservaEmail['id_reserva']) .
+                        "</strong> ha sido cancelada.</p>";
+
+                    if (!empty($ordenEmail)) {
+                        $contenidoCorreo .= "<p>Le recordamos que la devolución de su pago se realizará en un plazo de 5-7 días hábiles.</p>";
+                    }
+
+                    $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
+
+                    $asuntoCorreo = "Cancelación de su reserva en Restaurante XITO";
+                }
             }
 
 

@@ -238,7 +238,8 @@ class Orden
     public function obtenerDetallesProductosPorOrden($id_orden)
     {
         try {
-            $sql = "SELECT productos_ordenes.id_producto, productos.nombre_corto, productos.descripcion_corta, productos.precio_unitario, productos_ordenes.cantidad_pedido
+            $sql = "SELECT productos_ordenes.id_producto, productos.nombre_corto, productos.descripcion_corta, productos.precio_unitario, 
+            productos_ordenes.cantidad_pedido
             FROM productos_ordenes
             JOIN productos ON productos_ordenes.id_producto = productos.id_producto
             WHERE productos_ordenes.id_orden = :id_orden";

@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+use ModelsFrontend\Rol;
+
+require_once dirname(__DIR__, 2) . '/models/frontend/Rol.php';
+$rol = new Rol();
+$nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +66,11 @@ session_start();
                         echo "<td>";
                         echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
                         echo '<input type="hidden" name="codigo_producto" value="' . $postre->productos['id_producto'] . '">';
-                        echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        if ($nombre_rol === "Administrador") {
+                            echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        } else {
+                            echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:not-allowed;" disabled>';
+                        }
                         echo '</form>';
                         echo "</td>";
                         echo "</tr>";
@@ -75,7 +85,11 @@ session_start();
                         echo "<td>";
                         echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
                         echo '<input type="hidden" name="codigo_producto" value="' . $postre->productos['id_producto'] . '">';
-                        echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        if ($nombre_rol === "Administrador") {
+                            echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        } else {
+                            echo '<input type="submit" value="X" name="eliminarPostre" style="background-color:red; border:none; color:white; cursor:not-allowed;" disabled>';
+                        }
                         echo '</form>';
                         echo "</td>";
                         echo "</tr>";
@@ -86,49 +100,57 @@ session_start();
                 ?>
         </section>
 
-        <section class="container_form">
-            <h2 class="titulo_form">MODIFICAR STOCK POSTRES</h2>
-            <form action="/controllers/admin/ProductoController.php" method="post">
+        <?php
+        if ($nombre_rol === "Administrador") {
 
-                <table class="tabla_stock">
-                    <thead>
-                        <tr>
-                            <th class="th_stock">Postre</th>
-                            <th class="th_stock">Uds</th>
-                            <th class="th_stock">Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($postres as $index => $postre): ?>
+        ?>
+            <section class="container_form">
+                <h2 class="titulo_form">MODIFICAR STOCK POSTRES</h2>
+                <form action="/controllers/admin/ProductoController.php" method="post">
+
+                    <table class="tabla_stock">
+                        <thead>
                             <tr>
-                                <td>
-                                    <?= htmlspecialchars($postre->productos['nombre_corto']) ?>
-                                    <!-- Inputs ocultos -->
-                                    <input type="hidden" name="postres[<?= $index ?>][id_producto]" value="<?= htmlspecialchars($postre->productos['id_producto']) ?>">
-                                    <input type="hidden" name="postres[<?= $index ?>][nombre_corto]" value="<?= htmlspecialchars($postre->productos['nombre_corto']) ?>">
-                                    <input type="hidden" name="postres[<?= $index ?>][nombre_categoria]" value="<?= htmlspecialchars($postre->productos['nombre_categoria']) ?>">
-                                    <input type="hidden" name="postres[<?= $index ?>][tipo_categoria]" value="<?= htmlspecialchars($postre->productos['tipo_categoria']) ?>">
-                                    <input type="hidden" name="postres[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($postre->productos['modalidad_producto']) ?>">
-                                </td>
-                                <td>
-                                    <input type="number" name="postres[<?= $index ?>][uds_stock]"
-                                        value="" min="0">
-                                </td>
-                                <td>
-                                    <input type="number" name="postres[<?= $index ?>][precio_unitario]"
-                                        value="" min="0" step="0.01">
-                                </td>
-
+                                <th class="th_stock">Postre</th>
+                                <th class="th_stock">Uds</th>
+                                <th class="th_stock">Precio</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table><br>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($postres as $index => $postre): ?>
+                                <tr>
+                                    <td>
+                                        <?= htmlspecialchars($postre->productos['nombre_corto']) ?>
+                                        <!-- Inputs ocultos -->
+                                        <input type="hidden" name="postres[<?= $index ?>][id_producto]" value="<?= htmlspecialchars($postre->productos['id_producto']) ?>">
+                                        <input type="hidden" name="postres[<?= $index ?>][nombre_corto]" value="<?= htmlspecialchars($postre->productos['nombre_corto']) ?>">
+                                        <input type="hidden" name="postres[<?= $index ?>][nombre_categoria]" value="<?= htmlspecialchars($postre->productos['nombre_categoria']) ?>">
+                                        <input type="hidden" name="postres[<?= $index ?>][tipo_categoria]" value="<?= htmlspecialchars($postre->productos['tipo_categoria']) ?>">
+                                        <input type="hidden" name="postres[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($postre->productos['modalidad_producto']) ?>">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="postres[<?= $index ?>][uds_stock]"
+                                            value="" min="0">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="postres[<?= $index ?>][precio_unitario]"
+                                            value="" min="0" step="0.01">
+                                    </td>
 
-                <input type="submit" class="btn_modificarStock" value="Modificar" name="modificarPostre"><br>
-            </form>
-        </section>
-    </main>
-    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table><br>
+
+                    <input type="submit" class="btn_modificarStock" value="Modificar" name="modificarPostre"><br>
+                </form>
+            </section>
+        <?php
+        }
+
+        echo "</main>";
+        include_once __DIR__ . '/../partials/footer.php';
+        ?>
 </body>
 
 </html>

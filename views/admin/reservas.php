@@ -356,7 +356,7 @@ $orden = new Orden();
 
                 <section class="container_plano">
 
-                    <form action="/controllers/frontend/ReservaController.php" name="formulario-reserva" method="post">
+                    
                         <!-- Para trasladar el ID de la mesa seleccionada -->
                         <input type="hidden" name="mesa_id" id="mesa_id" value="">
 
@@ -401,7 +401,7 @@ $orden = new Orden();
 
                         echo '</table>';
                         ?>
-                    </form>
+                
                 </section>
 
             <?php endif; ?>

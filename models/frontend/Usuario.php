@@ -9,7 +9,7 @@ use Exception;
 
 require_once dirname(__DIR__, 2) . '/config/DB.php';
 
-class Usuario 
+class Usuario
 {
     private int $id_usuario;
     private int $id_rol;
@@ -19,7 +19,8 @@ class Usuario
     private string $email_usuario;
     private string $telefono_usuario;
 
-    public function __construct($nombre_usuario, $apellidos_usuario, $password_usuario, $email_usuario, $telefono_usuario) {
+    public function __construct($nombre_usuario, $apellidos_usuario, $password_usuario, $email_usuario, $telefono_usuario)
+    {
         $this->nombre_usuario = $nombre_usuario;
         $this->apellidos_usuario = $apellidos_usuario;
         $this->password_usuario = $password_usuario;
@@ -28,31 +29,38 @@ class Usuario
     }
 
     //Metodos getters
-    public function getIdUsuario(): int {
+    public function getIdUsuario(): int
+    {
         return $this->id_usuario;
     }
 
-    public function getIdRol(): int {
+    public function getIdRol(): int
+    {
         return $this->id_rol;
     }
 
-    public function getNombreUsuario(): string {
+    public function getNombreUsuario(): string
+    {
         return $this->nombre_usuario;
     }
 
-    public function getApellidosUsuario(): string {
+    public function getApellidosUsuario(): string
+    {
         return $this->apellidos_usuario;
     }
 
-    public function getPasswordUsuario(): string {
+    public function getPasswordUsuario(): string
+    {
         return $this->password_usuario;
     }
 
-    public function getEmailUsuario(): string {
+    public function getEmailUsuario(): string
+    {
         return $this->email_usuario;
     }
 
-    public function getTelefonoUsuario(): string {
+    public function getTelefonoUsuario(): string
+    {
         return $this->telefono_usuario;
     }
 

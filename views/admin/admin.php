@@ -2,6 +2,12 @@
 
 session_start();
 
+use ModelsFrontend\Rol;
+
+require_once dirname(__DIR__, 2) . '/models/frontend/Rol.php';
+$rol = new Rol();
+$nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
+
 ?>
 
 <!DOCTYPE html>
@@ -24,18 +30,43 @@ session_start();
         <hr id="hr1">
         <hr id="hr4">
 
-        <section class="container_form">
-            <p>Modificar el stock de BEBIDAS</p><br>
-            <a href="/views/admin/stockBebida.php" class="btn_modificarStock">Modificar</a>
-        </section>
-        <section class="container_form">            
-            <p>Modificar el stock de COMIDAS</p><br>
-            <a href="/views/admin/stockComida.php" class="btn_modificarStock">Modificar</a>
-        </section>
-        <section class="container_form">
-            <p>Modificar el stock de POSTRES</p><br>
-            <a href="/views/admin/stockPostre.php" class="btn_modificarStock">Modificar</a>
-        </section>
+        <?php
+        
+
+        if ($nombre_rol === "Administrador") { ?>
+
+            <section class="container_form">
+                <p>Modificar el stock de BEBIDAS</p><br>
+                <a href="/views/admin/stockBebida.php" class="btn_modificarStock">Modificar</a>
+            </section>
+            <section class="container_form">
+                <p>Modificar el stock de COMIDAS</p><br>
+                <a href="/views/admin/stockComida.php" class="btn_modificarStock">Modificar</a>
+            </section>
+            <section class="container_form">
+                <p>Modificar el stock de POSTRES</p><br>
+                <a href="/views/admin/stockPostre.php" class="btn_modificarStock">Modificar</a>
+            </section>
+
+        <?php } else { ?>
+
+            <section class="container_form">
+                <p>Consultar el stock de BEBIDAS</p><br>
+                <a href="/views/admin/stockBebida.php" class="btn_modificarStock">Consultar</a>
+            </section>
+            <section class="container_form">
+                <p>Consultar el stock de COMIDAS</p><br>
+                <a href="/views/admin/stockComida.php" class="btn_modificarStock">Consultar</a>
+            </section>
+            <section class="container_form">
+                <p>Consultar el stock de POSTRES</p><br>
+                <a href="/views/admin/stockPostre.php" class="btn_modificarStock">Consultar</a>
+            </section>
+
+        <?php }
+        ?>
+
+
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 </body>

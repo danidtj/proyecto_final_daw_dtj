@@ -57,7 +57,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                             //echo "<input type=\"hidden\" name=\"productosCarrito[nombre_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getNombreProducto(), ENT_QUOTES, 'UTF-8') . "\">";
                             //echo "<input type=\"hidden\" name=\"productosCarrito[precio_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getPrecioProducto(), ENT_QUOTES, 'UTF-8') . "\">";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "............" . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €\n";
+                            
                             echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                             echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                             echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -75,7 +76,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "............" . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €\n";
                             echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                             echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                             echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -96,7 +97,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "............" . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €\n";
                             echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                             echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                             echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -114,7 +115,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "............" . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €\n";
                             echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                             echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                             echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -131,7 +132,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "............" . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €\n";
                             echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                             echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                             echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -148,7 +149,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                            echo "............" . $producto->getPrecioUnitario() . "\n";
+                            echo "............" . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €\n";
                             echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                             echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                             echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -164,7 +165,11 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                     if ($producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
-                        echo "............" . $producto->getPrecioUnitario() . "\n";
+                        echo "............" . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €\n";
+                        /*if(file_exists(dirname(__DIR__, 2) . '/assets/img/' . $producto->getIdProducto() . '.jpg')) {
+                            echo "<img class='img_producto' src='" . htmlspecialchars("/assets/img/" . $producto->getIdProducto() . ".jpg") . 
+                            "' alt='" . htmlspecialchars($producto->getNombreCorto()) . "'><br>";
+                        }*/
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";

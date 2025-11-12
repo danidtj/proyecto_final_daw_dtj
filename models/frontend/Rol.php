@@ -36,6 +36,26 @@ class Rol
             return null;
         }
     }
-    
-    
+
+    //Método para obtener el nombre del rol por id de usuario
+    public function obtenerNombreRolPorIdUsuario($id_usuario)
+    {
+        try {
+            $sql = "SELECT roles.nombre_rol 
+                    FROM usuarios 
+                    JOIN roles ON usuarios.id_rol = roles.id_rol 
+                    WHERE usuarios.id_usuario = :id_usuario";
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result ? $result['nombre_rol'] : null;
+        } catch (PDOException $e) {
+            // Manejo de errores
+            echo "Error al obtener el nombre del rol: " . $e->getMessage();
+            return null;
+        }
+    }
 }

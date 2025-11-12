@@ -1,4 +1,6 @@
-<?php @session_start(); ?>
+<?php @session_start();
+$paginaActual = basename($_SERVER['PHP_SELF']);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,36 +15,42 @@
 <body>
     <header class="container_header">
         <div class="logo"><a href="/views/frontend/index.php" class="volver_ppal"><span class="x">&#88;</span><span class="ito">ITO</span></a></div>
-        
+
         <div class="menu_nav">
             <nav class="nav">
                 <ul>
-                    <?= isset($_SESSION['id_usuario']) ? '<li><a class="link_menu" href="/views/frontend/miPerfil.php">MI PERFIL</a></li>' : '' ?>
-                    <?= isset($_SESSION['id_usuario']) ? '<li><a class="link_menu" href="/controllers/frontend/ReservaController.php">RESERVA</a></li>' : '' ?>
+                    <?php if (isset($_SESSION['id_usuario'])) { ?>
+                        <li>
+                            <a href="/views/frontend/miPerfil.php"
+                                class="link_menu <?= $paginaActual == 'miPerfil.php' ? 'activo' : '' ?>">
+                                MI PERFIL
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/controllers/frontend/ReservaController.php"
+                                class="link_menu <?= $paginaActual == 'ReservaController.php' ? 'activo' : '' ?>">
+                                RESERVA
+                            </a>
+                        </li>
+                    <?php } ?>
 
-                    <li><a class="link_menu" href="/views/frontend/carta.php">CARTA</a></li>
+
+                    <li><a href="/views/frontend/carta.php" class="link_menu <?= $paginaActual == 'carta.php' ? 'activo' : '' ?>">CARTA</a></li>
                     <!-- <li><a class="link_menu" href="#carrito">CARRITO</a></li> -->
-                    <li><a class="link_menu" href="/views/frontend/contacto.php">CONTACTO</a></li>
+                    <li><a href="/views/frontend/contacto.php" class="link_menu <?= $paginaActual == 'contacto.php' ? 'activo' : '' ?>">CONTACTO</a></li>
                 </ul>
             </nav>
         </div>
-        <?= isset($_SESSION['id_usuario']) ? '
+        <?php if (isset($_SESSION['id_usuario'])): ?>
             <div class="container_carrito">
-                <a href="/views/frontend/carrito.php" class="carrito" title="Ir al carrito">
+                <a href="/views/frontend/carrito.php"
+                    class="carrito <?= $paginaActual == 'carrito.php' ? 'activo' : '' ?>"
+                    title="Ir al carrito">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
             </div>
-        ' : '' ?>
+        <?php endif; ?>
 
-        <!--<div class="container_buscador">
-            <input list="busqueda" id="buscador" name="buscador" placeholder="¿Qué buscas?">
-            <datalist id="busqueda">
-                <option value="carta">
-                <option value="contacto">
-                <option value="reserva">
-                <option value="carrito">
-            </datalist>
-        </div>-->
         <div class="cotainer_form">
 
             <?php if (isset($_SESSION['id_usuario'])) { ?>

@@ -113,8 +113,10 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                             <p>¿Quieres realizar ya tu comanda?</p>
                             <label><input type="radio" name="comanda_previa" value="1" required> Sí</label>
                             <label><input type="radio" name="comanda_previa" value="0" required> No</label>
+                            <p>Abono del 10% por adelantado.</p>
                             <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                         </div>
+                        
                         <div>
                             <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar btn_reservar">Reservar</button>
                         </div>
@@ -204,10 +206,10 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <?php //if (!isset($_POST['modificar'])) { 
                     ?>
                     <div>
-                        <p>¿Quieres realizar ya tu comanda?</p>
+                        <p>¿Quieres realizar ya tu orden?</p>
                         <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['comanda_previa'] === '1' ? 'checked' : ''; ?>> Sí</label>
                         <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['comanda_previa'] === '0' ? 'checked' : ''; ?>> No</label>
-
+                        
                         <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                     </div>
 

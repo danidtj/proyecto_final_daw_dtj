@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+use ModelsFrontend\Rol;
+
+require_once dirname(__DIR__, 2) . '/models/frontend/Rol.php';
+$rol = new Rol();
+$nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +44,7 @@ session_start();
                     <th class="th_stock">Código</th>
                     <th class="th_stock">Tipo</th>
                     <th class="th_stock">Modalidad</th>
-                    <th>Eliminar</th>
+                    <th class="th_stock">Eliminar</th>
                 </tr>
 
                 <?php
@@ -60,7 +67,11 @@ session_start();
                         echo "<td>";
                         echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
                         echo '<input type="hidden" name="codigo_producto" value="' . $comida->productos['id_producto'] . '">';
-                        echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        if ($nombre_rol === "Administrador") {
+                            echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        } else {
+                            echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:not-allowed;" disabled>';
+                        }
                         echo '</form>';
                         echo "</td>";
                         echo "</tr>";
@@ -75,7 +86,11 @@ session_start();
                         echo "<td>";
                         echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="POST">';
                         echo '<input type="hidden" name="codigo_producto" value="' . $comida->productos['id_producto'] . '">';
-                        echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        if ($nombre_rol === "Administrador") {
+                            echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:pointer;">';
+                        } else {
+                            echo '<input type="submit" value="X" name="eliminarComida" style="background-color:red; border:none; color:white; cursor:not-allowed;" disabled>';
+                        }
                         echo '</form>';
                         echo "</td>";
                         echo "</tr>";
@@ -89,56 +104,64 @@ session_start();
                 ?>
         </section>
 
-        <!-- Consultamos de nuevo los productos disponibles en la base de datos y aparecen esos mismos en un formulario para modificar su stock y precio -->
-        <section class="container_form">
-            <h2 class="titulo_form">MODIFICAR STOCK COMIDA</h2>
-            <form action="/controllers/admin/ProductoController.php" method="post">
+        <?php
+        if ($nombre_rol === "Administrador") {
 
-                <table class="tabla_stock">
-                    <thead>
-                        <th class="th_stock">Platos</th>
-                        <th class="th_stock">Uds</th>
-                        <th class="th_stock">Precio</th>
-                        <th class="th_stock">Tipo</th>
-                        <th class="th_stock">Modalidad</th>
-                    </thead>
+        ?>
+            <!-- Consultamos de nuevo los productos disponibles en la base de datos y aparecen esos mismos en un formulario para modificar su stock y precio -->
+            <section class="container_form">
+                <h2 class="titulo_form">MODIFICAR STOCK COMIDA</h2>
+                <form action="/controllers/admin/ProductoController.php" method="post">
 
-                    <tbody>
+                    <table class="tabla_stock">
+                        <thead>
+                            <th class="th_stock">Platos</th>
+                            <th class="th_stock">Uds</th>
+                            <th class="th_stock">Precio</th>
+                            <th class="th_stock">Tipo</th>
+                            <th class="th_stock">Modalidad</th>
+                        </thead>
 
-                        <?php foreach ($comidas as $index => $comida): ?>
-                            <tr>
-                                <td>
-                                    <?= htmlspecialchars($comida->productos['nombre_corto']) ?>
-                                    <input type="hidden" name="comidas[<?= $index ?>][id_producto]" value="<?= htmlspecialchars($comida->productos['id_producto']) ?>">
-                                    <input type="hidden" name="comidas[<?= $index ?>][nombre_corto]" value="<?= htmlspecialchars($comida->productos['nombre_corto']) ?>">
-                                    <input type="hidden" name="comidas[<?= $index ?>][nombre_categoria]" value="<?= htmlspecialchars($comida->productos['nombre_categoria']) ?>">
-                                    <input type="hidden" name="comidas[<?= $index ?>][tipo_categoria]" value="<?= htmlspecialchars($comida->productos['tipo_categoria']) ?>">
-                                    <input type="hidden" name="comidas[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($comida->productos['modalidad_producto']) ?>">
-                                </td>
-                                <td>
-                                    <input type="number" name="comidas[<?= $index ?>][uds_stock]" value="" min="0">
-                                </td>
-                                <td>
-                                    <input type="number" name="comidas[<?= $index ?>][precio_unitario]" value="" min="0" step="0.01">
-                                </td>
-                                <td>
-                                    <?= htmlspecialchars($comida->productos['tipo_categoria']) ?>
-                                </td>
-                                <td>
-                                    <?= htmlspecialchars($comida->productos['modalidad_producto']) ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                        <tbody>
 
-                </table><br>
+                            <?php foreach ($comidas as $index => $comida): ?>
+                                <tr>
+                                    <td>
+                                        <?= htmlspecialchars($comida->productos['nombre_corto']) ?>
+                                        <input type="hidden" name="comidas[<?= $index ?>][id_producto]" value="<?= htmlspecialchars($comida->productos['id_producto']) ?>">
+                                        <input type="hidden" name="comidas[<?= $index ?>][nombre_corto]" value="<?= htmlspecialchars($comida->productos['nombre_corto']) ?>">
+                                        <input type="hidden" name="comidas[<?= $index ?>][nombre_categoria]" value="<?= htmlspecialchars($comida->productos['nombre_categoria']) ?>">
+                                        <input type="hidden" name="comidas[<?= $index ?>][tipo_categoria]" value="<?= htmlspecialchars($comida->productos['tipo_categoria']) ?>">
+                                        <input type="hidden" name="comidas[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($comida->productos['modalidad_producto']) ?>">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="comidas[<?= $index ?>][uds_stock]" value="" min="0">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="comidas[<?= $index ?>][precio_unitario]" value="" min="0" step="0.01">
+                                    </td>
+                                    <td>
+                                        <?= htmlspecialchars($comida->productos['tipo_categoria']) ?>
+                                    </td>
+                                    <td>
+                                        <?= htmlspecialchars($comida->productos['modalidad_producto']) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+
+                    </table><br>
 
                     <input type="submit" class="btn_modificarStock" value="Modificar" name="modificarComida"><br>
-                
 
-            </form>
-        </section>
-    </main>
-    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
+
+                </form>
+            </section>
+        <?php
+        }
+
+        echo "</main>";
+        include_once __DIR__ . '/../partials/footer.php';
+        ?>
 </body>
 
 </html>

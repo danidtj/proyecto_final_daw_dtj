@@ -300,4 +300,98 @@ class Reserva
             throw new Exception("Error al modificar la reserva: " . $e->getMessage());
         }
     }
+
+    //Método para obtener las reservas anteriores a la fecha actual y la hora_final de la reserva
+    public function obtenerReservasAnterioresHoraInicioPorUsuario($idUsuario)
+    {
+        try {
+            $sql = "SELECT reservas.id_reserva
+                FROM reservas
+                JOIN reservas_mesas ON reservas.id_reserva = reservas_mesas.id_reserva
+                WHERE reservas.id_usuario = :id_usuario
+                AND (
+                    reservas_mesas.fecha < CURDATE() 
+                    OR (reservas_mesas.fecha = CURDATE() AND reservas_mesas.hora_inicio < CURTIME())
+                )
+                ORDER BY reservas_mesas.fecha ASC, reservas_mesas.hora_inicio ASC;";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_usuario', $idUsuario, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener las reservas anteriores del usuario: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener las reservas que están activas entre hora_inicio y hora_fin
+    public function obtenerReservasActivasPorUsuario($idUsuario)
+    {
+        try {
+            $sql = "SELECT r.id_reserva
+            FROM reservas_mesas rm
+            JOIN reservas r ON rm.id_reserva = r.id_reserva
+            WHERE r.id_usuario = :id_usuario
+            AND NOW() BETWEEN rm.hora_inicio AND rm.hora_fin;
+            ";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_usuario', $idUsuario, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener las reservas activas del usuario: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener las reservas que están activas a fecha actual inclusive para un usuario
+    public function obtenerReservasActivasFechaActualPorUsuario($idUsuario)
+    {
+        try {
+            $sql = "SELECT r.id_reserva
+            FROM reservas_mesas rm
+            JOIN reservas r ON rm.id_reserva = r.id_reserva
+            WHERE r.id_usuario = :id_usuario
+            AND CURDATE() <= rm.fecha;
+            ";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_usuario', $idUsuario, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener las reservas activas del usuario: " . $e->getMessage());
+        }
+    }
+
+
+    //Método para comprobar si un usuario ya tiene una reserva para una fecha concreta
+    public function usuarioTieneReservaEnFecha($id_usuario, $fecha)
+    {
+        try {
+            $sql = "SELECT COUNT(*) as total
+                    FROM reservas r
+                    JOIN reservas_mesas rm ON r.id_reserva = rm.id_reserva
+                    WHERE r.id_usuario = :id_usuario 
+                    AND rm.fecha = :fecha";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario);
+            $stmt->bindParam(':fecha', $fecha);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($result['total'] > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            throw new Exception("Error al comprobar si el usuario tiene reserva en la fecha: " . $e->getMessage());
+        }
+    }
 }

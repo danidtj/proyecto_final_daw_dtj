@@ -72,6 +72,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
             <h2 class="titulo_form">Resumen de mis reservas</h2>
             <?php
             if (!empty($reservasUsuario)) {
+
                 foreach ($reservasUsuario as $reserva) {
                     echo "
                     <div class='reserva_detalles'>
@@ -104,28 +105,38 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                         echo "</div>";
                     }
+                    $idReservasHoraInicioUsuario = $nuevaReserva->obtenerReservasAnterioresHoraInicioPorUsuario($_SESSION['id_usuario']);
+                    $idReservasActivasUsuario = $nuevaReserva->obtenerReservasActivasPorUsuario($_SESSION['id_usuario']);
+                    $idReservasActivasPorFecha = $nuevaReserva->obtenerReservasActivasFechaActualPorUsuario($_SESSION['id_usuario']);
+                    if (!(in_array($reserva['id_reserva'], array_column($idReservasHoraInicioUsuario, 'id_reserva')))) {
+
 
             ?>
-                    <div class="botones">
-                        <!-- Formulario para cancelar la reserva -->
-                        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                            <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($reserva['id_reserva']); ?>">
-                            <input type="submit" class="botones btn_cancelar" value="Cancelar reserva" name="cancelarReserva">
-                        </form>
+                        <div class="botones">
+                            <!-- Formulario para cancelar la reserva -->
+                            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                                <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($reserva['id_reserva']); ?>">
+                                <input type="submit" class="botones btn_cancelar" value="Cancelar reserva" name="cancelarReserva">
+                            </form>
 
-                        <!-- Formulario para modificar la reserva -->
-                        <form action="/controllers/frontend/ReservaController.php" method="post">
-                            <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($reserva['id_reserva']); ?>">
-                            <input type="hidden" name="fecha" value="<?php echo htmlspecialchars($reserva['fecha']); ?>">
-                            <input type="hidden" name="hora_inicio" value="<?php echo htmlspecialchars($reserva['hora_inicio']); ?>">
-                            <input type="hidden" name="numero_comensales" value="<?php echo htmlspecialchars($reserva['numero_comensales']); ?>">
-                            <input type="hidden" name="comanda_previa" value="<?php echo htmlspecialchars($reserva['comanda_previa']); ?>">
-                            <!--<input type="hidden" name="id_mesa" value="<?php echo htmlspecialchars($reserva['id_mesa']); ?>">-->
-                            <input type="submit" class="botones btn_modificar" value="Modificar reserva" name="modificarReserva">
-                        </form>
+                            <!-- Formulario para modificar la reserva -->
+                            <form action="/controllers/frontend/ReservaController.php" method="post">
+                                <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($reserva['id_reserva']); ?>">
+                                <input type="hidden" name="fecha" value="<?php echo htmlspecialchars($reserva['fecha']); ?>">
+                                <input type="hidden" name="hora_inicio" value="<?php echo htmlspecialchars($reserva['hora_inicio']); ?>">
+                                <input type="hidden" name="numero_comensales" value="<?php echo htmlspecialchars($reserva['numero_comensales']); ?>">
+                                <input type="hidden" name="comanda_previa" value="<?php echo htmlspecialchars($reserva['comanda_previa']); ?>">
+                                <!--<input type="hidden" name="id_mesa" value="<?php echo htmlspecialchars($reserva['id_mesa']); ?>">-->
+                                <input type="submit" class="botones btn_modificar" value="Modificar reserva" name="modificarReserva">
+                            </form>
+
+
 
                         <?php
-                        if (!empty($ordenes)) {
+                    }
+
+                    if (!empty($ordenes)) {
+                        if ((in_array($reserva['id_reserva'], array_column($idReservasActivasPorFecha, 'id_reserva')))) {
                             //Formulario para modificar la orden
                             echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
                             echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
@@ -133,12 +144,22 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                             echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
                             echo "</form>";
                         }
+                        if ((in_array($reserva['id_reserva'], array_column($idReservasActivasUsuario, 'id_reserva')))) {
+                            //Formulario para modificar la orden
+                            echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
+                            echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
+                            echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
+                            echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
+                            echo "</form>";
+                        }
+                    }
+
                         ?>
 
-                    </div>
-                    </div>
-                    <br>
-            <?php
+                        </div>
+                        </div>
+                        <br>
+                <?php
 
                 }
             } else {
@@ -175,7 +196,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
             }
 
 
-            ?>
+                ?>
 
         </section>
 

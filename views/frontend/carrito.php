@@ -82,6 +82,7 @@ $carritoController = new CarritoController();
 
                         echo "<form method='POST' id='formPagar' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>
                         <button type='submit' id='botonPagar' name='pagarCarrito'>Pagar</button>
+                        <button type='submit' id='botonVaciarCarrito' name='vaciarCarrito'>Vaciar carrito</button>
                       </form>";
 
                         if ($pagarNuevoCarrito === false) {
@@ -97,11 +98,11 @@ $carritoController = new CarritoController();
                 }
             }
 
-            /* --- SCRIPT JS PARA GESTIONAR ELIMINAR SIN RECARGAR Y ACTUALIZAR PRECIO --- */
+            if (!empty($_SESSION['carrito'])) {
             ?>
 
         </section>
-        <section class="container_form">
+        <section id="pago-stripe" class="container_form">
             <div id="card-container">
                 <label for="cardholder-name">Nombre en la tarjeta</label>
                 <input id="cardholder-name" type="text" placeholder="Ej: Juan Pérez" required>
@@ -110,6 +111,7 @@ $carritoController = new CarritoController();
                 <div id="card-errors" role="alert" style="color:red;"></div>
             </div>
         </section>
+    <?php } ?>
 
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
@@ -144,7 +146,7 @@ $carritoController = new CarritoController();
                 },
                 body: JSON.stringify({
                     name: cardholderName
-                }) 
+                })
             });
 
             const data = await response.json();
@@ -161,7 +163,7 @@ $carritoController = new CarritoController();
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: cardholderName 
+                        name: cardholderName
                     }
                 }
             });

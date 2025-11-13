@@ -68,14 +68,28 @@ if (isset($_GET['accion']) && $_GET['accion'] === 'eliminar' && isset($_GET['cod
     header('Content-Type: application/json');
     echo json_encode([
         "status" => "ok",
-        "total" => $nuevoPrecioTotal, 
-        "nuevoPagoAdelantado" => $nuevoPagoAdelantado, 
-        "subtotal" => $subtotal, 
+        "total" => $nuevoPrecioTotal,
+        "nuevoPagoAdelantado" => $nuevoPagoAdelantado,
+        "subtotal" => $subtotal,
         "productoExiste" => $productoExiste,
         "cantidadRestante" => $productoExiste
             ? (isset($resultado[$codigoEliminar]) ? $resultado[$codigoEliminar] : 0)
             : 0
     ]);
 
+    exit;
+}
+
+//Vaciar carrito
+if ($_GET['accion'] === 'vaciar') {
+    $_SESSION['carrito'] = [];
+    $_SESSION['precioTotalCarrito'] = 0;
+    $_SESSION['nuevoPagoAdelantado'] = 0;
+
+    header('Content-Type: application/json');
+    echo json_encode([
+        "status" => "ok",
+        "mensaje" => "Carrito vaciado correctamente"
+    ]);
     exit;
 }

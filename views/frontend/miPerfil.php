@@ -8,6 +8,7 @@ use ModelsAdmin\Producto;
 require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
+require_once dirname(__DIR__, 2) . '/controllers/utilidades/enviarEmail.php';
 $nuevaReserva = new Reserva();
 if (isset($_SESSION['id_usuario'])) {
     $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuario']);
@@ -132,27 +133,44 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
 
 
-                        <?php
-                    }
+                            <?php
+                        }
 
-                    if (!empty($ordenes)) {
-                        if ((in_array($reserva['id_reserva'], array_column($idReservasActivasPorFecha, 'id_reserva')))) {
-                            //Formulario para modificar la orden
-                            echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
-                            echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
-                            echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
-                            echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
-                            echo "</form>";
+                        if (!empty($ordenes)) {
+
+                            // Bandera que indica si debe mostrarse el botón
+                            $mostrarBoton = false;
+
+                            // Condición 1: reserva con fecha anterior (idReservasActivasPorFecha)
+                            if (in_array($reserva['id_reserva'], array_column($idReservasActivasPorFecha, 'id_reserva'))) {
+                                $mostrarBoton = true;
+                            ?>
+
+                                <!-- Formulario para cancelar la orden -->
+                                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                                    <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($ordenes['id_reserva']); ?>">
+                                    <input type="submit" class="botones btn_cancelar" value="Cancelar orden" name="cancelarOrden">
+                                </form>
+
+                        <?php
+
+                            }
+
+                            // Condición 2: reservas activas por usuario (entre hora inicio y fin)
+                            if (in_array($reserva['id_reserva'], array_column($idReservasActivasUsuario, 'id_reserva'))) {
+                                $mostrarBoton = true;
+                            }
+
+                            // Mostrar el botón una sola vez
+                            if ($mostrarBoton) {
+                                echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
+                                echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
+                                echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
+                                echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
+                                echo "</form>";
+                            }
                         }
-                        if ((in_array($reserva['id_reserva'], array_column($idReservasActivasUsuario, 'id_reserva')))) {
-                            //Formulario para modificar la orden
-                            echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
-                            echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
-                            echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
-                            echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
-                            echo "</form>";
-                        }
-                    }
+
 
                         ?>
 
@@ -167,18 +185,23 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
             }
             //Cancelar una reserva
             if (isset($_POST['cancelarReserva'])) {
-                $nuevaReserva->cancelarReserva($_POST['id_reserva']);
 
                 $emailDestinatario = $_SESSION['email_usuario'];
                 $nombreDestinatario = $_SESSION['nombre_usuario'];
 
 
-                $ordenEmail = $orden->obtenerOrdenPorCodigoReserva($idReservaEmail);
-                $reservaEmail = $reserva->obtenerReservaPorCodigo($idReservaEmail);
+                $ordenEmail = $orden->obtenerOrdenPorCodigoReserva($_POST['id_reserva']);
+                $reservaEmail = $nuevaReserva->obtenerReservaPorCodigo($_POST['id_reserva']);
+
+                if (!empty($ordenEmail)) {
+                    $orden->reembolsarOrden($_POST['id_reserva']);
+                }
 
                 $contenidoCorreo = "";
 
                 if (!empty($reservaEmail)) {
+
+                    $nuevaReserva->cancelarReserva($_POST['id_reserva']);
 
                     $contenidoCorreo = "<h2>Cancelación de su reserva en Restaurante XITO</h2>";
                     $contenidoCorreo .= "<p>Estimado/a " . htmlspecialchars($nombreDestinatario) . ",</p>";
@@ -192,7 +215,35 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                     $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
 
                     $asuntoCorreo = "Cancelación de su reserva en Restaurante XITO";
+
+                    $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
                 }
+            }
+
+            if (isset($_POST['cancelarOrden'])) {
+
+                $orden->reembolsarOrden($_POST['id_reserva']);
+
+                $orden->eliminarOrdenPorCodigoReserva($_POST['id_reserva']);
+
+                $nuevaReserva->modificarComandaPreviaReservaPorOrdenCancelada($_POST['id_reserva']);
+
+                $emailDestinatario = $_SESSION['email_usuario'];
+                $nombreDestinatario = $_SESSION['nombre_usuario'];
+
+                $contenidoCorreo = "";
+
+                $contenidoCorreo = "<h2>Cancelación de su orden en Restaurante XITO</h2>";
+                $contenidoCorreo .= "<p>Estimado/a " . htmlspecialchars($nombreDestinatario) . ",</p>";
+                $contenidoCorreo .= "<p>Su orden ha sido cancelada.</p>";
+
+                $contenidoCorreo .= "<p>Le recordamos que la devolución de su pago se realizará en un plazo de 5-7 días hábiles.</p>";
+
+                $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
+
+                $asuntoCorreo = "Cancelación de su orden en Restaurante XITO";
+
+                $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
             }
 
 

@@ -1,7 +1,9 @@
 <?php
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 
 require dirname(__DIR__, 2) . '/vendor/autoload.php';
 
@@ -30,7 +32,6 @@ function enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $co
         $mail->AltBody = $contenidoCorreo;
 
         $mail->send();
-        echo 'El correo ha sido enviado';
         return true;
     } catch (Exception $e) {
         echo "Error al enviar el correo: {$mail->ErrorInfo}";

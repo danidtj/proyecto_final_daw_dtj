@@ -29,6 +29,8 @@ try {
         ],
     ]);
 
+    $_SESSION['stripe_payment_id'] = $paymentIntent->id;
+
     echo json_encode(['clientSecret' => $paymentIntent->client_secret]);
 } catch (Exception $e) {
     http_response_code(400);

@@ -9,6 +9,7 @@ use ModelsAdmin\Producto;
 require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
+require_once dirname(__DIR__) . '/utilidades/enviarEmail.php';
 $orden = new Orden();
 $reserva = new Reserva();
 
@@ -63,29 +64,90 @@ if (isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true
         $contenidoCorreo .= "<p>Le recordamos que la devolución de su anterior pago se realizará en un plazo de 5-7 días hábiles.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
         $asuntoCorreo = "Modificación de su orden en Restaurante XITO";
+
+        enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
 
     exit();
 } else {
-    $codigo_reserva = $reserva->realizarReserva(
-        $_SESSION['fecha'],
-        $_SESSION['hora_inicio'],
-        $_SESSION['numero_comensales'],
-        $_SESSION['comanda_previa'],
-        $_SESSION['mesa_id'],
-        $_SESSION['id_usuario']
-    );
+    if (isset($_SESSION['confirmarModificacionReserva'])) {
 
-    //Almacenamos el id de la nueva reserva en session
-    $_SESSION['id_reserva_nueva'] = $codigo_reserva;
+        $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
 
-    $idOrdenCreada = $orden->crearOrden($_SESSION['id_reserva_nueva'], 'Tarjeta de crédito', $_SESSION['precioTotalCarrito'], $_SESSION['nuevoPagoAdelantado'], $_SESSION['carrito']);
-    unset($_SESSION['confirmarReserva']);
-    unset($_SESSION['comanda_previa']);
-    unset($_SESSION['carrito']); // Vaciamos el carrito después de crear la orden
-    unset($_SESSION['id_reserva_nueva']);
-    header("Location: /views/frontend/miPerfil.php");
-    exit();
+        $idOrdenCreada = $orden->crearOrden(
+            $_SESSION['id_reserva_nueva'],
+            'Tarjeta de crédito',
+            $_SESSION['precioTotalCarrito'],
+            $_SESSION['nuevoPagoAdelantado'],
+            $stripePaymentId
+        );
+
+        $reserva->modificarReserva(
+            $_SESSION['id_reserva'],
+            $_SESSION['mesa_id'],
+            $_SESSION['fecha'],
+            $_SESSION['hora_inicio'],
+            $_SESSION['numero_comensales'],
+            $_SESSION['comanda_previa']
+        );
+
+        unset($_SESSION['confirmarModificacionReserva']);
+        unset($_SESSION['confirmarReserva']);
+        unset($_SESSION['comanda_previa']);
+        unset($_SESSION['carrito']); // Vaciamos el carrito después de crear la orden
+        /*unset($_SESSION['id_reserva']);
+        unset($_SESSION['mesa_id']);
+        unset($_SESSION['fecha']);
+        unset($_SESSION['hora_inicio']);
+        unset($_SESSION['numero_comensales']);
+        unset($_SESSION['comanda_previa']);
+        unset($_SESSION['confirmarModificacionReserva']);
+        unset($_SESSION['precioTotalCarrito']);
+        unset($_SESSION['nuevoPagoAdelantado']);*/
+
+
+        header("Location: /views/frontend/miPerfil.php");
+        exit();
+    } else {
+
+        $codigo_reserva = $reserva->realizarReserva(
+            $_SESSION['fecha'],
+            $_SESSION['hora_inicio'],
+            $_SESSION['numero_comensales'],
+            $_SESSION['comanda_previa'],
+            $_SESSION['mesa_id'],
+            $_SESSION['id_usuario']
+        );
+
+        //Almacenamos el id de la nueva reserva en session
+        $_SESSION['id_reserva_nueva'] = $codigo_reserva;
+        $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
+
+        $idOrdenCreada = $orden->crearOrden(
+            $_SESSION['id_reserva_nueva'],
+            'Tarjeta de crédito',
+            $_SESSION['precioTotalCarrito'],
+            $_SESSION['nuevoPagoAdelantado'],
+            $stripePaymentId
+        );
+
+        unset($_SESSION['confirmarReserva']);
+        unset($_SESSION['comanda_previa']);
+        unset($_SESSION['carrito']);
+        unset($_SESSION['stripe_payment_id']);
+        /*unset($_SESSION['id_reserva_nueva']);
+        unset($_SESSION['mesa_id']);
+        unset($_SESSION['fecha']);
+        unset($_SESSION['hora_inicio']);
+        unset($_SESSION['numero_comensales']);
+        unset($_SESSION['comanda_previa']);
+       /* unset($_SESSION['precioTotalCarrito']);
+        unset($_SESSION['nuevoPagoAdelantado']);
+        unset($_SESSION['id_reserva']);*/
+
+        header("Location: /views/frontend/miPerfil.php");
+        exit();
+    }
 }
 
 echo json_encode(['success' => true]);

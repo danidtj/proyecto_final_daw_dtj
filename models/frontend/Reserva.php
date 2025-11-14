@@ -394,4 +394,40 @@ class Reserva
             throw new Exception("Error al comprobar si el usuario tiene reserva en la fecha: " . $e->getMessage());
         }
     }
+
+    //Método para obtener las reservas de un usuario en un mismo día a fecha actual
+    public function obtenerReservasUsuarioEnDiaActual($id_usuario)
+    {
+        try {
+            $sql = "SELECT reservas.id_reserva FROM reservas_mesas
+                JOIN reservas ON reservas_mesas.id_reserva = reservas.id_reserva
+                WHERE id_usuario = :id_usuario
+                AND fecha = CURDATE()";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener las reservas del usuario en el día actual: " . $e->getMessage());
+        }
+    }
+
+    //Método para modificar el estado de comanda_previa de una reserva
+    public function modificarComandaPreviaReservaPorOrdenCancelada($id_reserva)
+    {
+        try {
+            $sql = "UPDATE reservas 
+                SET comanda_previa = '0'
+                WHERE id_reserva = :id_reserva";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_reserva', $id_reserva);
+
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Error al modificar la comanda previa de la reserva: " . $e->getMessage());
+        }
+    }
 }

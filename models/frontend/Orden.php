@@ -27,12 +27,12 @@ class Orden
     }
 
     //Método para crear una nueva orden
-    public function crearOrden($id_reserva, $metodo_pago, $precio_total, $montante_adelantado)
+    public function crearOrden($id_reserva, $metodo_pago, $precio_total, $montante_adelantado, $stripe_payment_id)
     {
         try {
 
-            $sqlOrden = "INSERT INTO ordenes (id_reserva, fecha, metodo_pago, precio_total, montante_adelantado)
-        VALUES (:id_reserva, NOW(), :metodo_pago, :precio_total, :montante_adelantado)";
+            $sqlOrden = "INSERT INTO ordenes (id_reserva, fecha, metodo_pago, precio_total, montante_adelantado, stripe_payment_id)
+        VALUES (:id_reserva, NOW(), :metodo_pago, :precio_total, :montante_adelantado, :stripe_payment_id)";
 
             //VALUES (:codigo_reserva, :id_usuario, :numero_mesa, 'ABIERTA', CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 DAY))";
             $stmt = $this->connection->prepare($sqlOrden);
@@ -40,6 +40,7 @@ class Orden
             $stmt->bindParam(':metodo_pago', $metodo_pago);
             $stmt->bindParam(':precio_total', $precio_total);
             $stmt->bindParam(':montante_adelantado', $montante_adelantado);
+            $stmt->bindParam(':stripe_payment_id', $stripe_payment_id);
 
             $stmt->execute();
 
@@ -64,6 +65,42 @@ class Orden
             throw new Exception("Error al crear la orden: " . $e->getMessage());
         }
     }
+
+    //Método para actualizar stripe_payment_id para una reserva en concreto
+    public function actualizarStripePaymentId($id_orden, $stripe_payment_id)
+    {
+        try {
+            $sql = "UPDATE ordenes SET stripe_payment_id = :stripe_payment_id WHERE id_orden = :id_orden";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':stripe_payment_id', $stripe_payment_id);
+            $stmt->bindParam(':id_orden', $id_orden);
+            
+            $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Error al actualizar el ID de pago de Stripe: " . $e->getMessage());
+        }
+    }
+
+    //Método para obtener stripe_payment_id de una orden por código de la orden
+    public function obtenerStripePaymentIdPorCodigoOrden($id_orden)
+    {
+        try {
+            $sql = "SELECT stripe_payment_id FROM ordenes WHERE id_orden = :id_orden";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_orden', $id_orden);
+            $stmt->execute();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result ? $result['stripe_payment_id'] : null;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener el ID de pago de Stripe: " . $e->getMessage());
+        }
+    }
+
+
 
 
 
@@ -253,6 +290,51 @@ class Orden
             return $detallesProductos;
         } catch (PDOException $e) {
             throw new Exception("Error al obtener los detalles de los productos de la orden: " . $e->getMessage());
+        }
+    }
+
+    //Método para eliminar una orden por su código
+    public function eliminarOrdenPorCodigoReserva($id_reserva)
+    {
+        try {
+            $sql = "DELETE FROM ordenes WHERE id_reserva = :id_reserva";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_reserva', $id_reserva);
+            $stmt->execute();
+
+            return true;
+        } catch (PDOException $e) {
+            throw new Exception("Error al eliminar la orden: " . $e->getMessage());
+        }
+    }
+
+    //Método para reembolsar una orden mediante Stripe
+    public function reembolsarOrden($id_reserva)
+    {
+        try {
+            $orden = $this->obtenerOrdenPorCodigoReserva($id_reserva);
+
+            if (empty($orden['stripe_payment_id'])) {
+                throw new Exception("No se encontró el ID de pago de Stripe para esta orden.");
+            }
+
+            // Configurar Stripe
+            \Stripe\Stripe::setApiKey(STRIPE_SECRET_KEY);
+
+            // Crear el reembolso
+            $refund = \Stripe\Refund::create([
+                'payment_intent' => $orden['stripe_payment_id'],
+            ]);
+
+            return [
+                'success' => true,
+                'refund_id' => $refund->id
+            ];
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            throw new Exception("Error al procesar el reembolso: " . $e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
         }
     }
 }

@@ -2,10 +2,14 @@
 @session_start();
 
 use ModelsFrontend\Mesa;
+use ModelsFrontend\Orden;
 use ModelsFrontend\Reserva;
 
 require_once dirname(__DIR__, 2) . '/models/frontend/Mesa.php';
+require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
+
+$orden = new Orden();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,37 +54,42 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <!-- Fecha -->
                     <div>
                         <label for="fecha">Selecciona la fecha:</label>
-                        <input type="date" id="fecha" name="fecha" title="Elige la fecha" onkeydown="return false" required value="<?php echo date('Y-m-d'); ?>">
+                        <input type="date" id="fecha" name="fecha" title="Elige la fecha" onkeydown="return false" required value="<?php echo date('Y-m-d'); ?>" min="<?php echo date('Y-m-d'); ?>">
 
                         <p class="mensaje-error" id="error-fecha" role="alert" aria-live="assertive"></p>
                     </div>
 
                     <!-- Hora -->
                     <div>
+                        <?php
+                        //Almacenamos la hora actual
+                        $hora_actual = date("H:i");
+                        //Almacenamos las horas disponibles para reservar
+                        $horas_mediodia = ["13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
+                        $horas_noche = ["20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"];
+                        ?>
+
                         <label for="hora_inicio">Hora:</label>
                         <select id="hora_inicio" name="hora_inicio" required>
-
+                            <!-- Los diferentes option aparecerán siempre que la hora sea posterior a la actual -->
                             <optgroup label="Mediodía">
-                                <option value="13:30">13:30</option>
-                                <option value="14:00" selected>14:00</option>
-                                <option value="14:30">14:30</option>
-                                <option value="15:00">15:00</option>
-                                <option value="15:30">15:30</option>
-                                <option value="16:00">16:00</option>
-                                <option value="16:30">16:30</option>
-                                <option value="17:00">17:00</option>
+                                <?php foreach ($horas_mediodia as $hora): ?>
+                                    <?php if ($hora > $hora_actual): ?>
+                                        <option value="<?= $hora ?>"><?= $hora ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </optgroup>
 
                             <optgroup label="Noche">
-                                <option value="20:30">20:30</option>
-                                <option value="21:00">21:00</option>
-                                <option value="21:30">21:30</option>
-                                <option value="22:00">22:00</option>
-                                <option value="22:30">22:30</option>
-                                <option value="23:00">23:00</option>
-                                <option value="23:30">23:30</option>
+                                <?php foreach ($horas_noche as $hora): ?>
+                                    <?php if ($hora > $hora_actual): ?>
+                                        <option value="<?= $hora ?>"><?= $hora ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </optgroup>
+
                         </select>
+
 
                         <p class="mensaje-error" id="error-hora" role="alert" aria-live="assertive"></p>
                     </div>
@@ -104,10 +113,11 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                         <p class="mensaje-error" id="error-comensales" role="alert" aria-live="assertive"></p>
                     </div>
 
-                    <!-- Botón -->
-                    <?php if (!isset($_POST['modificarReserva'])): ?>
 
-
+                    <?php
+                    //$ordenReserva = $orden->obtenerOrdenPorCodigoReserva($_SESSION['id_reserva']);
+                    if (isset($_POST['modificarReserva']) && isset($_POST['comanda_previa']) && $_POST['comanda_previa'] !== "1") {
+                    ?>
                         <!-- Comanda -->
                         <div>
                             <p>¿Quieres realizar ya tu comanda?</p>
@@ -116,15 +126,33 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                             <p>Abono del 10% por adelantado.</p>
                             <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                         </div>
-                        
+                    <?php
+                    }
+                    if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar'])) {
+                    ?>
+                        <!-- Comanda -->
+                        <div>
+                            <p>¿Quieres realizar ya tu comanda?</p>
+                            <label><input type="radio" name="comanda_previa" value="1" required> Sí</label>
+                            <label><input type="radio" name="comanda_previa" value="0" required> No</label>
+                            <p>Abono del 10% por adelantado.</p>
+                            <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                        </div>
+                    <?php
+                    }
+
+                    if (!isset($_POST['modificarReserva'])):
+                    ?>
                         <div>
                             <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar btn_reservar">Reservar</button>
                         </div>
-                    <?php else: ?>
+                    <?php else:
+                    ?>
                         <div>
                             <button type="submit" id="boton-reservar" name="modificar" class="btn-reservar btn_reservar">Modificar reserva</button>
                         </div>
-                    <?php endif; ?>
+                    <?php endif;
+                    ?>
                 </form>
 
             </section>
@@ -149,14 +177,14 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                 unset($_SESSION['fecha']);
                 unset($_SESSION['hora_inicio']);
                 unset($_SESSION['numero_comensales']);
-                //unset($_SESSION['comanda_previa']);
+                unset($_SESSION['comanda_previa']);
             }
             $_SESSION['fecha'] = $_POST['fecha'];
             $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
             $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
-            if (!isset($_POST['modificar'])) {
-                $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
-            }
+            //if (!isset($_POST['modificar'])) {
+            $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
+             //}
             //$_SESSION['numero_mesa'] = $_POST['numero_mesa'];
             //$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
 
@@ -177,7 +205,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                     <!-- Fecha -->
                     <div>
                         <label for="fecha_reserva">Selecciona la fecha:</label>
-                        <?php echo "<input type='date' id='fecha_reserva' name='fecha' title='Elige la fecha' value='" . $_SESSION['fecha'] . "' onkeydown='return false'>"; ?>
+                        <?php echo "<input type='date' id='fecha_reserva' name='fecha' title='Elige la fecha' value='" . $_SESSION['fecha'] . "' onkeydown='return false' min='" . date('Y-m-d') . "'>"; ?>
                         <p class="mensaje-error" id="error-fecha" role="alert" aria-live="assertive"></p>
                     </div>
 
@@ -209,7 +237,7 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
                         <p>¿Quieres realizar ya tu orden?</p>
                         <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['comanda_previa'] === '1' ? 'checked' : ''; ?>> Sí</label>
                         <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['comanda_previa'] === '0' ? 'checked' : ''; ?>> No</label>
-                        
+
                         <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                     </div>
 

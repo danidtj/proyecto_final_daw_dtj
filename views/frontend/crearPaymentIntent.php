@@ -9,6 +9,8 @@ require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 header('Content-Type: application/json');
 
+//echo "<script>alert('Prueba: ".$_SESSION['nuevoPagoAdelantado']."');</script>";
+
 try {
     // Verificar que el montante esté definido en la sesión
     if (!isset($_SESSION['nuevoPagoAdelantado']) || $_SESSION['nuevoPagoAdelantado'] <= 0) {

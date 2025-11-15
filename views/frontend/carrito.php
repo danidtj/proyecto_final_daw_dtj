@@ -80,10 +80,10 @@ $carritoController = new CarritoController();
                         echo "<div id='pagoAdelantado'>Precio a pagar por adelantado (10% del carrito): " .
                             number_format($nuevoPagoAdelantado, 2, ',', '.') . " €</div>\n";
 
-                        echo "<form method='POST' id='formPagar' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>
-                        <button type='submit' id='botonPagar' name='pagarCarrito'>Pagar</button>
-                        <button type='submit' id='botonVaciarCarrito' name='vaciarCarrito'>Vaciar carrito</button>
-                      </form>";
+                        echo "<form method='POST' id='formPagar' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>";
+                        echo "<button type='submit' id='botonPagar' name='pagarCarrito'>Pagar</button>";
+                        echo "<button type='submit' id='botonVaciarCarrito' name='vaciarCarrito'>Vaciar carrito</button>";
+                        echo "</form>";
 
                         if ($pagarNuevoCarrito === false) {
                             $_SESSION['precioTotalCarrito'] = $precioTotalCarrito;
@@ -127,65 +127,65 @@ $carritoController = new CarritoController();
         const botonPagar = document.getElementById('botonPagar');
 
         botonPagar.addEventListener('click', async () => {
-            botonPagar.disabled = true;
+                botonPagar.disabled = true;
 
-            // Capturamos el nombre del titular
-            const cardholderName = document.getElementById('cardholder-name').value.trim();
+                // Capturamos el nombre del titular
+                const cardholderName = document.getElementById('cardholder-name').value.trim();
 
-            if (!cardholderName) {
-                document.getElementById('card-errors').textContent = 'Por favor, introduce el nombre en la tarjeta.';
-                botonPagar.disabled = false;
-                return;
-            }
+                if (!cardholderName) {
+                    document.getElementById('card-errors').textContent = 'Por favor, introduce el nombre en la tarjeta.';
+                    botonPagar.disabled = false;
+                    return;
+                }
 
-            // Creamos el PaymentIntent en el servidor
-            const response = await fetch('crearPaymentIntent.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: cardholderName
-                })
-            });
-
-            const data = await response.json();
-            const clientSecret = data.clientSecret;
-
-            if (!clientSecret) {
-                document.getElementById('card-errors').textContent = 'Error al crear PaymentIntent';
-                botonPagar.disabled = false;
-                return;
-            }
-
-            // Confirmamos el pago con el nombre incluido
-            const result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: {
-                    card: card,
-                    billing_details: {
+                // Creamos el PaymentIntent en el servidor
+                const response = await fetch('crearPaymentIntent.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
                         name: cardholderName
+                    })
+                });
+
+                const data = await response.json();
+                const clientSecret = data.clientSecret;
+
+                if (!clientSecret) {
+                    document.getElementById('card-errors').textContent = 'Error al crear PaymentIntent';
+                    botonPagar.disabled = false;
+                    return;
+                }
+
+                // Confirmamos el pago con el nombre incluido
+                const result = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                        card: card,
+                        billing_details: {
+                            name: cardholderName
+                        }
+                    }
+                });
+
+                if (result.error) {
+                    // Mostrar error al usuario
+                    document.getElementById('card-errors').textContent = result.error.message;
+                    botonPagar.disabled = false;
+                } else {
+                    if (result.paymentIntent.status === 'succeeded') {
+                        alert('Pago realizado con éxito!');
+
+                        // Llamamos al backend para registrar la orden
+                        await fetch('comprobacionesPago.php', {
+                            method: 'POST'
+                        });
+
+                        // Redirigimos al perfil
+                        window.location.href = '/views/frontend/miPerfil.php';
                     }
                 }
             });
-
-            if (result.error) {
-                // Mostrar error al usuario
-                document.getElementById('card-errors').textContent = result.error.message;
-                botonPagar.disabled = false;
-            } else {
-                if (result.paymentIntent.status === 'succeeded') {
-                    alert('Pago realizado con éxito!');
-
-                    // Llamamos a tu backend para registrar la orden
-                    await fetch('comprobacionesPago.php', {
-                        method: 'POST'
-                    });
-
-                    // Redirigimos al perfil
-                    window.location.href = '/views/frontend/miPerfil.php';
-                }
-            }
-        });
     </script>
 
     <script src="/assets/js/validacionCarrito.js"></script>

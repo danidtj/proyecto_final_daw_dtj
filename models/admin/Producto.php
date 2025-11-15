@@ -353,7 +353,7 @@ class Producto
     {
         try {
             //Consultamos para obtener el nombre corto, la cantidad por producto y su precio unitario
-            $sql = "SELECT productos_ordenes.cantidad_pedido, productos.nombre_corto, productos.precio_unitario
+            $sql = "SELECT productos.id_producto, productos_ordenes.cantidad_pedido, productos.nombre_corto, productos.precio_unitario
              FROM productos
                 JOIN productos_ordenes ON productos_ordenes.id_producto = productos.id_producto
                 JOIN ordenes ON productos_ordenes.id_orden = ordenes.id_orden
@@ -376,6 +376,40 @@ class Producto
             return $productos;
         } catch (PDOException $e) {
             throw new Exception("Error al obtener los productos asociados a una reserva y orden: " . $e->getMessage());
+        }
+    }
+
+
+    //Método para actualizar las uds_stock a restar de los productos añadidos a una orden mediante el carrito
+    public static function incrementarStockPorCancelacion(array $productos): void
+    {
+        try {
+            $connection = DB::getInstance()->getConnection();
+
+            foreach ($productos as $producto) {
+
+                $id_producto = $producto['id_producto'];
+                $cantidad_devuelta = (int)$producto['cantidad_pedido'];
+
+                // Obtener stock actual
+                $sqlStockActual = "SELECT uds_stock FROM productos WHERE id_producto = :id_producto";
+                $stmt = $connection->prepare($sqlStockActual);
+                $stmt->execute([':id_producto' => $id_producto]);
+                $stockActual = (int) $stmt->fetchColumn();
+
+                // Nuevo stock
+                $nuevoStock = $stockActual + $cantidad_devuelta;
+
+                // Actualizar stock
+                $sqlUpdate = "UPDATE productos SET uds_stock = :uds_stock WHERE id_producto = :id_producto";
+                $stmt = $connection->prepare($sqlUpdate);
+                $stmt->execute([
+                    ':uds_stock' => $nuevoStock,
+                    ':id_producto' => $id_producto
+                ]);
+            }
+        } catch (Exception $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
     }
 }

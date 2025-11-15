@@ -13,10 +13,24 @@
 
 
 <body>
-    <?php include_once __DIR__ . '/../partials/header.php';     
-    
+    <?php include_once __DIR__ . '/../partials/header.php';
 
-       ?>
+
+    ?>
+
+    
+    <!-- POPUP DE TÉRMINOS Y CONDICIONES -->
+    <!--<div id="popup-terminos" class="popup">
+        <div class="popup-contenido">
+            <h2>Términos y Condiciones</h2>
+            <p>
+                Usamos tus datos personales según la LOPDGDD y el RGPD.
+                Al continuar, aceptas nuestra Política de Privacidad.
+                Puedes ejercer tus derechos de acceso, rectificación y supresión en cualquier momento.
+            </p>
+            <button id="aceptar-terminos">Aceptar</button>
+        </div>
+    </div>-->
 
     <main>
         <hr id="hr1">
@@ -132,10 +146,19 @@
                     <td class="celda"></td>
                 </tr>
             </table>
-            
+
         </section>
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php' ?>
+
+    <div id="banner-terminos" class="banner-terminos">
+        <p>
+            Usamos tus datos según la LOPDGDD y RGPD. Al continuar, aceptas nuestra
+            <a href="/politica-privacidad" target="_blank">Política de Privacidad</a>.
+        </p>
+        <button id="aceptar-banner">Aceptar</button>
+    </div>
+    <script src="/assets/js/popupTerminos.js"></script>
 </body>
 
 </html>

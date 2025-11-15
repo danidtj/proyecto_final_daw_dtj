@@ -15,6 +15,90 @@ if (isset($_SESSION['id_usuario'])) {
 }
 $orden = new Orden();
 
+if (isset($_SESSION['idOrdenCreada']) && isset($_SESSION['codigo_reserva'])) {
+
+    // Envío de correo de confirmación
+    $emailDestinatario = $_SESSION['email_usuario'] ?? '';
+    $nombreDestinatario = $_SESSION['nombre_usuario'] ?? '';
+
+    $ordenEmail = $orden->obtenerOrdenPorCodigoReserva($_SESSION['codigo_reserva']);
+    $reservaEmail = $nuevaReserva->obtenerReservaPorCodigo($_SESSION['codigo_reserva']);
+    $productosOrdenEmail = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $_SESSION['codigo_reserva'], $_SESSION['idOrdenCreada']);
+
+    if (!empty($ordenEmail) && !empty($reservaEmail) && !empty($productosOrdenEmail)) {
+
+        $contenidoCorreo = "<h2>Confirmación de su reserva en Restaurante XITO</h2>";
+        $contenidoCorreo .= "<p>Estimado/a " . htmlspecialchars($nombreDestinatario) . ",</p>";
+        $contenidoCorreo .= "<p>Le informamos de que el ID de su reserva es <strong>" . htmlspecialchars($reservaEmail['id_reserva']) .
+            "</strong>. A continuación, encontrará los detalles:</p>";
+
+        //Mostrarle al cliente desde $reservaEmail la fecha de la reserva, la hora, el número de mesa y el de comensales
+        $contenidoCorreo .= "<ul>";
+        $contenidoCorreo .= "<li>Fecha y hora de la reserva: " . htmlspecialchars($reservaEmail['hora_inicio']) . ".</li>";
+        $contenidoCorreo .= "<li>Número de mesa: " . htmlspecialchars($reservaEmail['id_mesa']) . ".</li>";
+        $contenidoCorreo .= "<li>Número de comensales: " . htmlspecialchars($reservaEmail['numero_comensales']) . ".</li>";
+        $contenidoCorreo .= "</ul>";
+        $contenidoCorreo .= "<ul>";
+
+        //Muestra al cliente los productos asociados a su orden
+        foreach ($productosOrdenEmail as $producto) {
+            $contenidoCorreo .= "<li>" . htmlspecialchars($producto['nombre_corto']) . " - Cantidad: " . htmlspecialchars($producto['cantidad_pedido']) .
+                " - Precio Unitario: " . htmlspecialchars(number_format($producto['precio_unitario'], 2, ',', '.')) . " €.</li>";
+        }
+
+        $contenidoCorreo .= "</ul>";
+        $contenidoCorreo .= "<p>Total de la orden: " . htmlspecialchars(number_format($ordenEmail['precio_total'], 2, ',', '.')) . " €.</p>";
+        $contenidoCorreo .= "<p>Pago adelantado (10%): " . htmlspecialchars(number_format($ordenEmail['precio_total'] * 0.1, 2, ',', '.')) . " €.</p>";
+        $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
+        $asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
+
+        enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
+    }
+
+    unset($_SESSION['idOrdenCreada']);
+    unset($_SESSION['codigo_reserva']);
+    unset($_SESSION['carrito']);
+    unset($_SESSION['stripe_payment_id']);
+}
+
+if (isset($_SESSION['idReservaModificar']) && isset($_SESSION['idOrdenModificar'])) {
+
+    // Envío de correo de confirmación
+    $emailDestinatario = $_SESSION['email_usuario'] ?? '';
+    $nombreDestinatario = $_SESSION['nombre_usuario'] ?? '';
+
+    $ordenEmail = $orden->obtenerOrdenPorCodigoReserva($_SESSION['idReservaModificar']);
+    $reservaEmail = $nuevaReserva->obtenerReservaPorCodigo($_SESSION['idReservaModificar']);
+    $productosOrdenEmail = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $_SESSION['idReservaModificar'], $_SESSION['idOrdenModificar']);
+
+    if (!empty($ordenEmail) && !empty($reservaEmail) && !empty($productosOrdenEmail)) {
+
+        $contenidoCorreo = "<h2>Modificación de su orden en Restaurante XITO</h2>";
+        $contenidoCorreo .= "<p>Estimado/a " . htmlspecialchars($nombreDestinatario) . ",</p>";
+        $contenidoCorreo .= "<p>Su orden asociada a la reserva con ID <strong>" . htmlspecialchars($reservaEmail['id_reserva']) .
+            "</strong> ha sido modificada con éxito. A continuación, encontrará los detalles actualizados de su orden:</p>";
+        $contenidoCorreo .= "<ul>";
+        foreach ($productosOrdenEmail as $producto) {
+            $contenidoCorreo .= "<li>" . htmlspecialchars($producto['nombre_corto']) . " - Cantidad: " . htmlspecialchars($producto['cantidad_pedido']) .
+                " - Precio Unitario: " . htmlspecialchars(number_format($producto['precio_unitario'], 2, ',', '.')) . " €.</li>";
+        }
+        $contenidoCorreo .= "</ul>";
+        $contenidoCorreo .= "<p>Total de la orden: " . htmlspecialchars(number_format($ordenEmail['precio_total'], 2, ',', '.')) . " €.</p>";
+        $contenidoCorreo .= "<p>Pago adelantado (10%): " . htmlspecialchars(number_format($ordenEmail['precio_total'] * 0.1, 2, ',', '.')) . " €.</p>";
+        $contenidoCorreo .= "<p>Le recordamos que la devolución de su anterior pago se realizará en un plazo de 5-7 días hábiles.</p>";
+        $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
+        $asuntoCorreo = "Modificación de su orden en Restaurante XITO";
+
+        enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
+    }
+
+    unset($_SESSION['idReservaModificar']);
+    unset($_SESSION['idOrdenModificar']);
+    unset($_SESSION['carrito']);
+    unset($_SESSION['stripe_payment_id']);
+}
+
+
 if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_POST['id_reserva'])) {
 
     $_SESSION['carrito'] = [];
@@ -117,6 +201,8 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                             <!-- Formulario para cancelar la reserva -->
                             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                                 <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($reserva['id_reserva']); ?>">
+                                <input type="hidden" name="comanda_previa" value="<?php echo htmlspecialchars($reserva['comanda_previa']); ?>">
+                                <input type="hidden" name="id_orden" value="<?php echo htmlspecialchars($ordenes['id_orden']); ?>">
                                 <input type="submit" class="botones btn_cancelar" value="Cancelar reserva" name="cancelarReserva">
                             </form>
 
@@ -144,16 +230,22 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                             // Condición 1: reserva con fecha anterior (idReservasActivasPorFecha)
                             if (in_array($reserva['id_reserva'], array_column($idReservasActivasPorFecha, 'id_reserva'))) {
                                 $mostrarBoton = true;
+
+                                if (
+                                    $mostrarBoton && $reserva['hora_inicio'] > date('H:i:s') && $reserva['fecha'] >= date('Y-m-d') ||
+                                    $reserva['fecha'] > date('Y-m-d')
+                                ) {
                             ?>
 
-                                <!-- Formulario para cancelar la orden -->
-                                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-                                    <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($ordenes['id_reserva']); ?>">
-                                    <input type="submit" class="botones btn_cancelar" value="Cancelar orden" name="cancelarOrden">
-                                </form>
+                                    <!-- Formulario para cancelar la orden -->
+                                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                                        <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($ordenes['id_reserva']); ?>">
+                                        <input type="hidden" name="id_orden" value="<?php echo htmlspecialchars($ordenes['id_orden']); ?>">
+                                        <input type="submit" class="botones btn_cancelar" value="Cancelar orden" name="cancelarOrden">
+                                    </form>
 
                         <?php
-
+                                }
                             }
 
                             // Condición 2: reservas activas por usuario (entre hora inicio y fin)
@@ -162,7 +254,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                             }
 
                             // Mostrar el botón una sola vez
-                            if ($mostrarBoton) {
+                            if ($mostrarBoton && $reserva['hora_fin'] > date('H:i:s') && $reserva['fecha'] >= date('Y-m-d')) {
                                 echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
                                 echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
                                 echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
@@ -201,6 +293,11 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                 if (!empty($reservaEmail)) {
 
+                    $productosAddStock = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $_POST['id_reserva'], $_POST['id_orden']);
+                    if (!empty($productosAddStock) && isset($_POST['comanda_previa']) && $_POST['comanda_previa'] == 1) {
+                        Producto::incrementarStockPorCancelacion($productosAddStock);
+                    }
+
                     $nuevaReserva->cancelarReserva($_POST['id_reserva']);
 
                     $contenidoCorreo = "<h2>Cancelación de su reserva en Restaurante XITO</h2>";
@@ -221,6 +318,11 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
             }
 
             if (isset($_POST['cancelarOrden'])) {
+
+                $productosAddStock = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $_POST['id_reserva'], $_POST['id_orden']);
+                if (!empty($productosAddStock)) {
+                    Producto::incrementarStockPorCancelacion($productosAddStock);
+                }
 
                 $orden->reembolsarOrden($_POST['id_reserva']);
 

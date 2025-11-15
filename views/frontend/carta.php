@@ -48,7 +48,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
 
 
-                    if ($producto->productos['tipo_categoria'] === 'Refresco') {
+                    if ($producto->productos['tipo_categoria'] === 'Refresco' && $producto->productos['modalidad_producto'] === 'Refresco') {
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             //echo "<input type=\"checkbox\" name=\"codigo_producto\" id=\"" . $producto->getNombreProducto() . "\" value=\"" . $producto->getCodigoProducto() . "\"> ";
@@ -71,7 +71,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo "<h4>&nbsp;&nbsp;&nbspCon alcohol</h4><br>";
                 foreach ($productos as $producto) {
 
-                    if ($producto->productos['tipo_categoria'] === 'Con alcohol') {
+                    if ($producto->productos['tipo_categoria'] === 'Con alcohol' && $producto->productos['modalidad_producto'] === 'Con alcohol') {
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
@@ -92,7 +92,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo "<h4>&nbsp;&nbsp;&nbspEntrantes</h4><br>";
                 foreach ($productos as $producto) {
 
-                    if ($producto->productos['tipo_categoria'] === 'Tapa') {
+                    if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Embutido') {
                         if ($producto->getUdsStock() > 0) {
                             echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
                             echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreCorto() . "\n";
@@ -212,7 +212,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo "<h4>&nbsp;&nbsp;&nbspRefrescos</h4><br>";
                 foreach ($productos as $producto) {
 
-                    if ($producto->productos['tipo_categoria'] === 'Refresco') {
+                    if ($producto->productos['tipo_categoria'] === 'Refresco' && $producto->productos['modalidad_producto'] === 'Refresco') {
                         if ($producto->getUdsStock() > 0) {
                             echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
                         }
@@ -223,7 +223,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo "<h4>&nbsp;&nbsp;&nbspCon alcohol</h4><br>";
                 foreach ($productos as $producto) {
 
-                    if ($producto->productos['tipo_categoria'] === 'Con alcohol') {
+                    if ($producto->productos['tipo_categoria'] === 'Con alcohol' && $producto->productos['modalidad_producto'] === 'Con alcohol') {
                         if ($producto->getUdsStock() > 0) {
                             echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
                         }
@@ -238,7 +238,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 //ENTRANTES
                 echo "<h4>&nbsp;&nbsp;&nbspEntrantes</h4><br>";
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_categoria'] === 'Tapa') {
+                    if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Embutido') {
                         if ($producto->getUdsStock() > 0) {
                             echo "<p>" . $producto->getNombreCorto() . " - " . $producto->getPrecioUnitario() . "</p><br>";
                         }

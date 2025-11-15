@@ -18,7 +18,9 @@ function enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $co
         $mail->SMTPAuth = true;
         $mail->Username = 'xitorestaurante@gmail.com';
         $mail->Password = 'yqrc ubhy odfn wftr';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->SMTPSecure = PHPMailer::
+        
+        ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Remitente y destinatario

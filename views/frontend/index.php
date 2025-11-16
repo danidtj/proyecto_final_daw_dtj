@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurante XITO</title>
-    <link rel="stylesheet" href="/assets/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -33,10 +32,6 @@
     </div>-->
 
     <main>
-        <hr id="hr1">
-        <!--<hr id="hr2">
-        <hr id="hr3">-->
-        <hr id="hr4">
         <article class="container_info">
             <h2>Restaurante XITO</h2>
             <p class="info_rest">Se abrió en el año 2011 en el humilde barrio de Antonio Domínguez.

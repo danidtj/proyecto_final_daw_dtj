@@ -1,5 +1,8 @@
-<?php @session_start();
+<?php
+@session_start();
+
 $paginaActual = basename($_SERVER['PHP_SELF']);
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +26,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="/assets/css/reserva.css">
     <link rel="stylesheet" href="/assets/css/terminos.css">
     <link rel="stylesheet" href="/assets/css/texts.css">
-<link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
+    <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
     <title>Document</title>
 </head>
 
@@ -58,10 +61,10 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
             </nav>
         </div>
         <?php if (isset($_SESSION['id_usuario'])): ?>
-            <div class="container_carrito"> 
-                <a href="/views/frontend/carrito.php" class="carrito <?= $paginaActual == 'carrito.php' ? 'activo' : '' ?>" title="Ir al carrito"> 
-                    <i class="fas fa-shopping-cart"></i> 
-                </a> 
+            <div class="container_carrito">
+                <a href="/views/frontend/carrito.php" class="carrito <?= $paginaActual == 'carrito.php' ? 'activo' : '' ?>" title="Ir al carrito">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
             </div>
         <?php endif; ?>
 

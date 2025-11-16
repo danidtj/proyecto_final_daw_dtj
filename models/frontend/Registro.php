@@ -54,12 +54,12 @@ class Registro
                             $_SESSION['id_usuario'] = $this->connection->lastInsertId();
                             //Comprobamos que no se hayan enviado previamente los encabezados por HTTP. En caso afirmativo, 
                             //redirecciona mediante código javascript
-                            if (headers_sent()) {
-                                echo "<script> window.location.href = '../home'; </script>";
-                            } else {
-                                header("Location: ../../home");
+                            //if (headers_sent()) {
+                                //echo "<script> window.location.href = '../../home'; </script>";
+                            //} else {
+                                header("Location: ". dirname(__DIR__, 2). "/views/frontend/home");
                                 exit;
-                            }
+                            //}
                         }
                     }
                 }

@@ -8,7 +8,22 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/buttons.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/forms.css">
+    <link rel="stylesheet" href="/assets/css/general.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/images.css">
+    <link rel="stylesheet" href="/assets/css/list.css">
+    <link rel="stylesheet" href="/assets/css/others.css">
+    <link rel="stylesheet" href="/assets/css/plano.css">
+    <link rel="stylesheet" href="/assets/css/popup.css">
+    <link rel="stylesheet" href="/assets/css/reserva.css">
+    <link rel="stylesheet" href="/assets/css/terminos.css">
+    <link rel="stylesheet" href="/assets/css/texts.css">
+<link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -17,10 +32,6 @@ session_start();
 
 
 <body>
-    <hr id="hr1">
-    <!--<hr id="hr2">
-        <hr id="hr3">-->
-    <hr id="hr4">
     <main>
         <section class="container_form">
             <h2 class="titulo_form">Inicio de sesión</h2>

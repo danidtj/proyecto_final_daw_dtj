@@ -1,5 +1,12 @@
 <?php
 
+
+if (!isset($_SESSION['id_usuario'])) {
+
+    header("Location: home");
+    exit;
+}
+
 use ControllerFrontend\CarritoController;
 use ModelsFrontend\Orden;
 use ModelsFrontend\Reserva;
@@ -24,7 +31,6 @@ $carritoController = new CarritoController();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -33,8 +39,6 @@ $carritoController = new CarritoController();
 </head>
 
 <body>
-    <hr id="hr1">
-    <hr id="hr4">
     <?php
 
     include_once __DIR__ . '/../partials/header.php';
@@ -127,65 +131,65 @@ $carritoController = new CarritoController();
         const botonPagar = document.getElementById('botonPagar');
 
         botonPagar.addEventListener('click', async () => {
-                botonPagar.disabled = true;
+            botonPagar.disabled = true;
 
-                // Capturamos el nombre del titular
-                const cardholderName = document.getElementById('cardholder-name').value.trim();
+            // Capturamos el nombre del titular
+            const cardholderName = document.getElementById('cardholder-name').value.trim();
 
-                if (!cardholderName) {
-                    document.getElementById('card-errors').textContent = 'Por favor, introduce el nombre en la tarjeta.';
-                    botonPagar.disabled = false;
-                    return;
-                }
+            if (!cardholderName) {
+                document.getElementById('card-errors').textContent = 'Por favor, introduce el nombre en la tarjeta.';
+                botonPagar.disabled = false;
+                return;
+            }
 
-                // Creamos el PaymentIntent en el servidor
-                const response = await fetch('crearPaymentIntent.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
+            // Creamos el PaymentIntent en el servidor
+            const response = await fetch('crearPaymentIntent.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: cardholderName
+                })
+            });
+
+            const data = await response.json();
+            const clientSecret = data.clientSecret;
+
+            if (!clientSecret) {
+                document.getElementById('card-errors').textContent = 'Error al crear PaymentIntent';
+                botonPagar.disabled = false;
+                return;
+            }
+
+            // Confirmamos el pago con el nombre incluido
+            const result = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: {
+                    card: card,
+                    billing_details: {
                         name: cardholderName
-                    })
-                });
-
-                const data = await response.json();
-                const clientSecret = data.clientSecret;
-
-                if (!clientSecret) {
-                    document.getElementById('card-errors').textContent = 'Error al crear PaymentIntent';
-                    botonPagar.disabled = false;
-                    return;
-                }
-
-                // Confirmamos el pago con el nombre incluido
-                const result = await stripe.confirmCardPayment(clientSecret, {
-                    payment_method: {
-                        card: card,
-                        billing_details: {
-                            name: cardholderName
-                        }
-                    }
-                });
-
-                if (result.error) {
-                    // Mostrar error al usuario
-                    document.getElementById('card-errors').textContent = result.error.message;
-                    botonPagar.disabled = false;
-                } else {
-                    if (result.paymentIntent.status === 'succeeded') {
-                        alert('Pago realizado con éxito!');
-
-                        // Llamamos al backend para registrar la orden
-                        await fetch('comprobacionesPago.php', {
-                            method: 'POST'
-                        });
-
-                        // Redirigimos al perfil
-                        window.location.href = '/views/frontend/miPerfil.php';
                     }
                 }
             });
+
+            if (result.error) {
+                // Mostrar error al usuario
+                document.getElementById('card-errors').textContent = result.error.message;
+                botonPagar.disabled = false;
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    alert('Pago realizado con éxito!');
+
+                    // Llamamos al backend para registrar la orden
+                    await fetch('comprobacionesPago.php', {
+                        method: 'POST'
+                    });
+
+                    // Redirigimos al perfil
+                    window.location.href = '/views/frontend/miPerfil.php';
+                }
+            }
+        });
     </script>
 
     <script src="/assets/js/validacionCarrito.js"></script>

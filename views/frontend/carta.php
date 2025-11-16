@@ -31,7 +31,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 
         <?php if (
             isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) && isset($_SESSION['comanda_previa']) && $_SESSION['comanda_previa'] === '1'
-            || isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true || isset($_SESSION['confirmarModificacionReserva']) && $_SESSION['confirmarModificacionReserva'] === true
+            || isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true || isset($_SESSION['confirmarModificacionReserva']) 
+            && $_SESSION['confirmarModificacionReserva'] === true
         ) { ?>
             <section class="container_form">
                 <h2 class="titulo_form">CARTA</h2>

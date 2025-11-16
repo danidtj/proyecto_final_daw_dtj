@@ -8,6 +8,22 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+    <link rel="stylesheet" href="/assets/css/buttons.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/forms.css">
+    <link rel="stylesheet" href="/assets/css/general.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/images.css">
+    <link rel="stylesheet" href="/assets/css/list.css">
+    <link rel="stylesheet" href="/assets/css/others.css">
+    <link rel="stylesheet" href="/assets/css/plano.css">
+    <link rel="stylesheet" href="/assets/css/popup.css">
+    <link rel="stylesheet" href="/assets/css/reserva.css">
+    <link rel="stylesheet" href="/assets/css/terminos.css">
+    <link rel="stylesheet" href="/assets/css/texts.css">
+<link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
     <title>Document</title>
 </head>
 

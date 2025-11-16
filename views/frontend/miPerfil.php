@@ -9,12 +9,17 @@ require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 require_once dirname(__DIR__, 2) . '/controllers/utilidades/enviarEmail.php';
+
+$orden = new Orden();
 $nuevaReserva = new Reserva();
+
+//Almacenamos las reservas realizadas por el usuario que ha iniciado sesión
+$reservasUsuario = [];
 if (isset($_SESSION['id_usuario'])) {
     $reservasUsuario = $nuevaReserva->obtenerReservasPorUsuario($_SESSION['id_usuario']);
 }
-$orden = new Orden();
 
+//Comprobamos si la reserva recién creada tiene una orden asociada para enviar el correo de confirmación
 if (isset($_SESSION['idOrdenCreada']) && isset($_SESSION['codigo_reserva'])) {
 
     // Envío de correo de confirmación
@@ -32,7 +37,7 @@ if (isset($_SESSION['idOrdenCreada']) && isset($_SESSION['codigo_reserva'])) {
         $contenidoCorreo .= "<p>Le informamos de que el ID de su reserva es <strong>" . htmlspecialchars($reservaEmail['id_reserva']) .
             "</strong>. A continuación, encontrará los detalles:</p>";
 
-        //Mostrarle al cliente desde $reservaEmail la fecha de la reserva, la hora, el número de mesa y el de comensales
+        //Mostrarle al cliente los detalles de su reserva
         $contenidoCorreo .= "<ul>";
         $contenidoCorreo .= "<li>Fecha y hora de la reserva: " . htmlspecialchars($reservaEmail['hora_inicio']) . ".</li>";
         $contenidoCorreo .= "<li>Número de mesa: " . htmlspecialchars($reservaEmail['id_mesa']) . ".</li>";
@@ -50,8 +55,10 @@ if (isset($_SESSION['idOrdenCreada']) && isset($_SESSION['codigo_reserva'])) {
         $contenidoCorreo .= "<p>Total de la orden: " . htmlspecialchars(number_format($ordenEmail['precio_total'], 2, ',', '.')) . " €.</p>";
         $contenidoCorreo .= "<p>Pago adelantado (10%): " . htmlspecialchars(number_format($ordenEmail['precio_total'] * 0.1, 2, ',', '.')) . " €.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
-        $asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
+        //$asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
+        $asuntoCorreo = "Dentro de miPerfil el primer asunto.";
 
+        //Enviar el correo
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
 
@@ -61,6 +68,7 @@ if (isset($_SESSION['idOrdenCreada']) && isset($_SESSION['codigo_reserva'])) {
     unset($_SESSION['stripe_payment_id']);
 }
 
+//Comprobamos si la reserva modificada tiene una orden asociada para enviar el correo de modificación
 if (isset($_SESSION['idReservaModificar']) && isset($_SESSION['idOrdenModificar'])) {
 
     // Envío de correo de confirmación
@@ -87,7 +95,8 @@ if (isset($_SESSION['idReservaModificar']) && isset($_SESSION['idOrdenModificar'
         $contenidoCorreo .= "<p>Pago adelantado (10%): " . htmlspecialchars(number_format($ordenEmail['precio_total'] * 0.1, 2, ',', '.')) . " €.</p>";
         $contenidoCorreo .= "<p>Le recordamos que la devolución de su anterior pago se realizará en un plazo de 5-7 días hábiles.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
-        $asuntoCorreo = "Modificación de su orden en Restaurante XITO";
+        //$asuntoCorreo = "Modificación de su orden en Restaurante XITO";
+        $asuntoCorreo = "Dentro de miPerfil el segundo asunto.";
 
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
@@ -98,17 +107,21 @@ if (isset($_SESSION['idReservaModificar']) && isset($_SESSION['idOrdenModificar'
     unset($_SESSION['stripe_payment_id']);
 }
 
-
+//Comprobamos si se quiere modificar una reserva con orden asociada
 if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_POST['id_reserva'])) {
 
     $_SESSION['carrito'] = [];
     $_SESSION['modificar_orden'] = true;
 
+    //Almacenamos los productos de la orden
     $recuperarOrden = $orden->obtenerProductosPorOrden($_POST['id_orden']);
+
     foreach ($recuperarOrden as $productoOrden) {
+        //Datos del producto
         $datosProducto = Producto::getUnProducto($productoOrden['id_producto']);
         if (!empty($datosProducto)) {
             foreach (range(1, $productoOrden['cantidad_pedido']) as $i) {
+
                 $_SESSION['carrito'][] = [
                     'id_producto' => $productoOrden['id_producto'],
                     //'cantidad_pedido' => $productoOrden['cantidad_pedido'],
@@ -117,6 +130,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                     'precio_unitario' => $datosProducto['precio_unitario'],
                     //'id_reserva' => $_POST['id_reserva']
                 ];
+
                 $_SESSION['orden_original'][] = [
                     'cantidad_pedido' => $productoOrden['cantidad_pedido'],
                     'id_orden' => $productoOrden['id_orden'],
@@ -311,7 +325,8 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                     $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
 
-                    $asuntoCorreo = "Cancelación de su reserva en Restaurante XITO";
+                    //$asuntoCorreo = "Cancelación de su reserva en Restaurante XITO";
+                    $asuntoCorreo = "Dentro de miPerfil el tercer asunto.";
 
                     $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
                 }
@@ -343,7 +358,8 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                 $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
 
-                $asuntoCorreo = "Cancelación de su orden en Restaurante XITO";
+                //$asuntoCorreo = "Cancelación de su orden en Restaurante XITO";
+                $asuntoCorreo = "Dentro de miPerfil el cuarto asunto.";
 
                 $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
             }

@@ -22,6 +22,82 @@ class ReservaController
     {
         require_once dirname(__DIR__, 2) . '/views/frontend/reserva.php';
     }
+
+    public function crearOrdenReservaExistente()
+    {
+        $reserva = new Reserva();
+        $orden = new Orden();
+
+        $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
+
+        $orden->crearOrden(
+            $_SESSION['id_reserva'],
+            'Tarjeta de crédito',
+            $_SESSION['precioTotalCarrito'],
+            $_SESSION['nuevoPagoAdelantado'],
+            $stripePaymentId
+        );
+
+        $reserva->modificarReserva(
+            $_SESSION['id_reserva'],
+            $_SESSION['mesa_id'],
+            $_SESSION['fecha'],
+            $_SESSION['hora_inicio'],
+            $_SESSION['numero_comensales'],
+            $_SESSION['mod_reserva_sin_comanda']
+        );
+
+        /*unset($_SESSION['confirmarModificacionReserva']);
+        unset($_SESSION['id_reserva']);
+        unset($_SESSION['fecha']);
+        unset($_SESSION['hora_inicio']);
+        unset($_SESSION['numero_comensales']);
+        unset($_SESSION['mod_reserva_sin_comanda']);
+        unset($_SESSION['stripe_payment_id']);*/
+        $_SESSION['carrito'] = [];
+    }
+
+    public function crearOrdenYReserva()
+    {
+        $reserva = new Reserva();
+        $orden = new Orden();
+        $codigo_reserva = $reserva->realizarReserva(
+            $_SESSION['fecha'],
+            $_SESSION['hora_inicio'],
+            $_SESSION['numero_comensales'],
+            $_SESSION['comanda_previa'],
+            $_SESSION['mesa_id'],
+            $_SESSION['id_usuario']
+        );
+
+        // Almacenamos el id de la nueva reserva en session
+        $_SESSION['id_reserva_nueva'] = $codigo_reserva;
+        $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
+
+        $idOrdenCreada = $orden->crearOrden(
+            $_SESSION['id_reserva_nueva'],
+            'Tarjeta de crédito',
+            $_SESSION['precioTotalCarrito'],
+            $_SESSION['nuevoPagoAdelantado'],
+            $stripePaymentId
+        );
+
+        if (isset($codigo_reserva) && isset($idOrdenCreada)) {
+            $_SESSION['codigo_reserva'] = $codigo_reserva;
+            $_SESSION['idOrdenCreada'] = $idOrdenCreada;
+        }
+
+        $_SESSION['carrito'] = [];
+        /*unset($_SESSION['confirmarReserva']);
+        unset($_SESSION['comanda_previa']);
+        
+        unset($_SESSION['id_reserva_nueva']);
+        unset($_SESSION['stripe_payment_id']);
+        unset($_SESSION['mesa_id']);
+        unset($_SESSION['fecha']);
+        unset($_SESSION['hora_inicio']);
+        unset($_SESSION['numero_comensales']);*/
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) {
@@ -87,7 +163,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
                 $contenidoCorreo .= "<p>Le recordamos que la duración de la reserva es de 1 hora y 30 minutos.</p>";
                 $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO.</p>";
 
-                $asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
+                //$asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
+                $asuntoCorreo = "Dentro de RC en el primer asunto.";
 
                 $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
             }
@@ -110,7 +187,11 @@ if (isset($_POST['modificarReserva'])) {
     $_SESSION['fecha'] = $_POST['fecha'];
     $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
     $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
-    //$_SESSION['comanda_previa'] = $_POST['comanda_previa'];
+    if ($_POST['comanda_previa'] === "1") {
+        $_SESSION['mod_reserva_sin_comanda'] = "1";
+    } else {
+        $_SESSION['mod_reserva_sin_comanda'] = "0";
+    }
     //$_SESSION['id_mesa'] = $_POST['id_mesa'];
 }
 
@@ -125,7 +206,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
         $idReservasHoy = array_column($idReservasUsuarioFechaActual, 'id_reserva');
 
         if (in_array($_SESSION['id_reserva'], $idReservasHoy)) {
-            if ($_SESSION['comanda_previa'] === "1") {
+            if ($_SESSION['mod_reserva_sin_comanda'] === "1") {
                 $_SESSION['mesa_id'] = $_POST['mesa_id'];
                 //Si el usuario ha hecho una comanda previa, redirige a la carta
                 header("Location: /views/frontend/carta.php");
@@ -137,8 +218,14 @@ if (isset($_POST['confirmarModificacionReserva'])) {
                     $_SESSION['fecha'],
                     $_SESSION['hora_inicio'],
                     $_SESSION['numero_comensales'],
-                    $_SESSION['comanda_previa']
+                    $_SESSION['mod_reserva_sin_comanda']
                 );
+
+                /*unset($_SESSION['id_reserva']);
+                unset($_SESSION['fecha']);
+                unset($_SESSION['hora_inicio']);
+                unset($_SESSION['numero_comensales']);
+                unset($_SESSION['mod_reserva_sin_comanda']);*/
             }
         } else {
         ?>
@@ -155,7 +242,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
 <?php
         }
     } else {
-        if ($_SESSION['comanda_previa'] === "1") {
+        if ($_SESSION['mod_reserva_sin_comanda'] === "1") {
             $_SESSION['mesa_id'] = $_POST['mesa_id'];
             //Si el usuario ha hecho una comanda previa, redirige a la carta
             header("Location: /views/frontend/carta.php");
@@ -167,8 +254,14 @@ if (isset($_POST['confirmarModificacionReserva'])) {
                 $_SESSION['fecha'],
                 $_SESSION['hora_inicio'],
                 $_SESSION['numero_comensales'],
-                $_SESSION['comanda_previa']
+                $_SESSION['mod_reserva_sin_comanda']
             );
+
+            /* unset($_SESSION['id_reserva']);
+            unset($_SESSION['fecha']);
+            unset($_SESSION['hora_inicio']);
+            unset($_SESSION['numero_comensales']);
+            unset($_SESSION['mod_reserva_sin_comanda']);*/
         }
     }
 
@@ -232,15 +325,14 @@ if (isset($_POST['confirmarModificacionReserva'])) {
     $emailDestinatario = $_SESSION['email_usuario'];
     $nombreDestinatario = $_SESSION['nombre_usuario'];
 
-    $reservaEmail = $reserva->obtenerReservaPorCodigo($idReservaEmail);
+    $datosReserva = $reserva->obtenerReservaPorCodigo($_SESSION['id_reserva']);
 
     $contenidoCorreo = "";
 
-    if (!empty($reservaEmail)) {
-
+    if (!empty($datosReserva)) {
         $contenidoCorreo = "<h2>Modificación de su reserva en Restaurante XITO</h2>";
         $contenidoCorreo .= "<p>Estimado/a " . htmlspecialchars($nombreDestinatario) . ",</p>";
-        $contenidoCorreo .= "<p>Su reserva con ID <strong>" . htmlspecialchars($reservaEmail['id_reserva']) .
+        $contenidoCorreo .= "<p>Su reserva con ID <strong>" . htmlspecialchars($datosReserva['id_reserva']) .
             "</strong> ha sido modificada con éxito. A continuación, encontrará los detalles de su reserva:</p>";
 
         //Mostrarle al cliente desde $reservaEmail la fecha de la reserva, la hora, el número de mesa y el de comensales
@@ -254,7 +346,10 @@ if (isset($_POST['confirmarModificacionReserva'])) {
         $contenidoCorreo .= "<p>Le recordamos que la duración de la reserva es de 1 hora y 30 minutos.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
 
-        $asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
+        //$asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
+        $asuntoCorreo = "Dentro de RC en el segundo asunto.";
+
+        enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
 
 

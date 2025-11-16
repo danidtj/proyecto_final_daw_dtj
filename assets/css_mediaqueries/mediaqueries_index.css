@@ -1,0 +1,15 @@
+@media (max-width: 1140px) {
+  .container_info{
+    background-color:white;
+        width: 900px;    
+    }
+    .container_video video{
+        width: 900px;
+    }   
+    .tabla{
+        width: 900px;
+    }
+    .tabla tbody{
+        width: 900px;
+    }
+}

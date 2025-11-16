@@ -1,3 +1,9 @@
+<?php 
+session_start();
+
+require_once dirname(__DIR__, 2) . '/controllers/utilidades/enviarEmail.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +17,10 @@
     <title>Restaurante XITO</title>
 </head>
 
+<?php
+
+
+?>
 
 <body>
         <hr id="hr1">
@@ -21,7 +31,7 @@
         <main>
         <section class="container_form">
             <h2 class="titulo_form">Formulario de contacto</h2>
-                <form action="/controllers/frontend/ContactoController.php" method="post" class="formulario">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="formulario">
                     <div><label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required></div>
                     <div><label for="email">Email de contacto:</label>

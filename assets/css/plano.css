@@ -1,0 +1,75 @@
+.tabla{
+    width: 1000px;
+    height: 400px;
+    margin: 0 auto;
+    border: 2px solid grey;
+    background-color: white;
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
+}
+
+.celda{
+   width: auto; 
+   /*padding: 10px;*/
+   margin: 0;
+}
+
+.celda:hover span{
+    background-color: #0ff;
+    box-shadow: 0 0 5px grey, 0 0 10px grey;
+}
+
+.silla1, .mesa, .silla2, .silla3, .silla4{
+    display: inline-block;
+    background-color: grey;
+    border: 1px solid grey;
+    position: relative;
+}
+
+.silla1, .silla2, .silla3, .silla4{
+    width: 10px;
+    height: 10px;
+    position: relative;
+}
+
+.silla1{
+    border-radius: 12px 0 0 12px;
+    left: 25px;
+    top: 43px;
+}
+
+.silla2{
+    border-radius: 0 12px 12px 0;
+    left: 74px;
+    top: 43px;
+}
+
+.silla3{
+    border-radius: 12px 0 0 12px;  
+    left: 25px;
+    bottom: 45px;
+}
+
+.silla4{
+    border-radius: 0 12px 12px 0;
+    left: 74px;
+    bottom: 45px;
+}
+
+.mesa{
+    width: 10px;
+    height: 80px;
+    border-radius: 5px;
+    margin: 0 62px 0 61px;
+}
+
+.mesa-no-disponible {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.container_plano{
+    margin: 4rem auto 7rem auto;
+    width: auto;
+    /*background-color: white;*/
+}

@@ -46,7 +46,7 @@
                 <div>
                     <label for="email_usuario">Email:</label><br>
                     <input type="email" name="email_usuario" id="email_usuario" title="Introduzca su email" placeholder="email@email.com"
-                        pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" required aria-required="true" />
+                        required aria-required="true" />
                     <p class="mensaje-error" id="error-email" role="alert" aria-live="assertive"></p><!-- Espacio para imprimir por pantalla el mensaje de error en validación -->
                 </div>
                 <div>
@@ -78,7 +78,7 @@
             p.type = p.type === "password" ? "text" : "password";
         };
     </script>
-
+     <script src="/assets/js/validacionRegistro.js"></script>
 </body>
 
 </html>

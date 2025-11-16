@@ -1,6 +1,6 @@
 <?php
 
-
+session_start();
 if (!isset($_SESSION['id_usuario'])) {
 
     header("Location: home");
@@ -11,7 +11,7 @@ use ControllerFrontend\CarritoController;
 use ModelsFrontend\Orden;
 use ModelsFrontend\Reserva;
 
-session_start();
+
 
 require_once dirname(__DIR__, 2) . '/config/DB.php';
 

@@ -1,5 +1,5 @@
 /* Fondo oscuro del pop-up */
-.popup {
+.popup, #popup-modificar-reserva {
   display: flex; /* visible cuando el PHP lo carga */
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -10,7 +10,7 @@
 }
 
 /* Caja blanca del contenido */
-.popup-contenido {
+.popup-contenido, #popup-modificar-reserva .popup-contenido {
   background: #fff;
   padding: 25px;
   border-radius: 10px;
@@ -21,7 +21,7 @@
 }
 
 /* Botón de cierre (X) */
-#cerrar {
+#cerrar, #cerrar-modificar-reserva {
   position: absolute;
   top: 10px;
   right: 15px;
@@ -30,12 +30,12 @@
   color: #888;
 }
 
-#cerrar:hover {
+#cerrar:hover, #cerrar-modificar-reserva:hover {
   color: #333;
 }
 
 /* Botón Aceptar */
-#aceptar {
+#aceptar, #aceptar-modificar-reserva {
   margin-top: 15px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -45,12 +45,12 @@
   cursor: pointer;
 }
 
-#aceptar:hover {
+#aceptar:hover, #aceptar-modificar-reserva:hover {
   background-color: #0056b3;
 }
 
 /* Botón Cancelar */
-#cancelar {
+#cancelar, #cancelar-modificar-reserva {
   margin-top: 15px;
   margin-left: 10px;
   padding: 10px 20px;
@@ -61,7 +61,9 @@
   cursor: pointer;
 }
 
-#cancelar:hover {
+#cancelar:hover, #cancelar-modificar-reserva:hover {
   background-color: #aaa;
 }
+
+
 

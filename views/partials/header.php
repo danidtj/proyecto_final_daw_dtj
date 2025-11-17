@@ -27,6 +27,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="/assets/css/terminos.css">
     <link rel="stylesheet" href="/assets/css/texts.css">
     <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
+    <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_forms.css">
     <title>Document</title>
 </head>
 

@@ -41,9 +41,9 @@ if (isset($_POST['formularioContacto'])) {
 <body>
     <?php include_once __DIR__ . '/../partials/header.php'; ?>
     <main>
-        <section class="container_form">
+        <section class="container_form formulario_contacto">
             <h2 class="titulo_form">Formulario de contacto</h2>
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="formulario">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="formulario formulario_contacto">
                 <div><label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre" title="Introduzca su nombre" minlength="2" maxlength="20"
                         pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ]{2,20}" required aria-required="true" required>

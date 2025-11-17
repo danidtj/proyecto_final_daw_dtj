@@ -17,3 +17,4 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target === popup) cerrarPopup();
     });
 });
+

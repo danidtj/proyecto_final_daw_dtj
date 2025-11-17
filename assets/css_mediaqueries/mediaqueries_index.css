@@ -1,16 +1,69 @@
-/*@media (max-width: 1140px) {
-  .container_info{
-    background-color:white;
-        width: 900px;    
-    }
-    .container_video video{
-        width: 900px;
-    }   
-    .tabla{
+@media (max-width: 1140px) {
+    .container_info {
+        background-color: white;
         width: 900px;
     }
-    .tabla tbody{
+
+    .container_video video {
         width: 900px;
+    }
+
+    .tabla {
+        width: 900px;
+    }
+
+    .tabla tbody {
+        width: 900px;
+    }
+
+    .silla1,
+    .mesa,
+    .silla2,
+    .silla3,
+    .silla4 {
+        display: inline-block;
+        background-color: grey;
+        border: 1px solid grey;
+        position: relative;
+    }
+
+    .mesa {
+        width: 30px;
+        height: 60px;
+        border-radius: 5px;
+        margin: 0 42px 0 42px;
+    }
+
+    .silla1,
+    .silla2,
+    .silla3,
+    .silla4 {
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+    .silla1 {
+        border-radius: 12px 0 0 12px;
+        left: 25px;
+        top: 43px;
+    }
+
+    .silla2 {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        top: 43px;
+    }
+
+    .silla3 {
+        border-radius: 12px 0 0 12px;
+        left: 25px;
+        bottom: 45px;
+    }
+
+    .silla4 {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        bottom: 45px;
     }
 }
-*/

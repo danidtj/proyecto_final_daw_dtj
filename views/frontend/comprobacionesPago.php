@@ -38,7 +38,8 @@ if (isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true
     }
 
     //Confirmamos si se quiere modificar una reserva existente sin orden y se le asocia una
-    if (isset($_SESSION['confirmarModificacionReserva']) && $_SESSION['confirmarModificacionReserva'] === true) {
+    if (isset($_SESSION['confirmarModificacionReserva']) && $_SESSION['confirmarModificacionReserva'] === true && 
+    isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") {
 
         $reservaController->crearOrdenReservaExistente();
     }

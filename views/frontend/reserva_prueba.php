@@ -30,26 +30,29 @@ $orden = new Orden();
 </head>
 
 <body>
-    <?php include_once __DIR__ . '/../partials/header.php'; ?>
+    <?php include_once __DIR__ . '/../partials/header.php';
 
-    <main>
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar']) || isset($_POST['modificarReserva'])):
 
-        <?php if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar']) || isset($_POST['modificarReserva'])):
-            unset($_SESSION['modificar_reserva']);
-            unset($_SESSION['fecha']);
-            unset($_SESSION['hora_inicio']);
-            unset($_SESSION['numero_comensales']);
-            //unset($_SESSION['id_reserva']);
-            unset($_SESSION['id_mesa']);
-            //unset($_SESSION['mod_reserva_sin_comanda']);
-            unset($_SESSION['comanda_previa']);
-            unset($_SESSION['id_reserva_nueva']);
-            unset($_SESSION['codigo_reserva']);
-            unset($_SESSION['idOrdenCreada']);
-            unset($_SESSION['confirmarReserva']);
-            unset($_SESSION['confirmarModificacionReserva']);
+        unset($_SESSION['modificar_reserva']);
+        unset($_SESSION['fecha']);
+        unset($_SESSION['hora_inicio']);
+        unset($_SESSION['numero_comensales']);
+        //unset($_SESSION['id_reserva']);
+        unset($_SESSION['id_mesa']);
+        //unset($_SESSION['mod_reserva_sin_comanda']);
+        unset($_SESSION['comanda_previa']);
+        unset($_SESSION['id_reserva_nueva']);
+        unset($_SESSION['codigo_reserva']);
+        unset($_SESSION['idOrdenCreada']);
+        unset($_SESSION['confirmarReserva']);
+        unset($_SESSION['confirmarModificacionReserva']);
 
-        ?>
+
+
+    ?>
+
+        <main>
             <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
             <section class="container_form">
 
@@ -67,28 +70,33 @@ $orden = new Orden();
 
                     <!-- Hora -->
                     <div>
+                        <?php
+                        //Almacenamos la hora actual
+                        $hora_actual = date("H:i");
+                        //Almacenamos las horas disponibles para reservar
+                        $horas_mediodia = ["13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"];
+                        $horas_noche = ["20:30", "21:00", "21:30", "22:00", "22:30", "23:00", "23:30"];
+                        ?>
+
                         <label for="hora_inicio">Hora:</label>
                         <select id="hora_inicio" name="hora_inicio" required>
+                            <!-- Los diferentes option aparecerán siempre que la hora sea posterior a la actual -->
                             <optgroup label="Mediodía">
-                                <option value="13:30">13:30</option>
-                                <option value="14:00">14:00</option>
-                                <option value="14:30">14:30</option>
-                                <option value="15:00">15:00</option>
-                                <option value="15:30">15:30</option>
-                                <option value="16:00">16:00</option>
-                                <option value="16:30">16:30</option>
-                                <option value="17:00">17:00</option>
+                                <?php foreach ($horas_mediodia as $hora): ?>
+                                    <?php if ($hora > $hora_actual): ?>
+                                        <option value="<?= $hora ?>"><?= $hora ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </optgroup>
+
                             <optgroup label="Noche">
-                                <option value="18:30">18:30</option>
-                                <option value="20:52">20:52</option>
-                                <option value="21:00">21:00</option>
-                                <option value="21:30">21:30</option>
-                                <option value="22:00">22:00</option>
-                                <option value="22:30">22:30</option>
-                                <option value="23:00">23:00</option>
-                                <option value="23:30">23:30</option>
+                                <?php foreach ($horas_noche as $hora): ?>
+                                    <?php if ($hora > $hora_actual): ?>
+                                        <option value="<?= $hora ?>"><?= $hora ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </optgroup>
+
                         </select>
 
 
@@ -119,7 +127,7 @@ $orden = new Orden();
                     //$ordenReserva = $orden->obtenerOrdenPorCodigoReserva($_SESSION['id_reserva']);
                     if (
                         isset($_POST['modificarReserva']) && isset($_SESSION['mod_reserva_sin_comanda']) &&
-                        $_SESSION['mod_reserva_sin_comanda'] == "0"
+                        $_SESSION['mod_reserva_sin_comanda'] === "0"
                     ) {
                     ?>
                         <!-- Comanda -->
@@ -184,11 +192,10 @@ $orden = new Orden();
                 unset($_SESSION['numero_comensales']);
                 unset($_SESSION['comanda_previa']);
 
-                if ($_POST['comanda_previa'] == "0") {
+                if ($_SESSION['mod_reserva_sin_comanda'] === "0") {
                     $_SESSION['mod_reserva_sin_comanda'] = $_POST['comanda_previa'];
                 } else {
-                    unset($_SESSION['mod_reserva_sin_comanda']);
-                    $_SESSION['mod_reserva_con_comanda'] = $_POST['comanda_previa'];
+                    $_SESSION['mod_reserva_sin_comanda'] = $_SESSION['mod_reserva_sin_comanda'];
                 }
             } else {
                 $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
@@ -214,8 +221,6 @@ $orden = new Orden();
             <section class="container_form">
                 <?php
                 if (isset($_POST['reservar']) || isset($_POST['modificar'])) { ?>
-
-
 
                     <!-- Fecha -->
                     <div>
@@ -246,37 +251,30 @@ $orden = new Orden();
                     </div>
 
                     <!-- Comanda -->
-                    <?php if (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] == "0") { ?>
+                    <?php if (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] === "0") { ?>
                         <div>
                             <p>¿Quieres realizar ya tu orden?</p>
-                            <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['mod_reserva_sin_comanda'] == '1' ? 'checked' : ''; ?>> Sí</label>
-                            <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['mod_reserva_sin_comanda'] == '0' ? 'checked' : ''; ?>> No</label>
+                            <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['mod_reserva_sin_comanda'] === '1' ? 'checked' : ''; ?>> Sí</label>
+                            <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['mod_reserva_sin_comanda'] === '0' ? 'checked' : ''; ?>> No</label>
 
                             <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                         </div>
 
-                    <?php } elseif (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") { ?>
-                        <div>
-                            <p>¿Quieres realizar ya tu orden?</p>
-                            <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['mod_reserva_con_comanda'] == '1' ? 'checked' : ''; ?>> Sí</label>
-                            <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['mod_reserva_con_comanda'] == '0' ? 'checked' : ''; ?>> No</label>
-
-                            <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
-                        </div>
-                        <?php
-
+                    <?php } elseif (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] === "1") {
+                        unset($_SESSION['mod_reserva_sin_comanda']);
+                        $_SESSION['mod_reserva_con_comanda'] = "1";
                     } else {
-                        if (!isset($_POST['modificar'])) {
-                        ?>
-                            <!-- Comanda -->
-                            <div>
-                                <p>¿Quieres realizar ya tu orden?</p>
-                                <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['comanda_previa'] == '1' ? 'checked' : ''; ?>> Sí</label>
-                                <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['comanda_previa'] == '0' ? 'checked' : ''; ?>> No</label>
+                        //if (!isset($_POST['modificar'])) { 
+                    ?>
+                        <!-- Comanda -->
+                        <div>
+                            <p>¿Quieres realizar ya tu orden?</p>
+                            <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['comanda_previa'] === '1' ? 'checked' : ''; ?>> Sí</label>
+                            <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['comanda_previa'] === '0' ? 'checked' : ''; ?>> No</label>
 
-                                <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
-                            </div>
-                <?php }
+                            <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                        </div>
+                <?php
                     }
                 } ?>
 
@@ -344,24 +342,24 @@ $orden = new Orden();
             </section>
 
         <?php endif; ?>
-    </main>
+        </main>
 
-    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
-
-
-
-    <!--  <script src="/assets/js/validacionReserva.js"></script> -->
+        <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
 
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']) || isset($_POST['confirmarModificacionReserva']))): ?>
 
-        <script src="/assets/js/validacionMesa.js"></script>
-        
+        <!--  <script src="/assets/js/validacionReserva.js"></script> -->
 
-    <?php endif; ?>
 
-    <script src="/assets/js/horasReserva.js"></script>
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']) || isset($_POST['confirmarModificacionReserva']))): ?>
+
+            <script src="/assets/js/validacionMesa.js"></script>
+
+        <?php endif; ?>
+
+
+
 </body>
 
 

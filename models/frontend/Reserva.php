@@ -430,4 +430,27 @@ class Reserva
             throw new Exception("Error al modificar la comanda previa de la reserva: " . $e->getMessage());
         }
     }
+
+    //Método para obtener las reservas de un usuario en una fecha concreta y devuelve id_reserva
+    public function obtenerReservasUsuarioEnFechaConcreta($id_usuario, $fecha)
+    {
+        try {
+            $sql = "SELECT reservas_mesas.id_reserva 
+                FROM reservas_mesas
+                JOIN reservas ON reservas_mesas.id_reserva = reservas.id_reserva
+                WHERE id_usuario = :id_usuario
+                AND fecha = :fecha";
+
+            $stmt = $this->connection->prepare($sql);
+            $stmt->bindParam(':id_usuario', $id_usuario);
+            $stmt->bindParam(':fecha', $fecha);
+            $stmt->execute();
+
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+        } catch (PDOException $e) {
+            throw new Exception("Error al obtener las reservas del usuario en la fecha concreta: " . $e->getMessage());
+        }
+    }
 }

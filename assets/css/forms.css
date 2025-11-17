@@ -90,6 +90,96 @@ select>option {
     width: 60%;
 }
 
+/*FORMULARIO CONTACTO.PHP*/
+.formulario formulario_contacto {
+ 
+    width: 1000px;               
+    height: auto;                
+    margin: 0 auto;               
+
+    padding: 20px 20px 20px 20px; 
+    border: 2px solid grey;       
+    border-radius: 1rem;          
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey; 
+    background-color: white;     
+    box-sizing: border-box;   
+}
+
+.formulario_contacto div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;            
+}
+
+.formulario_contacto input,
+.formulario_contacto textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.btn_contacto {
+    padding: 10px 20px;
+    cursor: pointer;
+    align-self: center;     
+}
+
+
+/*FORMULARIO NUEVOSPRODUCTOS.PHP*/
+/* Contenedor principal centrado en la página */
+.formulario_productos {
+         width: 600px;
+         justify-items: center;
+}
+
+/* Formulario con estilo de caja y apilado vertical */
+.formulario_nuevoProducto {
+                 /* espacio entre cada campo */
+    
+    width: 500px;            /* ancho fijo */
+    height: auto;             /* altura según contenido */
+    padding: 20px;
+    border: 2px solid grey;
+    border-radius: 1rem;
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
+    background-color: white;
+    box-sizing: border-box;
+    margin-top: 10px;       /* separa el h2 del formulario */
+}
+
+/* H2 alineado al centro y encima del formulario */
+.formulario_productos .titulo_form {
+    width: 500px;           /* mismo ancho que el formulario */
+    text-align: center;       /* centra el texto del título */
+    margin-bottom: 10px;  
+    margin-bottom: 50px; 
+    justify-items: center;  /* separación del formulario */
+}
+
+/* Cada campo ocupa todo el ancho */
+.formulario_nuevoProducto p,
+.formulario_nuevoProducto input,
+.formulario_nuevoProducto select {
+    
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Inputs y selects con padding */
+.formulario_nuevoProducto input,
+.formulario_nuevoProducto select {
+    
+    padding: 8px;
+    margin-top: 5px; /* separación del label/p */
+}
+
+/* Botón centrado */
+.btn_crearProducto {
+    padding: 10px 20px;
+    cursor: pointer;
+    align-self: center;  /* asegura que el botón esté centrado debajo de todos los campos */
+}
 
 
 

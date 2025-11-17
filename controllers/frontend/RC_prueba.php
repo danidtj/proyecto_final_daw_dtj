@@ -15,6 +15,7 @@ require_once dirname(__DIR__) . '/utilidades/enviarEmail.php';
 
 $reserva = new Reserva();
 $orden = new Orden();
+
 class ReservaController
 {
     //Método para mostar la vista de Reserva
@@ -54,7 +55,9 @@ class ReservaController
         unset($_SESSION['fecha']);
         unset($_SESSION['hora_inicio']);
         unset($_SESSION['numero_comensales']);
+        unset($_SESSION['mod_reserva_sin_comanda']);
         unset($_SESSION['mod_reserva_con_comanda']);
+        unset($_SESSION['comanda_previa']);
 
         $_SESSION['carrito'] = [];
     }
@@ -63,6 +66,7 @@ class ReservaController
     {
         $reserva = new Reserva();
         $orden = new Orden();
+
         $codigo_reserva = $reserva->realizarReserva(
             $_SESSION['fecha'],
             $_SESSION['hora_inicio'],
@@ -119,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
             </div>
         </div>
         <script src="/assets/js/popupReserva.js"></script>
-    <?php
+        <?php
     } else {
 
         $_SESSION['confirmarReserva'] = true;
@@ -171,12 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
                 $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
             }
 
-            unset(
-                $_SESSION['fecha'],
-                $_SESSION['hora_inicio'],
-                $_SESSION['numero_comensales'],
-                $_SESSION['comanda_previa']
-            );
+
 
             //Almacenamos el id de la nueva reserva en session
             //$_SESSION['id_reserva_nueva'] = $codigo_reserva;
@@ -195,9 +194,8 @@ if (isset($_POST['modificarReserva'])) {
     $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
     $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
 
-    if ($_POST['comanda_previa'] == "1") {
-        $_SESSION['mod_reserva_con_comanda'] = "1";
-        $_SESSION['mod_reserva_con_comanda_original'] = "1";
+    if ($_POST['comanda_previa'] === "1") {
+        $_SESSION['mod_reserva_sin_comanda'] = "1";
     } else {
         $_SESSION['mod_reserva_sin_comanda'] = "0";
     }
@@ -209,14 +207,12 @@ if (isset($_POST['confirmarModificacionReserva'])) {
 
     $_SESSION['confirmarModificacionReserva'] = true;
 
-    $siUsuarioTieneYaReserva = $reserva->obtenerReservasUsuarioEnFechaConcreta($_SESSION['id_usuario'], $_SESSION['fecha']);
-
-    // Convertimos a lista única de IDs
-    $idsReserva = array_unique(array_column($siUsuarioTieneYaReserva, 'id_reserva'));
-
-    //Tiene otra reserva distinta a la que quiere modificar en esa fecha
-    if (count($idsReserva) > 1 || (count($idsReserva) == 1 && $idsReserva[0] != $_SESSION['id_reserva'])) {
+    //Almacenamos el número de reservas que el usuario tiene en la fecha seleccionada
+    $siUsuarioTieneYaReserva = $reserva->obtenerReservasUsuarioEnFechaConcreta($_SESSION['id_usuario'], $_SESSION['fecha'], $_SESSION['id_reserva']);
+    //En caso de tener ya una reserva en esa fecha, mostramos un pop-up indicándoselo
+    if (!empty($siUsuarioTieneYaReserva) && $siUsuarioTieneYaReserva['id_reserva'] != $_SESSION['id_reserva']) {
     ?>
+        ?>
         <div id="popup-modificar-reserva" class="popup">
             <div class="popup-contenido">
                 <span id="cerrar-modificar-reserva">&times;</span>
@@ -227,18 +223,20 @@ if (isset($_POST['confirmarModificacionReserva'])) {
         </div>
         <script src="/assets/js/popupModificarReserva.js"></script>
 <?php
-        exit();
+        // No redirigir aquí; JS se encargará
+        exit(); // Salimos para no procesar el resto del PHP
+
+
     }
 
-    //La reserva a modificar es la misma que la que ya tiene en esa fecha
-    if (count($idsReserva) == 1 && $idsReserva[0] == $_SESSION['id_reserva']) {
+    if (!empty($siUsuarioTieneYaReserva) && $siUsuarioTieneYaReserva['id_reserva'] == $_SESSION['id_reserva']) {
 
         if (isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") {
             $_SESSION['mesa_id'] = $_POST['mesa_id'];
+            //Si el usuario ha hecho una comanda previa, redirige a la carta
             header("Location: /views/frontend/carta.php");
             exit();
         } elseif (isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] == "0") {
-
             $reserva->modificarReserva(
                 $_SESSION['id_reserva'],
                 $_POST['mesa_id'],
@@ -247,10 +245,14 @@ if (isset($_POST['confirmarModificacionReserva'])) {
                 $_SESSION['numero_comensales'],
                 $_SESSION['mod_reserva_sin_comanda']
             );
+            unset($_SESSION['fecha']);
+            unset($_SESSION['hora_inicio']);
+            unset($_SESSION['numero_comensales']);
+            unset($_SESSION['mod_reserva_sin_comanda']);
+            //unset($_SESSION['id_reserva']);
 
-            unset($_SESSION['fecha'], $_SESSION['hora_inicio'], $_SESSION['numero_comensales'], $_SESSION['mod_reserva_sin_comanda']);
         } elseif (isset($_SESSION['mod_reserva_con_comanda_original']) && $_SESSION['mod_reserva_con_comanda_original'] == "1") {
-
+            //Si el usuario cambia de tener comanda previa a no tenerla
             $reserva->modificarReserva(
                 $_SESSION['id_reserva'],
                 $_POST['mesa_id'],
@@ -259,26 +261,22 @@ if (isset($_POST['confirmarModificacionReserva'])) {
                 $_SESSION['numero_comensales'],
                 $_SESSION['mod_reserva_con_comanda_original']
             );
-
-            unset(
-                $_SESSION['fecha'],
-                $_SESSION['hora_inicio'],
-                $_SESSION['numero_comensales'],
-                $_SESSION['mod_reserva_con_comanda'],
-                $_SESSION['mod_reserva_con_comanda_original']
-            );
+            unset($_SESSION['fecha']);
+            unset($_SESSION['hora_inicio']);
+            unset($_SESSION['numero_comensales']);
+            unset($_SESSION['mod_reserva_con_comanda']);
+            unset($_SESSION['mod_reserva_con_comanda_original']);
+            //unset($_SESSION['id_reserva']);
         }
     }
 
-    //Si no tiene ninguna reserva en esa fecha
-    if (count($idsReserva) == 0) {
-
+    if (empty($siUsuarioTieneYaReserva)) {
         if (isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") {
             $_SESSION['mesa_id'] = $_POST['mesa_id'];
+            //Si el usuario ha hecho una comanda previa, redirige a la carta
             header("Location: /views/frontend/carta.php");
             exit();
         } elseif (isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] == "0") {
-
             $reserva->modificarReserva(
                 $_SESSION['id_reserva'],
                 $_POST['mesa_id'],
@@ -287,10 +285,14 @@ if (isset($_POST['confirmarModificacionReserva'])) {
                 $_SESSION['numero_comensales'],
                 $_SESSION['mod_reserva_sin_comanda']
             );
+            unset($_SESSION['fecha']);
+            unset($_SESSION['hora_inicio']);
+            unset($_SESSION['numero_comensales']);
+            unset($_SESSION['mod_reserva_sin_comanda']);
+            //unset($_SESSION['id_reserva']);
 
-            unset($_SESSION['fecha'], $_SESSION['hora_inicio'], $_SESSION['numero_comensales'], $_SESSION['mod_reserva_sin_comanda']);
         } elseif (isset($_SESSION['mod_reserva_con_comanda_original']) && $_SESSION['mod_reserva_con_comanda_original'] == "1") {
-
+            //Si el usuario cambia de tener comanda previa a no tenerla
             $reserva->modificarReserva(
                 $_SESSION['id_reserva'],
                 $_POST['mesa_id'],
@@ -299,26 +301,19 @@ if (isset($_POST['confirmarModificacionReserva'])) {
                 $_SESSION['numero_comensales'],
                 $_SESSION['mod_reserva_con_comanda_original']
             );
-
-            unset(
-                $_SESSION['fecha'],
-                $_SESSION['hora_inicio'],
-                $_SESSION['numero_comensales'],
-                $_SESSION['mod_reserva_con_comanda'],
-                $_SESSION['mod_reserva_con_comanda_original']
-            );
+            unset($_SESSION['fecha']);
+            unset($_SESSION['hora_inicio']);
+            unset($_SESSION['numero_comensales']);
+            unset($_SESSION['mod_reserva_con_comanda']);
+            unset($_SESSION['mod_reserva_con_comanda_original']);
+            //unset($_SESSION['id_reserva']);
         }
     }
-
-
-
-
-
 
 
 
     //Almacenamos el número de reservas que el usuario tiene en la fecha seleccionada
-    //$siUsuarioTieneYaReservaEnFecha = $reserva->usuarioTieneReservaEnFecha($_SESSION['id_usuario'], $_SESSION['fecha']);
+    $siUsuarioTieneYaReservaEnFecha = $reserva->usuarioTieneReservaEnFecha($_SESSION['id_usuario'], $_SESSION['fecha']);
     //En caso de tener ya una reserva en esa fecha, mostramos un pop-up indicándoselo
     //Comparar $_SESSION['fecha'] con la fecha actual
     //$fechaActual = date('Y-m-d');
@@ -327,16 +322,16 @@ if (isset($_POST['confirmarModificacionReserva'])) {
     /* if ($siUsuarioTieneYaReservaEnFecha) {
         if ($_SESSION['fecha'] !== $fechaActual && $_SESSION['fecha'] > $fechaActual) {
         ?>
-            <!-- Pop-up -->
-            <div id="popup" class="popup">
-                <div class="popup-contenido">
-                    <span id="cerrar">&times;</span>
-                    <h2>Reserva no permitida</h2>
-                    <p>No puedes realizar más de una reserva en la misma fecha.</p>
-                    <button id="aceptar">Aceptar</button>
-                </div>
-            </div>
-            <script src="/assets/js/popupReserva.js"></script>
+<!-- Pop-up -->
+<div id="popup" class="popup">
+    <div class="popup-contenido">
+        <span id="cerrar">&times;</span>
+        <h2>Reserva no permitida</h2>
+        <p>No puedes realizar más de una reserva en la misma fecha.</p>
+        <button id="aceptar">Aceptar</button>
+    </div>
+</div>
+<script src="/assets/js/popupReserva.js"></script>
 <?php
         } else {
 
@@ -403,10 +398,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
 
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
-    unset($_SESSION['fecha']);
-    unset($_SESSION['hora_inicio']);
-    unset($_SESSION['numero_comensales']);
-    unset($_SESSION['mod_reserva_con_comanda']);
+
 
     //Redirige a la página del perfil del ususario
     header("Location: /views/frontend/miPerfil.php");

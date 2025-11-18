@@ -1,6 +1,6 @@
-/* Fondo oscuro del pop-up */
+
 .popup, #popup-modificar-reserva {
-  display: flex; /* visible cuando el PHP lo carga */
+  display: flex; 
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(0,0,0,0.5);
@@ -9,7 +9,7 @@
   z-index: 1000;
 }
 
-/* Caja blanca del contenido */
+
 .popup-contenido, #popup-modificar-reserva .popup-contenido {
   background: #fff;
   padding: 25px;
@@ -20,7 +20,7 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Botón de cierre (X) */
+/* Botón de cierre */
 #cerrar, #cerrar-modificar-reserva {
   position: absolute;
   top: 10px;

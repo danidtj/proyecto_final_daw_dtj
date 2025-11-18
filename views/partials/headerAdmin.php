@@ -18,22 +18,22 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css_pages/header.css">
+    <link rel="stylesheet" href="/assets/css_pages/carta.css">
+    <link rel="stylesheet" href="/assets/css_pages/contacto.css">
+    <link rel="stylesheet" href="/assets/css_pages/footer.css">
+    <link rel="stylesheet" href="/assets/css_pages/general.css">
+    <link rel="stylesheet" href="/assets/css_pages/header.css">
+    <link rel="stylesheet" href="/assets/css_pages/images.css">
+    <link rel="stylesheet" href="/assets/css_pages/index.css">
+    <link rel="stylesheet" href="/assets/css_pages/miPerfil.css">
+    <link rel="stylesheet" href="/assets/css_pages/nuevosProductos.css">
+    <link rel="stylesheet" href="/assets/css_pages/popup.css">
+    <link rel="stylesheet" href="/assets/css_pages/productosAdmin.css">
+    <link rel="stylesheet" href="/assets/css_pages/registro.css">
+    <link rel="stylesheet" href="/assets/css_pages/reserva.css">
+    <link rel="stylesheet" href="/assets/css_pages/terminos.css">
 
-    <link rel="stylesheet" href="/assets/css/admin.css">
-    <link rel="stylesheet" href="/assets/css/buttons.css">
-    <link rel="stylesheet" href="/assets/css/footer.css">
-    <link rel="stylesheet" href="/assets/css/forms.css">
-    <link rel="stylesheet" href="/assets/css/general.css">
-    <link rel="stylesheet" href="/assets/css/header.css">
-    <link rel="stylesheet" href="/assets/css/images.css">
-    <link rel="stylesheet" href="/assets/css/list.css">
-    <link rel="stylesheet" href="/assets/css/others.css">
-    <link rel="stylesheet" href="/assets/css/plano.css">
-    <link rel="stylesheet" href="/assets/css/popup.css">
-    <link rel="stylesheet" href="/assets/css/reserva.css">
-    <link rel="stylesheet" href="/assets/css/terminos.css">
-    <link rel="stylesheet" href="/assets/css/texts.css">
     <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
     <title>Restaurante XITO - Administrador</title>
 </head>

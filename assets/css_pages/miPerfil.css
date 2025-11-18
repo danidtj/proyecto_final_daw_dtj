@@ -51,6 +51,8 @@
 }
 
 
+
+
 .botones {
     display: flex;
     justify-content: flex-end;
@@ -93,34 +95,4 @@
 
 .btn_buscarReserva:hover {
     background-color: #555;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#numero_comensales,
-#nombre_categoria,
-#tipo_categoria,
-#modalidad_producto,
-select > option {
-    padding: 8px 10px;
-    font-size: 0.95rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    color: #333; 
-    background-color: #f5f5f5; 
 }

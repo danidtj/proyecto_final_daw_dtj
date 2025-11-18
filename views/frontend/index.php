@@ -1,3 +1,5 @@
+<?php include_once __DIR__ . '/../partials/header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,24 +14,20 @@
 
 
 <body>
-    <?php include_once __DIR__ . '/../partials/header.php';
 
 
-    ?>
-
-    
-    <!-- POPUP DE TÉRMINOS Y CONDICIONES -->
-    <!--<div id="popup-terminos" class="popup">
-        <div class="popup-contenido">
+    <!-- Popup de términos y condiciones -->
+    <div id="popupTerminos">
+        <div class="popup-content">
             <h2>Términos y Condiciones</h2>
             <p>
                 Usamos tus datos personales según la LOPDGDD y el RGPD.
                 Al continuar, aceptas nuestra Política de Privacidad.
                 Puedes ejercer tus derechos de acceso, rectificación y supresión en cualquier momento.
             </p>
-            <button id="aceptar-terminos">Aceptar</button>
+            <button id="aceptarTerminos">Aceptar</button>
         </div>
-    </div>-->
+    </div>
 
     <main>
         <article class="container_info">

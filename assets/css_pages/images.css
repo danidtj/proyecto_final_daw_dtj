@@ -29,8 +29,8 @@ color: #fafafa;
 
 
 .img_producto {
-    width: 150px;       /* ancho fijo */
-    height: 150px;       /* mantiene proporción */
-    border-radius: 5px; /* opcional, bordes redondeados */
-    margin: 5px 0;      /* espacio arriba y abajo */
+    width: 150px;       
+    height: 150px;      
+    border-radius: 5px; 
+    margin: 5px 0;      
 }

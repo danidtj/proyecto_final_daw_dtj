@@ -1,15 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const banner = document.getElementById("banner-terminos");
-    const aceptarBtn = document.getElementById("aceptar-banner");
-
-    // Mostrar banner solo si no se ha aceptado antes
-    if (!localStorage.getItem("terminosAceptados")) {
-        banner.style.display = "block";
+// Mostrar popup solo si no se ha aceptado antes
+window.onload = function() {
+    if (!sessionStorage.getItem('terminosAceptados')) {
+        document.getElementById('popupTerminos').style.display = 'flex';
     }
+}
 
-    // Al aceptar, ocultar y guardar aceptación
-    aceptarBtn.addEventListener("click", () => {
-        localStorage.setItem("terminosAceptados", "true");
-        banner.style.display = "none";
-    });
+// Cuando el usuario acepta
+document.getElementById('aceptarTerminos').addEventListener('click', function() {
+    sessionStorage.setItem('terminosAceptados', 'true');
+    document.getElementById('popupTerminos').style.display = 'none';
 });

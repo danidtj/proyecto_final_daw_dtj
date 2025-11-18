@@ -1,0 +1,7 @@
+.mensaje-error {
+    color: black;
+    text-shadow: 0 0 1px #0ff,
+        0 0 3px #0ff,
+        0 0 6px #0ff,
+        0 0 10px #0ff;
+}

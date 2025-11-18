@@ -15,6 +15,7 @@ require_once dirname(__DIR__) . '/utilidades/enviarEmail.php';
 
 $reserva = new Reserva();
 $orden = new Orden();
+
 class ReservaController
 {
     //Método para mostar la vista de Reserva
@@ -419,3 +420,4 @@ if (isset($_POST['confirmarModificacionReserva'])) {
 $reservaController = new ReservaController();
 //La vista de Reserva siempre tiene que ejecutarse independientemente de si se envía o no el formulario.
 $reservaController->mostrarVistaReserva();
+

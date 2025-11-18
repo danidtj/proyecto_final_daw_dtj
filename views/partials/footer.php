@@ -6,22 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <footer class="container_footer">RESTAURANTE XITO, S.L. &copy;. Todos los derechos reservados.</footer>
-
-    <script>
-        // Animar icono del carrito
-function animarCarrito() {
-    const icono = document.querySelector(".carrito i");
-    if (!icono) return;
-
-    icono.classList.add("animar");
-
-    setTimeout(() => {
-        icono.classList.remove("animar");
-    }, 300);
-}
-
-    </script>
+    <footer class="container_footer footer"><p class="parrafo_footer">RESTAURANTE XITO, S.L. &copy;. Todos los derechos reservados.</p></footer>
 </body>
-
 </html>

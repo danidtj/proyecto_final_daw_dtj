@@ -50,9 +50,12 @@
                 </div>
                 <div class="registro_container_pssojo">
                     <label for="password_usuario">Contraseña:</label><br>
-                    <input type="password" name="password_usuario" id="password_usuario" placeholder="Escribe tu contraseña" title="Introduzca una contraseña"
+                    
+                    <div class="registro_ojo">
+                        <input type="password" name="password_usuario" id="password_usuario" placeholder="Escribe tu contraseña" title="Introduzca una contraseña"
                         pattern=".{6,20}" required aria-required="true" />
-                    <div class="registro_ojo"><button type="button" id="togglePassword">👁️</button></div>
+                        <button type="button" id="togglePassword">👁️</button>
+                    </div>
                     <p class="mensaje-error" id="error-password" role="alert" aria-live="assertive"></p><!-- Espacio para imprimir por pantalla el mensaje de error en validación -->
                 </div>
                 <div>

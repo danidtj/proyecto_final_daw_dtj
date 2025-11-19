@@ -29,8 +29,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
             || isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true || isset($_SESSION['confirmarModificacionReserva'])
             && $_SESSION['confirmarModificacionReserva'] === true && isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1"
         ) { ?>
-            <section class="container_form">
-                <h2 class="titulo_form">CARTA</h2>
+            <section class="container_form carta_container">
+                <h2 class="titulo_form carta_titulo">CARTA</h2>
 
                 <?php
                 // --- BEBIDAS ---
@@ -191,8 +191,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 $_SESSION['carrito'][] = $producto;
             }
         } else { ?>
-            <section class="container_form">
-                <h2 class="titulo_form">CARTA</h2>
+            <section class="container_form carta_container">
+                <h2 class="titulo_form carta_titulo">CARTA</h2>
 
                 <?php
                 // --- BEBIDAS ---

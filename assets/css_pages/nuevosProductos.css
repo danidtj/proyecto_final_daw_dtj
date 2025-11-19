@@ -1,13 +1,13 @@
 /*FORMULARIO NUEVOSPRODUCTOS.PHP*/
 
 .formulario_productos {
-    width: 600px;
+    width: 1000px;
     justify-items: center;
 }
 
 
 .formulario_nuevoProducto {
-    width: 500px;
+    width: 800px;
     height: auto;
     padding: 20px;
     border: 2px solid grey;
@@ -50,3 +50,11 @@
     cursor: pointer;
     align-self: center;
 }
+
+
+
+
+
+.nuevo_producto_titulo{}
+
+

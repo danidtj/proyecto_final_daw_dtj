@@ -10,3 +10,28 @@ select > option {
     color: #333; 
     background-color: #f5f5f5; 
 }
+
+.container_form.reserva_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.reserva_boton_modificar{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 20px;
+}
+
+#boton-modificar-reserva{
+    background-color: #27AE60;
+}
+
+.reserva_header{}
+.reserva_container{}
+.reserva_formulario{}
+.btn_reservar{}
+.reserva_container_plano{}
+.boton-confirmar-reserva{}

@@ -31,8 +31,8 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 <body>
     <?php include_once __DIR__ . '/../partials/headerAdmin.php'; ?>
     <main>
-        <section class="container_form">
-            <h2 class="titulo_form">STOCK BEBIDAS</h2>
+        <section class="container_form productos_stock_container">
+            <h2 class="titulo_form productos_stock_titulo">STOCK BEBIDAS</h2>
 
             <table class="tabla_stock">
                 <tr>
@@ -104,8 +104,8 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 
         ?>
 
-            <section class="container_form">
-                <h2 class="titulo_form">MODIFICAR STOCK BEBIDAS</h2>
+            <section class="container_form productos_modificar_container">
+                <h2 class="titulo_form productos_modificar_titulo">MODIFICAR STOCK BEBIDAS</h2>
                 <form action="/controllers/admin/ProductoController.php" method="post">
 
                     <table class="tabla_stock">

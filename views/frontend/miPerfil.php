@@ -168,15 +168,15 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 <body>
     <?php include_once __DIR__ . '/../partials/header.php'; ?>
     <main>
-        <section class="container_form">
-            <h2 class="titulo_form">Resumen de mis reservas</h2>
+        <section class="container_form perfil_container_reservas">
+            <h2 class="titulo_form perfil_titulo">Resumen de mis reservas</h2>
             <?php
             if (!empty($reservasUsuario)) {
 
                 foreach ($reservasUsuario as $reserva) {
                     echo "
-                    <div class='reserva_detalles'>
-                    <div class='cabecera_reserva'>
+                    <div class='reserva_detalles perfil_reserva_detalles'>
+                    <div class='cabecera_reserva perfil_cabecera_reserva'>
                             <span><strong>Código:</strong> " . htmlspecialchars($reserva['id_reserva']) . "</span>                            
                             <span><strong>Fecha:</strong> " . htmlspecialchars(date('d/m/Y', strtotime($reserva['fecha']))) . "</span>
                             <span><strong>Hora:</strong> " . htmlspecialchars($reserva['hora_inicio']) . "</span>
@@ -192,7 +192,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                     $ordenes = $orden->obtenerOrdenPorCodigoReserva($reserva['id_reserva']);
                     if (!empty($ordenes)) {
-                        echo "<div class='productos_reserva'>";
+                        echo "<div class='productos_reserva perfil_productos_reserva'>";
                         $productosOrden = Producto::obtenerProductosReservaOrden($_SESSION['id_usuario'], $reserva['id_reserva'], $ordenes['id_orden']);
 
                         foreach ($productosOrden as $producto) {
@@ -213,7 +213,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
 
             ?>
-                        <div class="botones">
+                        <div class="botones perfil_botones_reserva">
                             <!-- Formulario para cancelar la reserva -->
                             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
                                 <input type="hidden" name="id_reserva" value="<?php echo htmlspecialchars($reserva['id_reserva']); ?>">

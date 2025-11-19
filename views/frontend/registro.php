@@ -4,21 +4,20 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/assets/css/index.css">
-    <link rel="stylesheet" href="/assets/css/admin.css">
-    <link rel="stylesheet" href="/assets/css/buttons.css">
-    <link rel="stylesheet" href="/assets/css/footer.css">
-    <link rel="stylesheet" href="/assets/css/forms.css">
-    <link rel="stylesheet" href="/assets/css/general.css">
-    <link rel="stylesheet" href="/assets/css/header.css">
-    <link rel="stylesheet" href="/assets/css/images.css">
-    <link rel="stylesheet" href="/assets/css/list.css">
-    <link rel="stylesheet" href="/assets/css/others.css">
-    <link rel="stylesheet" href="/assets/css/plano.css">
-    <link rel="stylesheet" href="/assets/css/popup.css">
-    <link rel="stylesheet" href="/assets/css/reserva.css">
-    <link rel="stylesheet" href="/assets/css/terminos.css">
-    <link rel="stylesheet" href="/assets/css/texts.css">
+    <link rel="stylesheet" href="/assets/css_pages/carta.css">
+    <link rel="stylesheet" href="/assets/css_pages/contacto.css">
+    <link rel="stylesheet" href="/assets/css_pages/footer.css">
+    <link rel="stylesheet" href="/assets/css_pages/general.css">
+    <link rel="stylesheet" href="/assets/css_pages/header.css">
+    <link rel="stylesheet" href="/assets/css_pages/images.css">
+    <link rel="stylesheet" href="/assets/css_pages/index.css">
+    <link rel="stylesheet" href="/assets/css_pages/miPerfil.css">
+    <link rel="stylesheet" href="/assets/css_pages/nuevosProductos.css">
+    <link rel="stylesheet" href="/assets/css_pages/popup.css">
+    <link rel="stylesheet" href="/assets/css_pages/productosAdmin.css">
+    <link rel="stylesheet" href="/assets/css_pages/registro.css">
+    <link rel="stylesheet" href="/assets/css_pages/reserva.css">
+    <link rel="stylesheet" href="/assets/css_pages/terminos.css">
     <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet" />
@@ -28,9 +27,9 @@
 
 <body>
     <main>
-        <section class="container_form" aria-labelledby="titulo-form">
+        <section class="container_form registro_container" aria-labelledby="titulo-form">
             <h2 id="titulo-form" class="titulo_form">Formulario de registro</h2>
-            <form action="/controllers/frontend/RegistroController.php" method="post" class="formulario">
+            <form action="/controllers/frontend/RegistroController.php" method="post" class="formulario registro_formulario">
                 <div>
                     <label for="nombre_usuario">Nombre:</label><br>
                     <input type="text" name="nombre_usuario" id="nombre_usuario" placeholder="Nombre" title="Introduzca su nombre" minlength="2" maxlength="20"
@@ -49,11 +48,11 @@
                         required aria-required="true" />
                     <p class="mensaje-error" id="error-email" role="alert" aria-live="assertive"></p><!-- Espacio para imprimir por pantalla el mensaje de error en validación -->
                 </div>
-                <div>
+                <div class="registro_container_pssojo">
                     <label for="password_usuario">Contraseña:</label><br>
                     <input type="password" name="password_usuario" id="password_usuario" placeholder="Escribe tu contraseña" title="Introduzca una contraseña"
                         pattern=".{6,20}" required aria-required="true" />
-                    <button type="button" id="togglePassword">👁️</button>
+                    <div class="registro_ojo"><button type="button" id="togglePassword">👁️</button></div>
                     <p class="mensaje-error" id="error-password" role="alert" aria-live="assertive"></p><!-- Espacio para imprimir por pantalla el mensaje de error en validación -->
                 </div>
                 <div>
@@ -63,7 +62,7 @@
                     <p class="mensaje-error" id="error-telefono" role="alert" aria-live="assertive"></p><!-- Espacio para imprimir por pantalla el mensaje de error en validación -->
                 </div>
                 <div>
-                    <button type="submit" name="registro" class="btn">Regístrate</button>
+                    <button type="submit" name="registro" class="btn_login">Regístrate</button>
                 </div>
             </form>
         </section>

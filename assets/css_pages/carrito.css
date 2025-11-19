@@ -1,0 +1,36 @@
+.carrito_container{}
+.carrito_titulo{}
+.cantidad{}
+.subtotal{}
+.carrito_container_stripe{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button{
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.8rem;
+}
+
+#botonPagar, #botonVaciarCarrito{
+    text-decoration: none;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.carritoVacio{
+    text-align: center;
+    
+}

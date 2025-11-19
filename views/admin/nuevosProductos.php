@@ -32,7 +32,7 @@ $categorias = Categoria::obtenerCategorias();
     <?php include_once __DIR__ . '/../partials/headerAdmin.php'; ?>
     <main>
         <section class="container_form formulario_productos">
-            <h2 class="titulo_form">MODIFICAR STOCK PRODUCTOS</h2>
+            <h2 class="titulo_form nuevo_producto_titulo">MODIFICAR STOCK PRODUCTOS</h2>
             <form action="/controllers/admin/ProductoController.php" method="post" class="formulario formulario_nuevoProducto">
                 <p>Nombre corto:</p>
                 <input type="text" name="nombre_corto" id="nombre_corto" placeholder="Nombre corto del producto" required><br>

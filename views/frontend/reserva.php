@@ -50,10 +50,10 @@ $orden = new Orden();
             unset($_SESSION['confirmarModificacionReserva']);
 
         ?>
-            <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
-            <section class="container_form">
+            <h1 class="header_reserva reserva_header">RESERVA CON NOSOTROS</h1>
+            <section class="container_form reserva_container">
 
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="formulario-reserva" class="formulario">
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="formulario-reserva" class="formulario reserva_formulario">
                     <!-- Campo oculto de mesa -->
                     <input type="hidden" id="mesa_id" name="mesa_id" value="">
 
@@ -184,11 +184,12 @@ $orden = new Orden();
                 unset($_SESSION['numero_comensales']);
                 unset($_SESSION['comanda_previa']);
 
-                if ($_POST['comanda_previa'] == "0") {
+                if (isset($_POST['comanda_previa']) && $_POST['comanda_previa'] == "0") {
                     $_SESSION['mod_reserva_sin_comanda'] = $_POST['comanda_previa'];
                 } else {
                     unset($_SESSION['mod_reserva_sin_comanda']);
-                    $_SESSION['mod_reserva_con_comanda'] = $_POST['comanda_previa'];
+                    //$_SESSION['mod_reserva_con_comanda'] = $_POST['comanda_previa'];
+                    $_SESSION['mod_reserva_con_comanda'] = "0";
                 }
             } else {
                 $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
@@ -210,8 +211,8 @@ $orden = new Orden();
             $idMesasDisponibles = $mesa->obtenerMesasDisponibles($_SESSION['fecha'], $_SESSION['hora_inicio'], $_SESSION['numero_comensales']);
 
         ?>
-            <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
-            <section class="container_form">
+            <h1 class="header_reserva reserva_header">RESERVA CON NOSOTROS</h1>
+            <section class="container_form reserva_container">
                 <?php
                 if (isset($_POST['reservar']) || isset($_POST['modificar'])) { ?>
 
@@ -282,7 +283,7 @@ $orden = new Orden();
 
             </section>
 
-            <section class="container_plano">
+            <section class="container_plano reserva_container_plano">
 
                 <form action="/controllers/frontend/ReservaController.php" name="formulario-reserva" method="post">
                     <!-- Para trasladar el ID de la mesa seleccionada -->
@@ -330,7 +331,7 @@ $orden = new Orden();
                     echo '</table>';
                     ?>
 
-                    <div>
+                    <div class="reserva_boton_modificar">
                         <?php if (isset($_POST['reservar'])): ?>
                             <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>
                             <button type="submit" id="boton-confirmar-reserva" class="btn_reservar boton-confirmar-reserva" name="confirmarReserva" disabled>Confirmar reserva</button>

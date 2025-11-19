@@ -261,7 +261,7 @@ class Reserva
             $this->connection->beginTransaction();
 
             //Calculamos la duración de la reserva en base a la hora de inicio
-            $hora_inicio = date('Y-m-d H:i:s', strtotime($hora_inicio));
+            $hora_inicio = date('Y-m-d H:i:s', strtotime($fecha . " " . $hora_inicio));
             $hora_fin = date('Y-m-d H:i:s', strtotime($hora_inicio . ' +1 hour 30 minutes'));
 
             // Actualizamos datos de la reserva

@@ -8,21 +8,21 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/index.css">
-    <link rel="stylesheet" href="/assets/css/admin.css">
-    <link rel="stylesheet" href="/assets/css/buttons.css">
-    <link rel="stylesheet" href="/assets/css/footer.css">
-    <link rel="stylesheet" href="/assets/css/forms.css">
-    <link rel="stylesheet" href="/assets/css/general.css">
-    <link rel="stylesheet" href="/assets/css/header.css">
-    <link rel="stylesheet" href="/assets/css/images.css">
-    <link rel="stylesheet" href="/assets/css/list.css">
-    <link rel="stylesheet" href="/assets/css/others.css">
-    <link rel="stylesheet" href="/assets/css/plano.css">
-    <link rel="stylesheet" href="/assets/css/popup.css">
-    <link rel="stylesheet" href="/assets/css/reserva.css">
-    <link rel="stylesheet" href="/assets/css/terminos.css">
-    <link rel="stylesheet" href="/assets/css/texts.css">
+    <link rel="stylesheet" href="/assets/css_pages/carta.css">
+    <link rel="stylesheet" href="/assets/css_pages/contacto.css">
+    <link rel="stylesheet" href="/assets/css_pages/footer.css">
+    <link rel="stylesheet" href="/assets/css_pages/general.css">
+    <link rel="stylesheet" href="/assets/css_pages/header.css">
+    <link rel="stylesheet" href="/assets/css_pages/images.css">
+    <link rel="stylesheet" href="/assets/css_pages/index.css">
+    <link rel="stylesheet" href="/assets/css_pages/miPerfil.css">
+    <link rel="stylesheet" href="/assets/css_pages/nuevosProductos.css">
+    <link rel="stylesheet" href="/assets/css_pages/popup.css">
+    <link rel="stylesheet" href="/assets/css_pages/productosAdmin.css">
+    <link rel="stylesheet" href="/assets/css_pages/registro.css">
+    <link rel="stylesheet" href="/assets/css_pages/reserva.css">
+    <link rel="stylesheet" href="/assets/css_pages/terminos.css">
+    <link rel="stylesheet" href="/assets/css_pages/login.css">
 <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet">
@@ -33,8 +33,8 @@ session_start();
 
 <body>
     <main>
-        <section class="container_form">
-            <h2 class="titulo_form">Inicio de sesión</h2>
+        <section class="container_form login_container">
+            <h2 class="titulo_form login_titulo">Inicio de sesión</h2>
             <!-- Envío del formulario a sí mismo para comprobar si los datos introducidos son correctos o no-->
             <form action="/controllers/frontend/LoginController.php" method="post">
                 <?php
@@ -56,7 +56,7 @@ session_start();
                 <button type="button" id="togglePassword">👁️</button>
                 <input type="submit" class="btn_login" value="Iniciar sesión" name="submit"><br><br>
             </form>
-            <p>¿Aún no estás registrado? <a href="/controllers/frontend/RegistroController.php" class="btn_login">¡Hazlo!</a></p>
+            <p class="login_parrafo_registro">¿Aún no estás registrado? <a href="/controllers/frontend/RegistroController.php" class="btn_login">¡Hazlo!</a></p>
         </section>
     </main>
 

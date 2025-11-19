@@ -391,9 +391,9 @@ if (isset($_POST['confirmarModificacionReserva'])) {
         //Mostrarle al cliente desde $reservaEmail la fecha de la reserva, la hora, el número de mesa y el de comensales
         $contenidoCorreo .= "<ul>";
         //$contenidoCorreo .= "<li>Fecha de la reserva: " . htmlspecialchars($reservaEmail['fecha']) . ".</li>";
-        $contenidoCorreo .= "<li>Fecha y hora de la reserva: " . htmlspecialchars($reservaEmail['hora_inicio']) . ".</li>";
-        $contenidoCorreo .= "<li>Número de mesa: " . htmlspecialchars($reservaEmail['id_mesa']) . ".</li>";
-        $contenidoCorreo .= "<li>Número de comensales: " . htmlspecialchars($reservaEmail['numero_comensales']) . ".</li>";
+        $contenidoCorreo .= "<li>Fecha y hora de la reserva: " . htmlspecialchars($datosReserva['hora_inicio']) . ".</li>";
+        $contenidoCorreo .= "<li>Número de mesa: " . htmlspecialchars($datosReserva['id_mesa']) . ".</li>";
+        $contenidoCorreo .= "<li>Número de comensales: " . htmlspecialchars($datosReserva['numero_comensales']) . ".</li>";
         $contenidoCorreo .= "</ul>";
 
         $contenidoCorreo .= "<p>Le recordamos que la duración de la reserva es de 1 hora y 30 minutos.</p>";

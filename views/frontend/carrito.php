@@ -45,8 +45,8 @@ $carritoController = new CarritoController();
 
     ?>
     <main>
-        <section class="container_form">
-            <h2 class="titulo_form">CARRITO</h2>
+        <section class="container_form carrito_container">
+            <h2 class="titulo_form carrito_titulo">CARRITO</h2>
             <?php
 
             if (session_status() === PHP_SESSION_ACTIVE) {
@@ -94,11 +94,11 @@ $carritoController = new CarritoController();
                             $_SESSION['nuevoPagoAdelantado'] = $nuevoPagoAdelantado;
                         }
                     } else {
-                        echo "<div id='carritoVacio'>El carrito está vacío.</div>";
+                        echo "<div class='carritoVacio' id='carritoVacio'>El carrito está vacío.</div>";
                     }
                 } else {
 
-                    echo "<div id='carritoVacio'>El carrito está vacío.</div>";
+                    echo "<div class='carritoVacio' id='carritoVacio'>El carrito está vacío.</div>";
                 }
             }
 
@@ -106,7 +106,7 @@ $carritoController = new CarritoController();
             ?>
 
         </section>
-        <section id="pago-stripe" class="container_form">
+        <section id="pago-stripe" class="container_form carrito_container_stripe">
             <div id="card-container">
                 <label for="cardholder-name">Nombre en la tarjeta</label>
                 <input id="cardholder-name" type="text" placeholder="Ej: Juan Pérez" required>

@@ -30,9 +30,9 @@
     </div>
 
     <main>
-        <article class="container_info">
+        <article class="container_info index_info">
             <h2>Restaurante XITO</h2>
-            <p class="info_rest">Se abrió en el año 2011 en el humilde barrio de Antonio Domínguez.
+            <p class="info_rest index_historia">Se abrió en el año 2011 en el humilde barrio de Antonio Domínguez.
                 Este negocio familiar, fundado por el padre de
                 familia, Diego, abrió sus puertas el 13 de julio del año 2011. Desde entonces, los vecinos se volcaron
                 con el proyecto y el boca a boca hizo el resto.
@@ -48,15 +48,15 @@
                 <span>Restaurante XITO</span> es un referente de la restauración en la ciudad pacense.
             </p>
         </article>
-        <section class="container_video">
+        <section class="container_video index_video">
             <video width="1000px" height="360px" autoplay controls muted>
                 <source src="/../proyecto_final_def/assets/DJI_20250601173853_0111_D.MP4" type="video/mp4">
                 Tu navegador no sorporta la etiqueta vídeo.
             </video>
         </section>
-        <section class="container_plano">
+        <section class="container_plano index_container_plano">
             <h1 class="header_reserva">RESERVA CON NOSOTROS</h1>
-            <section class="header_reserva">
+            <section class="header_reserva index_querer_reservar">
                 <p>¿Quieres reservar una mesa en nuestro restaurante? ¡Inicia sesión o regístrate si aún no lo has hecho!</p>
             </section>
             <table class="tabla">
@@ -144,13 +144,6 @@
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php' ?>
 
-    <div id="banner-terminos" class="banner-terminos">
-        <p>
-            Usamos tus datos según la LOPDGDD y RGPD. Al continuar, aceptas nuestra
-            <a href="/politica-privacidad" target="_blank">Política de Privacidad</a>.
-        </p>
-        <button id="aceptar-banner">Aceptar</button>
-    </div>
     <script src="/assets/js/popupTerminos.js"></script>
 </body>
 

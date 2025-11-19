@@ -5,3 +5,27 @@
         0 0 6px #0ff,
         0 0 10px #0ff;
 }
+
+
+
+.registro_container {}
+
+.registro_formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registro_ojo {
+    display: flex;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+.btn_login {}
+
+
+
+
+
+

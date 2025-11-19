@@ -41,11 +41,11 @@ $orden = new Orden();
     <?php include_once __DIR__ . '/../partials/headerAdmin.php'; ?>
 
     <main>
-        <h1 class="header_reserva">RESERVAS DE CLIENTES</h1>
+        <h1 class="header_reserva admin_reservas_titulo">RESERVAS DE CLIENTES</h1>
         <?php
         if (!isset($_POST['reservar'])) { ?>
 
-            <section class="container_form">
+            <section class="container_form admin_reservas_container">
                 <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                     <label for="telefono_usuario">Teléfono:</label>
                     <input type="text" id="telefono_usuario" name="telefono_usuario">
@@ -225,7 +225,7 @@ $orden = new Orden();
         if (!isset($_POST['buscar_reserva'])) {
         ?>
 
-            <section class="container_form">
+            <section class="container_form admin_reservas_plano_container">
 
                 <?php if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !isset($_POST['reservar'])):
                     unset($_SESSION['modificar_reserva']);
@@ -236,7 +236,7 @@ $orden = new Orden();
 
 
                 ?>
-                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="formulario-reserva" class="formulario">
+                    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" id="formulario-reserva" class="formulario admin_reservas_container_formulario">
                         <!-- Campo oculto de mesa -->
                         <input type="hidden" id="mesa_id" name="mesa_id" value="">
 
@@ -322,7 +322,7 @@ $orden = new Orden();
                     $idMesasDisponibles = $mesa->obtenerMesasDisponibles($_SESSION['fecha'], $_SESSION['hora_inicio'], $_SESSION['numero_comensales']);
 
                 ?>
-                    <section class="container_form">
+                    <section class="container_form admin_reservas_container_formulario">
                         <?php
                         if (isset($_POST['reservar'])) { ?>
 
@@ -362,7 +362,7 @@ $orden = new Orden();
                     </section>
 
 
-                    <section class="container_plano">
+                    <section class="container_plano admin_reservas_plano_container">
 
 
                         <!-- Para trasladar el ID de la mesa seleccionada -->

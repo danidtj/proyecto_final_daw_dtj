@@ -134,7 +134,8 @@ class Reserva
             FROM reservas r
             JOIN usuarios u ON r.id_usuario = u.id_usuario
             JOIN reservas_mesas rm ON r.id_reserva = rm.id_reserva
-                        WHERE u.telefono_usuario = :telefono_usuario";
+                        WHERE u.telefono_usuario = :telefono_usuario
+                        ORDER BY rm.fecha ASC, rm.hora_inicio ASC";
 
             $stmt = $this->connection->prepare($sql);
             $stmt->bindParam(':telefono_usuario', $telefono_usuario);

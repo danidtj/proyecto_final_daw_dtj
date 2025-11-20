@@ -75,12 +75,13 @@ $orden = new Orden();
                                 <option value="14:30">14:30</option>
                                 <option value="15:00">15:00</option>
                                 <option value="15:30">15:30</option>
+                                <option value="15:50">15:50</option>
                                 <option value="16:00">16:00</option>
-                                <option value="16:30">16:30</option>
+                                <option value="16:45">16:45</option>
                                 <option value="17:00">17:00</option>
                             </optgroup>
                             <optgroup label="Noche">
-                                <option value="19:45">19:45</option>
+                                <option value="20:00">20:00</option>
                                 <option value="20:30">20:30</option>
                                 <option value="21:00">21:00</option>
                                 <option value="21:30">21:30</option>
@@ -188,8 +189,8 @@ $orden = new Orden();
                     $_SESSION['mod_reserva_sin_comanda'] = $_POST['comanda_previa'];
                 } else {
                     unset($_SESSION['mod_reserva_sin_comanda']);
-                    //$_SESSION['mod_reserva_con_comanda'] = $_POST['comanda_previa'];
-                    $_SESSION['mod_reserva_con_comanda'] = "0";
+                    $_SESSION['mod_reserva_con_comanda'] = $_POST['comanda_previa'];
+                    //$_SESSION['mod_reserva_con_comanda'] = "0";
                 }
             } else {
                 $_SESSION['comanda_previa'] = $_POST['comanda_previa'];

@@ -11,8 +11,11 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="/assets/css_pages/admin.css">
+<link rel="stylesheet" href="/assets/general.css">
+<link rel="stylesheet" href="/assets/index.css">
+<link rel="stylesheet" href="/assets/header.css">
+<link rel="stylesheet" href="/assets/mediaqueries_header.css">
+    <!--<link rel="stylesheet" href="/assets/css_pages/admin.css">
     <link rel="stylesheet" href="/assets/css_pages/carrito.css">
     <link rel="stylesheet" href="/assets/css_pages/carta.css">
     <link rel="stylesheet" href="/assets/css_pages/contacto.css">
@@ -33,13 +36,13 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     
 
     <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
-    <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_forms.css">
+    <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_forms.css">-->
     <title>Restaurante XITO</title>
 </head>
 
 
 <body>
-    <header class="container_header">
+    <header class="container_header header_container">
         <div class="logo"><a href="/views/frontend/index.php" class="volver_ppal"><span class="x">&#88;</span><span class="ito">ITO</span></a></div>
 
         <div class="menu_nav">

@@ -30,22 +30,25 @@ if (isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true
 
     header("Location: /views/frontend/miPerfil.php");
     exit();
-
 } //else {
 
-    if (isset($_SESSION['confirmarReserva']) && !empty($_SESSION['confirmarReserva'])) {
-        $reservaController->crearOrdenYReserva();
-    }
+if (isset($_SESSION['confirmarReserva']) && !empty($_SESSION['confirmarReserva'])) {
+    $reservaController->crearOrdenYReserva();
+}
 
-    //Confirmamos si se quiere modificar una reserva existente sin orden y se le asocia una
-    if (isset($_SESSION['confirmarModificacionReserva']) && $_SESSION['confirmarModificacionReserva'] === true && 
-    isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") {
+//Confirmamos si se quiere modificar una reserva existente sin orden y se le asocia una
+if (
+    isset($_SESSION['confirmarModificacionReserva']) && $_SESSION['confirmarModificacionReserva'] === true &&
+    isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1"
+) {
 
-        $reservaController->crearOrdenReservaExistente();
-    }
+    $reservaController->crearOrdenReservaExistente();
 
-    header("Location: /views/frontend/miPerfil.php");
-    exit();
+    $_SESSION['email_nueva_orden'] = true;
+}
+
+header("Location: /views/frontend/miPerfil.php");
+exit();
 //}
 
 //Bloque para confirmar modificación de reserva

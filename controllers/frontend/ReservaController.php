@@ -50,7 +50,6 @@ class ReservaController
 
         unset($_SESSION['stripe_payment_id']);
         unset($_SESSION['confirmarModificacionReserva']);
-        unset($_SESSION['id_reserva']);
         unset($_SESSION['mesa_id']);
         unset($_SESSION['fecha']);
         unset($_SESSION['hora_inicio']);

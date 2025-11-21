@@ -77,8 +77,8 @@ $orden = new Orden();
                                 <option value="15:30">15:30</option>
                                 <option value="15:50">15:50</option>
                                 <option value="16:00">16:00</option>
-                                <option value="16:45">16:45</option>
-                                <option value="17:00">17:00</option>
+                                <option value="16:30">16:30</option>
+                                <option value="17:16">17:16</option>
                             </optgroup>
                             <optgroup label="Noche">
                                 <option value="20:00">20:00</option>

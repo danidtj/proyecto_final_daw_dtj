@@ -1,0 +1,85 @@
+
+
+/*REVISAR TODO PORQUE ES DE CARTA*/
+.header_reserva {
+    color: white;
+    text-shadow: 1px 1px 2px #000;
+    text-align: center;
+    justify-items: center;
+}
+
+.container_form {
+    background-color: white;
+    /*width: 800px;*/
+   width: 1000px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 1rem;
+    border: 2px solid grey;
+    background-color: white;
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
+    padding-bottom: 20px;
+}
+
+
+.container_form form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 2rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.container_form label {
+    font-weight: bold;
+    color: #444;
+    font-family: 'Lato', sans-serif;
+}
+
+.container_form h2 {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    font-family: 'Playfair Display', serif;
+    color: #222;
+    text-align: center;
+}
+
+.container_form p {
+    margin: 6px 0;
+    font-family: 'Lato', sans-serif;
+    color: #333;
+}
+
+.container_form p strong {
+    color: #000;
+}
+
+
+
+
+.container_form input[type="text"],
+.container_form input[type="date"],
+.container_form input[type="password"],
+.container_form input[type="email"],
+.container_form input[type="number"],
+#hora_inicio,
+#mensaje select>option {
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    width: 200px;
+}
+
+.titulo_form {
+    text-align: center;
+    /*margin-top: 4rem;*/
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+}

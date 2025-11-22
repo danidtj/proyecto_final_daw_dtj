@@ -11,32 +11,37 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/assets/general.css">
+<!--<link rel="stylesheet" href="/assets/general.css">
 <link rel="stylesheet" href="/assets/index.css">
 <link rel="stylesheet" href="/assets/header.css">
-<link rel="stylesheet" href="/assets/mediaqueries_header.css">
-    <!--<link rel="stylesheet" href="/assets/css_pages/admin.css">
-    <link rel="stylesheet" href="/assets/css_pages/carrito.css">
-    <link rel="stylesheet" href="/assets/css_pages/carta.css">
-    <link rel="stylesheet" href="/assets/css_pages/contacto.css">
-    <link rel="stylesheet" href="/assets/css_pages/footer.css">
-    <link rel="stylesheet" href="/assets/css_pages/general.css">
-    <link rel="stylesheet" href="/assets/css_pages/header.css">
-    <link rel="stylesheet" href="/assets/css_pages/images.css">
-    <link rel="stylesheet" href="/assets/css_pages/index.css">
-    <link rel="stylesheet" href="/assets/css_pages/login.css">
-    <link rel="stylesheet" href="/assets/css_pages/miPerfil.css">
-    <link rel="stylesheet" href="/assets/css_pages/nuevosProductos.css">
-    <link rel="stylesheet" href="/assets/css_pages/popup.css">
-    <link rel="stylesheet" href="/assets/css_pages/productosAdmin.css">
-    <link rel="stylesheet" href="/assets/css_pages/registro.css">
-    <link rel="stylesheet" href="/assets/css_pages/reserva.css">
-    <link rel="stylesheet" href="/assets/css_pages/reservasAdmin.css">
-    <link rel="stylesheet" href="/assets/css_pages/terminos.css">
+<link rel="stylesheet" href="/assets/footer.css">
+<link rel="stylesheet" href="/assets/carta.css">
+<link rel="stylesheet" href="/assets/reserva.css">
+<link rel="stylesheet" href="/assets/popupTerminos.css">
+<link rel="stylesheet" href="/assets/mediaqueries_header.css">-->
+
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carrito.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carta.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/contacto.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/footer.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/general.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/header.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/images.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/index.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/login.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/miPerfil.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/nuevosProductos.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/popup.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/productosAdmin.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/registro.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reserva.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reservasAdmin.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/terminos.css">
     
 
-    <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
-    <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_forms.css">-->
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_index.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_forms.css">
     <title>Restaurante XITO</title>
 </head>
 
@@ -90,7 +95,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 
             ?>
 
-                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="post">
+                <form class="header_formulario" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);  ?>" method="post">
                     <input type="submit" class="btn_login" value="Iniciar Sesión" name="iniciarSesion">
                 </form>
 

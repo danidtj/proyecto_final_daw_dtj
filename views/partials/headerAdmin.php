@@ -18,42 +18,42 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css_pages/admin.css">
-    <link rel="stylesheet" href="/assets/css_pages/carrito.css">
-    <link rel="stylesheet" href="/assets/css_pages/carta.css">
-    <link rel="stylesheet" href="/assets/css_pages/contacto.css">
-    <link rel="stylesheet" href="/assets/css_pages/footer.css">
-    <link rel="stylesheet" href="/assets/css_pages/general.css">
-    <link rel="stylesheet" href="/assets/css_pages/header.css">
-    <link rel="stylesheet" href="/assets/css_pages/images.css">
-    <link rel="stylesheet" href="/assets/css_pages/index.css">
-    <link rel="stylesheet" href="/assets/css_pages/login.css">
-    <link rel="stylesheet" href="/assets/css_pages/miPerfil.css">
-    <link rel="stylesheet" href="/assets/css_pages/nuevosProductos.css">
-    <link rel="stylesheet" href="/assets/css_pages/popup.css">
-    <link rel="stylesheet" href="/assets/css_pages/productosAdmin.css">
-    <link rel="stylesheet" href="/assets/css_pages/registro.css">
-    <link rel="stylesheet" href="/assets/css_pages/reserva.css">
-    <link rel="stylesheet" href="/assets/css_pages/reservasAdmin.css">
-    <link rel="stylesheet" href="/assets/css_pages/terminos.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carrito.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carta.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/contacto.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/footer.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/general.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/header.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/images.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/index.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/login.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/miPerfil.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/nuevosProductos.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/popup.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/productosAdmin.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/registro.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reserva.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reservasAdmin.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/terminos.css">
 
-    <link rel="stylesheet" href="/assets/css_mediaqueries/mediaqueries_index.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_index.css">
     <title>Restaurante XITO - Administrador</title>
 </head>
 
 <body>
     <header class="container_header">
-        <div class="logo"><a href="/views/admin/admin.php" class="volver_ppal"><span class="x">&#88;</span><span class="ito">ITO</span></a></div>
+        <div class="logo"><a href="/proyecto_final_daw_dtj/views/admin/admin.php" class="volver_ppal"><span class="x">&#88;</span><span class="ito">ITO</span></a></div>
         <div class="menu_nav">
             <nav class="nav">
                 <ul>
-                    <li><a href="/views/admin/stockComida.php" class="link_menu <?= $paginaActual == 'stockComida.php' ? 'activo' : '' ?>">COMIDAS</a></li>
-                    <li><a href="/views/admin/stockBebida.php" class="link_menu <?= $paginaActual == 'stockBebida.php' ? 'activo' : '' ?>">BEBIDAS</a></li>
-                    <li><a href="/views/admin/stockPostre.php" class="link_menu <?= $paginaActual == 'stockPostre.php' ? 'activo' : '' ?>">POSTRES</a></li>
+                    <li><a href="/proyecto_final_daw_dtj/views/admin/stockComida.php" class="link_menu <?= $paginaActual == 'stockComida.php' ? 'activo' : '' ?>">COMIDAS</a></li>
+                    <li><a href="/proyecto_final_daw_dtj/views/admin/stockBebida.php" class="link_menu <?= $paginaActual == 'stockBebida.php' ? 'activo' : '' ?>">BEBIDAS</a></li>
+                    <li><a href="/proyecto_final_daw_dtj/views/admin/stockPostre.php" class="link_menu <?= $paginaActual == 'stockPostre.php' ? 'activo' : '' ?>">POSTRES</a></li>
                     <?php if ($nombre_rol === "Administrador") { ?>
-                        <li><a href="/views/admin/nuevosProductos.php" class="link_menu <?= $paginaActual == 'nuevosProductos.php' ? 'activo' : '' ?>">PRODUCTOS</a></li>
+                        <li><a href="/proyecto_final_daw_dtj/views/admin/nuevosProductos.php" class="link_menu <?= $paginaActual == 'nuevosProductos.php' ? 'activo' : '' ?>">PRODUCTOS</a></li>
                     <?php } ?>
-                    <li><a href="/views/admin/reservas.php" class="link_menu <?= $paginaActual == 'reservas.php' ? 'activo' : '' ?>">RESERVAS</a></li>
+                    <li><a href="/proyecto_final_daw_dtj/views/admin/reservas.php" class="link_menu <?= $paginaActual == 'reservas.php' ? 'activo' : '' ?>">RESERVAS</a></li>
                 </ul>
             </nav>
         </div>
@@ -74,7 +74,7 @@ if (isset($_POST['cerrarSesion'])) {
 
     // Y la eliminamos
     unset($_SESSION['id_usuario']);
-    header("Location: /home");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
 }
 
 

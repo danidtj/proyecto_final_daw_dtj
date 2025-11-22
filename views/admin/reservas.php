@@ -3,7 +3,7 @@
 
 if (!isset($_SESSION['id_usuario'])) {
 
-    header("Location: ../frontend/home");
+        header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }
 

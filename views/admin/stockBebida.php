@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
 
-    header("Location: ../frontend/home");
+        header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }
 
@@ -106,7 +106,7 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 
             <section class="container_form productos_modificar_container">
                 <h2 class="titulo_form productos_modificar_titulo">MODIFICAR STOCK BEBIDAS</h2>
-                <form action="/controllers/admin/ProductoController.php" method="post">
+                <form action="/proyecto_final_daw_dtj/controllers/admin/ProductoController.php" method="post">
 
                     <table class="tabla_stock">
                         <thead>

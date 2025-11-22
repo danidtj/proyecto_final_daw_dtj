@@ -3,7 +3,7 @@
 session_start();
 if (!isset($_SESSION['id_usuario'])) {
 
-    header("Location: home");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }
 
@@ -120,6 +120,9 @@ $carritoController = new CarritoController();
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
+    
+
+    <script src="/proyecto_final_daw_dtj/assets/js/validacionCarrito.js"></script>
     <script>
         // Clave pública de Stripe (modo prueba)
         const stripe = Stripe('<?php echo STRIPE_PUBLIC_KEY; ?>');
@@ -186,13 +189,11 @@ $carritoController = new CarritoController();
                     });
 
                     // Redirigimos al perfil
-                    window.location.href = '/views/frontend/miPerfil.php';
+                    window.location.href = '/proyecto_final_daw_dtj/views/frontend/miPerfil.php';
                 }
             }
         });
     </script>
-
-    <script src="/assets/js/validacionCarrito.js"></script>
 
 </body>
 

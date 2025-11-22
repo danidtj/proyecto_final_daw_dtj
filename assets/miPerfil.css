@@ -1,0 +1,87 @@
+/*ÍTULO*/
+.titulo_form {
+    text-align: center;
+    margin-bottom: 3vh; 
+    color: white;
+    text-shadow: 1px 1px 2px #000; 
+}
+
+/*CONTENEDOR DE LAS RESERVAS*/
+.reserva_detalles {
+    width: 65vw;
+    max-width: 100%;
+    margin: 0 auto 2rem auto;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    background-color: #fafafa;
+
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
+
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh; 
+}
+
+/*CABECERA CON EL DETALLE DE LAS RESERVAS*/
+.cabecera_reserva {
+    display: flex;                 
+    justify-content: space-around;
+    align-items: center;           
+    flex-wrap: wrap;              
+    gap: 10px;                     
+    background-color: #f7f7f7;     
+    padding: 10px 15px;            
+    border: 1px solid #ddd;        
+    border-radius: 6px;            
+    margin-bottom: 10px;      
+
+}
+
+
+/*INFORMACIÓN DE LAS ÓRDENES*/
+.productos_reserva {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+    background-color: #f7f7f7;     
+    padding: 10px 15px;            
+    border: 1px solid #ddd;        
+    border-radius: 6px;            
+    margin-bottom: 10px; 
+    justify-items: center;
+}
+
+
+/*BOTONES*/
+.botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.botones form {
+    margin: 0;
+}
+.botones.btn_cancelar, .botones.btn_modificar {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.botones.btn_modificar:hover {
+    background-color: #27ae60;
+}
+
+.botones.btn_cancelar:hover{
+    background-color: #c0392b;
+}
+

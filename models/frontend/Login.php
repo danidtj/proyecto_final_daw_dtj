@@ -66,11 +66,11 @@ class Login
                         $_SESSION['id_usuario'] = $row['id_usuario'];
                         if ($email_usuario === "admin@admin.com" && $row['nombre_rol'] === "Administrador" 
                         || $email_usuario === "camarero1@camarero.com" && $row['nombre_rol'] === "Camarero") {
-                            header("Location: /views/admin/admin.php");
+                            header("Location: /proyecto_final_daw_dtj/views/admin/admin.php");
                         } else {
                             $_SESSION['nombre_usuario'] = $row['nombre_usuario'];
                             $_SESSION['email_usuario'] = $email_usuario;
-                            header("Location: ../../home");
+                            header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
                         }
 
                         exit;

@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
                 <button id="aceptar">Aceptar</button>
             </div>
         </div>
-        <script src="/assets/js/popupReserva.js"></script>
+        <script src="/proyecto_final_daw_dtj/assets/js/popupReserva.js"></script>
     <?php
     } else {
 
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
         if ($_SESSION['comanda_previa'] === "1") {
             $_SESSION['mesa_id'] = $_POST['mesa_id'];
             //Si el usuario ha hecho una comanda previa, redirige a la carta
-            header("Location: /views/frontend/carta.php");
+            header("Location: /proyecto_final_daw_dtj/views/frontend/carta.php");
             exit();
         } else {
             $idReservaEmail = $reserva->realizarReserva(
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
             //Almacenamos el id de la nueva reserva en session
             //$_SESSION['id_reserva_nueva'] = $codigo_reserva;
             //Si no ha hecho comanda previa, redirige a la página principal
-            header("Location: /views/frontend/miPerfil.php");
+            header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");
             exit();
         }
     }
@@ -225,7 +225,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
                 <button id="aceptar-modificar-reserva">Aceptar</button>
             </div>
         </div>
-        <script src="/assets/js/popupModificarReserva.js"></script>
+        <script src="/proyecto_final_daw_dtj/assets/js/popupModificarReserva.js"></script>
 <?php
         exit();
     }
@@ -235,7 +235,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
 
         if (isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") {
             $_SESSION['mesa_id'] = $_POST['mesa_id'];
-            header("Location: /views/frontend/carta.php");
+            header("Location: /proyecto_final_daw_dtj/views/frontend/carta.php");
             exit();
         } elseif (isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] == "0") {
 
@@ -275,7 +275,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
 
         if (isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") {
             $_SESSION['mesa_id'] = $_POST['mesa_id'];
-            header("Location: /views/frontend/carta.php");
+            header("Location: /proyecto_final_daw_dtj/views/frontend/carta.php");
             exit();
         } elseif (isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] == "0") {
 
@@ -309,70 +309,6 @@ if (isset($_POST['confirmarModificacionReserva'])) {
             );
         }
     }
-
-
-
-
-
-
-
-
-    //Almacenamos el número de reservas que el usuario tiene en la fecha seleccionada
-    //$siUsuarioTieneYaReservaEnFecha = $reserva->usuarioTieneReservaEnFecha($_SESSION['id_usuario'], $_SESSION['fecha']);
-    //En caso de tener ya una reserva en esa fecha, mostramos un pop-up indicándoselo
-    //Comparar $_SESSION['fecha'] con la fecha actual
-    //$fechaActual = date('Y-m-d');
-
-
-    /* if ($siUsuarioTieneYaReservaEnFecha) {
-        if ($_SESSION['fecha'] !== $fechaActual && $_SESSION['fecha'] > $fechaActual) {
-        ?>
-            <!-- Pop-up -->
-            <div id="popup" class="popup">
-                <div class="popup-contenido">
-                    <span id="cerrar">&times;</span>
-                    <h2>Reserva no permitida</h2>
-                    <p>No puedes realizar más de una reserva en la misma fecha.</p>
-                    <button id="aceptar">Aceptar</button>
-                </div>
-            </div>
-            <script src="/assets/js/popupReserva.js"></script>
-<?php
-        } else {
-
-            if ($_SESSION['comanda_previa'] === "1") {
-                $_SESSION['mesa_id'] = $_POST['mesa_id'];
-                //Si el usuario ha hecho una comanda previa, redirige a la carta
-                header("Location: /views/frontend/carta.php");
-                exit();
-            } else {
-                $reserva->modificarReserva(
-                    $_SESSION['id_reserva'],
-                    $_POST['mesa_id'],
-                    $_SESSION['fecha'],
-                    $_SESSION['hora_inicio'],
-                    $_SESSION['numero_comensales'],
-                    $_SESSION['comanda_previa']
-                );
-            }*/
-
-    /*if ($_SESSION['comanda_previa'] === "1") {
-        $_SESSION['mesa_id'] = $_POST['mesa_id'];
-
-        //Si el usuario ha hecho una comanda previa, redirige a la carta
-        header("Location: /views/frontend/carta.php");
-        exit();
-    } else {
-        $_SESSION['mesa_id'] = $_POST['mesa_id'];
-        $reserva->modificarReserva(
-            $_SESSION['id_reserva'],
-            $_POST['mesa_id'],
-            $_SESSION['fecha'],
-            $_SESSION['hora_inicio'],
-            $_SESSION['numero_comensales'],
-            $_SESSION['comanda_previa']
-        );
-    }*/
 
     $emailDestinatario = $_SESSION['email_usuario'];
     $nombreDestinatario = $_SESSION['nombre_usuario'];
@@ -409,7 +345,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
     unset($_SESSION['mod_reserva_con_comanda']);
 
     //Redirige a la página del perfil del ususario
-    header("Location: /views/frontend/miPerfil.php");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");
     exit();
     //}
     //}

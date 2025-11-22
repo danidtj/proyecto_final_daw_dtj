@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
 
-    header("Location: home");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }
 
@@ -183,7 +183,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
         }
     }
 
-    header("Location: /views/frontend/carrito.php");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/carrito.php");
     exit();
 }
 
@@ -263,7 +263,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
 
                         // Formulario para modificar la reserva 
-                        echo "<form action=\"/controllers/frontend/ReservaController.php\" method=\"post\">";
+                        echo "<form action=\"/proyecto_final_daw_dtj/controllers/frontend/ReservaController.php\" method=\"post\">";
                         echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
                         echo "<input type=\"hidden\" name=\"fecha\" value=\"" . htmlspecialchars($reserva['fecha']) . "\">";
                         echo "<input type=\"hidden\" name=\"hora_inicio\" value=\"" . htmlspecialchars($reserva['hora_inicio']) . "\">";

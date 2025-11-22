@@ -1,14 +1,15 @@
 
 
-/*REVISAR TODO PORQUE ES DE CARTA*/
-.header_reserva {
+
+.header_reserva.reserva_header {
     color: white;
     text-shadow: 1px 1px 2px #000;
     text-align: center;
     justify-items: center;
+    margin-top: 0;
 }
 
-.container_form {
+.container_form.reserva_container {
     background-color: white;
     /*width: 800px;*/
    width: 1000px;
@@ -22,8 +23,15 @@
     padding-bottom: 20px;
 }
 
+.container_form.reserva_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 7vh;
+}
 
-.container_form form {
+
+.container_form.reserva_container form, .reserva_informacion {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -36,13 +44,13 @@
     padding: 1.5rem;
 }
 
-.container_form label {
+.container_form.reserva_container label {
     font-weight: bold;
     color: #444;
     font-family: 'Lato', sans-serif;
 }
 
-.container_form h2 {
+.container_form.reserva_container h2 {
     margin-top: 1rem;
     font-size: 1.4rem;
     font-family: 'Playfair Display', serif;
@@ -50,36 +58,58 @@
     text-align: center;
 }
 
-.container_form p {
+.container_form.reserva_container p {
     margin: 6px 0;
     font-family: 'Lato', sans-serif;
     color: #333;
 }
 
-.container_form p strong {
+.container_form.reserva_container p strong {
     color: #000;
 }
 
-
-
-
-.container_form input[type="text"],
-.container_form input[type="date"],
-.container_form input[type="password"],
-.container_form input[type="email"],
-.container_form input[type="number"],
+.container_form.reserva_container input[type="text"],
+.container_form.reserva_container input[type="date"],
+.container_form.reserva_container input[type="password"],
+.container_form.reserva_container input[type="email"],
+.container_form.reserva_container input[type="number"],
+.reserva_informacion input[type="text"],
+.reserva_informacion input[type="date"],
+.reserva_informacion input[type="password"],
+#numero_comensales,
 #hora_inicio,
-#mensaje select>option {
-    padding: 8px 10px;
+#mensaje,
+
+ select {
+    padding: 1.3vh 1.1vw;
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 0.95rem;
-    width: 200px;
+    width: 13vw;
 }
 
-.titulo_form {
-    text-align: center;
-    /*margin-top: 4rem;*/
-    margin-bottom: 2rem;
-    padding-top: 1rem;
+
+
+/*BOTONES*/
+.btn-reservar.btn_reservar, .btn_reservar.boton-confirmar-reserva {
+    text-decoration: none;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.reserva_boton_modificar{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.btn-reservar.btn_reservar:hover, .btn_reservar.boton-confirmar-reserva:hover {
+    background-color: #27ae60;
 }

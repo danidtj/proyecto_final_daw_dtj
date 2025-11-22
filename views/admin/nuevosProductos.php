@@ -3,7 +3,7 @@ session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
 
-    header("Location: ../frontend/home");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }
 
@@ -33,7 +33,7 @@ $categorias = Categoria::obtenerCategorias();
     <main>
         <section class="container_form formulario_productos">
             <h2 class="titulo_form nuevo_producto_titulo">MODIFICAR STOCK PRODUCTOS</h2>
-            <form action="/controllers/admin/ProductoController.php" method="post" class="formulario formulario_nuevoProducto">
+            <form action="/proyecto_final_daw_dtj/controllers/admin/ProductoController.php" method="post" class="formulario formulario_nuevoProducto">
                 <p>Nombre corto:</p>
                 <input type="text" name="nombre_corto" id="nombre_corto" placeholder="Nombre corto del producto" required><br>
                 <p>Nombre largo:</p>
@@ -107,7 +107,7 @@ $categorias = Categoria::obtenerCategorias();
         </section>
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
-    <script src="/assets/js/validacionNuevoProducto.js"></script>
+    <script src="/proyecto_final_daw_dtj/assets/js/validacionNuevoProducto.js"></script>
 </body>
 
 </html>

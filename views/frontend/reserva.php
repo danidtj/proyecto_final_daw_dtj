@@ -3,7 +3,7 @@
 
 if (!isset($_SESSION['id_usuario'])) {
 
-    header("Location: home");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }
 
@@ -98,7 +98,7 @@ $orden = new Orden();
 
                     <!-- Comensales -->
                     <div>
-                        <label for="numero_comensales">Número de comensales:</label>
+                        <label for="numero_comensales">Comensales:</label>
                         <select id="numero_comensales" name="numero_comensales">
                             <option value="1">1</option>
                             <option value="2" selected>2</option>
@@ -125,7 +125,7 @@ $orden = new Orden();
                     ?>
                         <!-- Comanda -->
                         <div>
-                            <p>¿Quieres realizar ya tu comanda?</p>
+                            <p>¿Quieres realizar ya tu orden?</p>
                             <label><input type="radio" name="comanda_previa" value="1" required> Sí</label>
                             <label><input type="radio" name="comanda_previa" value="0" required> No</label>
                             <p>Abono del 10% por adelantado.</p>
@@ -137,7 +137,7 @@ $orden = new Orden();
                     ?>
                         <!-- Comanda -->
                         <div>
-                            <p>¿Quieres realizar ya tu comanda?</p>
+                            <p>¿Quieres realizar ya tu orden?</p>
                             <label><input type="radio" name="comanda_previa" value="1" required> Sí</label>
                             <label><input type="radio" name="comanda_previa" value="0" required> No</label>
                             <p>Abono del 10% por adelantado.</p>
@@ -148,12 +148,12 @@ $orden = new Orden();
 
                     if (!isset($_POST['modificarReserva'])):
                     ?>
-                        <div>
+                        <div class="reservas_botones">
                             <button type="submit" id="boton-reservar" name="reservar" class="btn-reservar btn_reservar">Reservar</button>
                         </div>
                     <?php else:
                     ?>
-                        <div>
+                        <div class="reservas_botones">
                             <button type="submit" id="boton-reservar" name="modificar" class="btn-reservar btn_reservar">Modificar reserva</button>
                         </div>
                     <?php endif;
@@ -214,6 +214,7 @@ $orden = new Orden();
         ?>
             <h1 class="header_reserva reserva_header">RESERVA CON NOSOTROS</h1>
             <section class="container_form reserva_container">
+                <div class="reserva_informacion">
                 <?php
                 if (isset($_POST['reservar']) || isset($_POST['modificar'])) { ?>
 
@@ -230,7 +231,7 @@ $orden = new Orden();
 
                     <div>
                         <label for="hora_inicio">Hora:</label>
-                        <select id="hora_inicio" name="hora_inicio" required>
+                        <select id="hora_inicio_reserva" name="hora_inicio" required>
                             <option value="<?= $_SESSION['hora_inicio']; ?>" selected><?= $_SESSION['hora_inicio']; ?></option>
                         </select>
                         <p class="mensaje-error" id="error-hora" role="alert" aria-live="assertive"></p>
@@ -238,8 +239,8 @@ $orden = new Orden();
 
                     <!-- Comensales -->
                     <div>
-                        <label for="numero_comensales">Número de comensales:</label>
-                        <select id="numero_comensales" name="numero_comensales">
+                        <label for="numero_comensales">Comensales:</label>
+                        <select id="numero_comensales_reserva" name="numero_comensales">
                             <option value="<?= $_SESSION['numero_comensales']; ?>" selected><?= $_SESSION['numero_comensales']; ?></option>
                         </select>
 
@@ -281,12 +282,12 @@ $orden = new Orden();
                 <?php }
                     }
                 } ?>
-
+</div>
             </section>
 
             <section class="container_plano reserva_container_plano">
 
-                <form action="/controllers/frontend/ReservaController.php" name="formulario-reserva" method="post">
+                <form action="/proyecto_final_daw_dtj/controllers/frontend/ReservaController.php" name="formulario-reserva" method="post">
                     <!-- Para trasladar el ID de la mesa seleccionada -->
                     <input type="hidden" name="mesa_id" id="mesa_id" value="">
 
@@ -358,12 +359,12 @@ $orden = new Orden();
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']) || isset($_POST['confirmarModificacionReserva']))): ?>
 
-        <script src="/assets/js/validacionMesa.js"></script>
+        <script src="/proyecto_final_daw_dtj/assets/js/validacionMesa.js"></script>
         
 
     <?php endif; ?>
 
-    <script src="/assets/js/horasReserva.js"></script>
+    <script src="/proyecto_final_daw_dtj/assets/js/horasReserva.js"></script>
 </body>
 
 

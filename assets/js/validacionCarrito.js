@@ -78,7 +78,7 @@ function eliminar(codigo) {
     };
 
     // Solicitud AJAX con método GET al endpoint específico
-    xhttp.open("GET", "/views/frontend/ajaxCarrito.php?accion=eliminar&codigo=" + codigo, true);
+    xhttp.open("GET", "/proyecto_final_daw_dtj/views/frontend/ajaxCarrito.php?accion=eliminar&codigo=" + codigo, true);
 
     // Envía la solicitud al servidor
     xhttp.send();
@@ -146,7 +146,7 @@ if (botonVaciar) {
                 }
             };
 
-            xhttp.open("GET", "/views/frontend/ajaxCarrito.php?accion=vaciar", true);
+            xhttp.open("GET", "/proyecto_final_daw_dtj/views/frontend/ajaxCarrito.php?accion=vaciar", true);
             xhttp.send();
         });
     });

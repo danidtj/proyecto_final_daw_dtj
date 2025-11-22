@@ -5,8 +5,6 @@ use ModelsAdmin\Producto;
 require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -302,30 +300,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
     <?php
     include_once __DIR__ . '/../partials/footer.php'; ?>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const headers = document.querySelectorAll(".accordion-header");
-
-            headers.forEach((header, index) => {
-                // Restaurar estado guardado
-                const savedState = localStorage.getItem("accordion-" + index);
-                const content = header.nextElementSibling;
-                if (savedState === "open") content.style.display = "block";
-
-                header.addEventListener("click", function() {
-                    if (content.style.display === "block") {
-                        content.style.display = "none";
-                        localStorage.setItem("accordion-" + index, "closed");
-                    } else {
-                        content.style.display = "block";
-                        localStorage.setItem("accordion-" + index, "open");
-                    }
-                });
-            });
-        });
-    </script>
-
-
+    <script src="/proyecto_final_daw_dtj/assets/js/accordionCarta.js"></script>
 
 </body>
 

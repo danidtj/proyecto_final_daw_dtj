@@ -25,6 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Redirigir si se accede directamente
-    header("Location: ../../home");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }

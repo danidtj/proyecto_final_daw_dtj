@@ -3,6 +3,11 @@
 
 $paginaActual = basename($_SERVER['PHP_SELF']);
 
+if (isset($_POST['iniciarSesion'])) {
+    header("Location: /proyecto_final_daw_dtj/views/frontend/login.php");
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -11,16 +16,19 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--<link rel="stylesheet" href="/assets/general.css">
-<link rel="stylesheet" href="/assets/index.css">
-<link rel="stylesheet" href="/assets/header.css">
-<link rel="stylesheet" href="/assets/footer.css">
-<link rel="stylesheet" href="/assets/carta.css">
-<link rel="stylesheet" href="/assets/reserva.css">
-<link rel="stylesheet" href="/assets/popupTerminos.css">
-<link rel="stylesheet" href="/assets/mediaqueries_header.css">-->
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/general.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/index.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/header.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/footer.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/carta.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/reserva.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/miPerfil.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/contacto.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/carrito.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/popupTerminos.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/mediaqueries_header.css">
 
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
+    <!--<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carrito.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carta.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/contacto.css">
@@ -41,27 +49,27 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     
 
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_index.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_forms.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_forms.css">-->
     <title>Restaurante XITO</title>
 </head>
 
 
 <body>
     <header class="container_header header_container">
-        <div class="logo"><a href="/views/frontend/index.php" class="volver_ppal"><span class="x">&#88;</span><span class="ito">ITO</span></a></div>
+        <div class="logo"><a href="/proyecto_final_daw_dtj/views/frontend/index.php" class="volver_ppal"><span class="x">&#88;</span><span class="ito">ITO</span></a></div>
 
         <div class="menu_nav">
             <nav class="nav">
                 <ul>
                     <?php if (isset($_SESSION['id_usuario'])) { ?>
                         <li>
-                            <a href="/views/frontend/miPerfil.php"
+                            <a href="/proyecto_final_daw_dtj/views/frontend/miPerfil.php"
                                 class="link_menu <?= $paginaActual == 'miPerfil.php' ? 'activo' : '' ?>">
                                 MI PERFIL
                             </a>
                         </li>
                         <li>
-                            <a href="/controllers/frontend/ReservaController.php"
+                            <a href="/proyecto_final_daw_dtj/controllers/frontend/ReservaController.php"
                                 class="link_menu <?= $paginaActual == 'ReservaController.php' ? 'activo' : '' ?>">
                                 RESERVA
                             </a>
@@ -69,15 +77,15 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
                     <?php } ?>
 
 
-                    <li><a href="/views/frontend/carta.php" class="link_menu <?= $paginaActual == 'carta.php' ? 'activo' : '' ?>">CARTA</a></li>
+                    <li><a href="/proyecto_final_daw_dtj/views/frontend/carta.php" class="link_menu <?= $paginaActual == 'carta.php' ? 'activo' : '' ?>">CARTA</a></li>
                     <!-- <li><a class="link_menu" href="#carrito">CARRITO</a></li> -->
-                    <li><a href="/views/frontend/contacto.php" class="link_menu <?= $paginaActual == 'contacto.php' ? 'activo' : '' ?>">CONTACTO</a></li>
+                    <li><a href="/proyecto_final_daw_dtj/views/frontend/contacto.php" class="link_menu <?= $paginaActual == 'contacto.php' ? 'activo' : '' ?>">CONTACTO</a></li>
                 </ul>
             </nav>
         </div>
         <?php if (isset($_SESSION['id_usuario'])): ?>
             <div class="container_carrito">
-                <a href="/views/frontend/carrito.php" class="carrito <?= $paginaActual == 'carrito.php' ? 'activo' : '' ?>" title="Ir al carrito">
+                <a href="/proyecto_final_daw_dtj/views/frontend/carrito.php" class="carrito <?= $paginaActual == 'carrito.php' ? 'activo' : '' ?>" title="Ir al carrito">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
             </div>
@@ -87,7 +95,7 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 
             <?php if (isset($_SESSION['id_usuario'])) { ?>
 
-                <a href="/views/frontend/logoff.php" class="btn_logoff">Cerrar Sesión</a>
+                <a href="/proyecto_final_daw_dtj/views/frontend/logoff.php" class="btn_logoff">Cerrar Sesión</a>
 
             <?php
 
@@ -120,11 +128,3 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 
 </html>
 
-<?php
-if (isset($_POST['iniciarSesion'])) {
-    header("Location: /views/frontend/login.php");
-    exit;
-}
-
-
-?>

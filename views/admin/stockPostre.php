@@ -3,11 +3,12 @@ session_start();
 
 if (!isset($_SESSION['id_usuario'])) {
 
-    header("Location: ../frontend/home");
+        header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
     exit;
 }
 
 use ModelsFrontend\Rol;
+use ModelsAdmin\Producto;
 
 require_once dirname(__DIR__, 2) . '/models/frontend/Rol.php';
 $rol = new Rol();
@@ -31,12 +32,6 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
     <main>
         <section class="container_form">
             <h2 class="titulo_form">STOCK POSTRES</h2>
-            <?php
-            require_once dirname(__DIR__, 2) . '/models/admin/Postre.php';
-
-            use ModelsAdmin\Producto;
-
-            ?>
 
             <table class="tabla_stock">
                 <tr>
@@ -109,7 +104,7 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
         ?>
             <section class="container_form">
                 <h2 class="titulo_form">MODIFICAR STOCK POSTRES</h2>
-                <form action="/controllers/admin/ProductoController.php" method="post">
+                <form action="/proyecto_final_daw_dtj/controllers/admin/ProductoController.php" method="post">
 
                     <table class="tabla_stock">
                         <thead>

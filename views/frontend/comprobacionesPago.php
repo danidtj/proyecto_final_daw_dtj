@@ -28,7 +28,7 @@ if (isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true
 
     $ordenController->modificarOrdenReservaExistente();
 
-    header("Location: /views/frontend/miPerfil.php");
+    header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");
     exit();
 } //else {
 
@@ -47,66 +47,7 @@ if (
     $_SESSION['email_nueva_orden'] = true;
 }
 
-header("Location: /views/frontend/miPerfil.php");
+header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");
 exit();
-//}
-
-//Bloque para confirmar modificación de reserva
-/*if (isset($_SESSION['confirmarModificacionReserva'])) {
-
-    $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
-
-    $idOrdenCreada = $orden->crearOrden(
-        $_SESSION['id_reserva_nueva'],
-        'Tarjeta de crédito',
-        $_SESSION['precioTotalCarrito'],
-        $_SESSION['nuevoPagoAdelantado'],
-        $stripePaymentId
-    );
-
-    $reserva->modificarReserva(
-        $_SESSION['id_reserva'],
-        $_SESSION['mesa_id'],
-        $_SESSION['fecha'],
-        $_SESSION['hora_inicio'],
-        $_SESSION['numero_comensales'],
-        $_SESSION['comanda_previa']
-    );
-
-    unset($_SESSION['confirmarModificacionReserva']);
-    unset($_SESSION['comanda_previa']);
-    unset($_SESSION['carrito']); // Vaciamos el carrito después de crear la orden
-}
-
-//Bloque para confirmar reserva nueva
-if (isset($_SESSION['confirmarReserva']) && !empty($_SESSION['confirmarReserva'])) {
-
-    $codigo_reserva = $reserva->realizarReserva(
-        $_SESSION['fecha'],
-        $_SESSION['hora_inicio'],
-        $_SESSION['numero_comensales'],
-        $_SESSION['comanda_previa'],
-        $_SESSION['mesa_id'],
-        $_SESSION['id_usuario']
-    );
-
-    // Almacenamos el id de la nueva reserva en session
-    $_SESSION['id_reserva_nueva'] = $codigo_reserva;
-    $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
-
-    $idOrdenCreada = $orden->crearOrden(
-        $_SESSION['id_reserva_nueva'],
-        'Tarjeta de crédito',
-        $_SESSION['precioTotalCarrito'],
-        $_SESSION['nuevoPagoAdelantado'],
-        $stripePaymentId
-    );
-
-    unset($_SESSION['confirmarReserva']);
-    unset($_SESSION['comanda_previa']);
-    unset($_SESSION['carrito']);
-    unset($_SESSION['stripe_payment_id']);
-}*/
-
 
 echo json_encode(['success' => true]);

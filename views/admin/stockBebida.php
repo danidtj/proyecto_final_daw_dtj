@@ -128,10 +128,10 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
                                         <input type="hidden" name="bebidas[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($bebida->productos['modalidad_producto']) ?>">
                                     </td>
                                     <td>
-                                        <input type="number" name="bebidas[<?= $index ?>][uds_stock]" value="" min="0">
+                                        <input class="datos_productos" type="number" name="bebidas[<?= $index ?>][uds_stock]" value="" min="0">
                                     </td>
                                     <td>
-                                        <input type="number" name="bebidas[<?= $index ?>][precio_unitario]" value="" min="0" step="0.01">
+                                        <input class="datos_productos" type="number" name="bebidas[<?= $index ?>][precio_unitario]" value="" min="0" step="0.01">
                                     </td>
                                     <td>
                                         <?= htmlspecialchars($bebida->productos['tipo_categoria']) ?>
@@ -141,7 +141,7 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
                         </tbody>
                     </table><br>
 
-                    <input type="submit" class="btn_modificarStock " value="Modificar" name="modificarBebida"><br>
+                    <input type="submit" class="btn_modificarStock boton_modificarAdmin" value="Modificar" name="modificarBebida"><br>
                 </form>
             </section>
         <?php

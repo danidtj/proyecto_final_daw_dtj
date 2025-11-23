@@ -27,14 +27,14 @@
     font-family: 'Lato', sans-serif;
 }
 
-.container_form.formulario_contacto div {
+.formulario_contacto div {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.container_form.formulario_contacto input,
-.container_form.formulario_contacto textarea {
+.formulario_contacto input,
+.formulario_contacto textarea {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -45,7 +45,7 @@ textarea{
     resize: none;
 }
 
-.container_form.formulario_contacto {
+.formulario_contacto {
     display: grid;
     justify-content: center;
     gap: 10px;

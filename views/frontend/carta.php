@@ -43,7 +43,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Refresco' && $producto->productos['modalidad_producto'] === 'Refresco' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -59,7 +59,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Con alcohol' && $producto->productos['modalidad_producto'] === 'Con alcohol' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -84,7 +84,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Embutido' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -104,7 +105,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -120,7 +122,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -136,7 +139,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -159,7 +163,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 foreach ($productos as $producto) {
                     if ($producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
                         echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
                         echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
                         echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
@@ -204,7 +209,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Refresco' && $producto->productos['modalidad_producto'] === 'Refresco' && $producto->getUdsStock() > 0) {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
+                        echo "<p style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
                     }
                 }
                 echo '</div>';
@@ -214,7 +219,7 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Con alcohol' && $producto->productos['modalidad_producto'] === 'Con alcohol' && $producto->getUdsStock() > 0) {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
+                        echo "<p style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
                     }
                 }
                 echo '</div>';
@@ -233,7 +238,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Embutido' && $producto->getUdsStock() > 0) {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
                 echo '</div>';
@@ -247,7 +253,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado' && $producto->getUdsStock() > 0) {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
                 echo '</div>';
@@ -257,7 +264,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne' && $producto->getUdsStock() > 0) {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
                 echo '</div>';
@@ -267,7 +275,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
                     if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado' && $producto->getUdsStock() > 0) {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
                 echo '</div>';
@@ -284,7 +293,8 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
                 echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
                     if ($producto->getUdsStock() > 0) {
-                        echo "<p>" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
                 echo '</div>';

@@ -7,6 +7,20 @@
 }
 
 /*CONTENEDOR DE LAS RESERVAS*/
+/*.container_form.perfil_container_reservas{
+    background-color: white;
+    /*width: 800px;
+    width: 1000px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 1rem;
+    border: 2px solid grey;
+    background-color: white;
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
+    padding-bottom: 20px;
+}*/
+
 .reserva_detalles {
     width: 65vw;
     max-width: 100%;

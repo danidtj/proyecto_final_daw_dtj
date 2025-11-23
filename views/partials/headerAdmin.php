@@ -18,7 +18,13 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/general.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminHeader.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminIndex.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminFooter.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminTablasproductos.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/admin_mediaqueriesHeader.css">
+    <!--<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carrito.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carta.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/contacto.css">
@@ -37,12 +43,12 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reservasAdmin.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/terminos.css">
 
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_index.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_index.css">-->
     <title>Restaurante XITO - Administrador</title>
 </head>
 
 <body>
-    <header class="container_header">
+    <header class="container_header header_container">
         <div class="logo"><a href="/proyecto_final_daw_dtj/views/admin/admin.php" class="volver_ppal"><span class="x">&#88;</span><span class="ito">ITO</span></a></div>
         <div class="menu_nav">
             <nav class="nav">

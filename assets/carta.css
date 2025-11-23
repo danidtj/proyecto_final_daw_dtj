@@ -1,6 +1,6 @@
 
 /*CONTAINER CARTA*/
-.container_form.carta_container {
+.carta_container {
     background-color: white;
     /*width: 800px;*/
    width: 1000px;
@@ -15,7 +15,7 @@
 }
 
 
-.container_form.carta_container form {
+.carta_container form {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -28,13 +28,7 @@
     padding: 1.5rem;
 }
 
-.container_form.carta_container label {
-    font-weight: bold;
-    color: #444;
-    font-family: 'Lato', sans-serif;
-}
-
-.container_form.carta_container h2 {
+.carta_container h2 {
     margin-top: 1rem;
     font-size: 1.4rem;
     font-family: 'Playfair Display', serif;
@@ -42,15 +36,9 @@
     text-align: center;
 }
 
-.container_form.carta_container p {
-    margin: 6px 0;
-    font-family: 'Lato', sans-serif;
-    color: #333;
-}
 
-.container_form.carta_container p strong {
-    color: #000;
-}
+
+
 
 
 

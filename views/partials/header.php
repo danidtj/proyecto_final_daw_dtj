@@ -17,7 +17,7 @@ if (isset($_POST['iniciarSesion'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/general.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/index.css">
+
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/header.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/footer.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/carta.css">
@@ -25,6 +25,7 @@ if (isset($_POST['iniciarSesion'])) {
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/miPerfil.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/contacto.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/carrito.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/index.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/popupTerminos.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/mediaqueries_header.css">
 

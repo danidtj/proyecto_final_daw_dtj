@@ -283,7 +283,7 @@ $orden = new Orden();
 
                         <!-- Comensales -->
                         <div>
-                            <label for="numero_comensales">Número de comensales:</label>
+                            <label for="numero_comensales">Comensales:</label>
                             <select id="numero_comensales" name="numero_comensales">
                                 <option value="1" selected>1</option>
                                 <option value="2">2</option>
@@ -348,7 +348,7 @@ $orden = new Orden();
 
                             <!-- Comensales -->
                             <div>
-                                <label for="numero_comensales">Número de comensales:</label>
+                                <label for="numero_comensales">Comensales:</label>
                                 <select id="numero_comensales" name="numero_comensales">
                                     <option value="<?= $_SESSION['numero_comensales']; ?>" selected><?= $_SESSION['numero_comensales']; ?></option>
                                 </select>

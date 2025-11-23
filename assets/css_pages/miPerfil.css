@@ -1,4 +1,4 @@
-.reserva_detalles{
+.reserva_detalles {
     width: 90%;
     margin: 0 auto 2rem auto;
     border: 2px solid grey;
@@ -20,21 +20,21 @@
 }
 
 .cabecera_reserva {
-    display: flex;                 
+    display: flex;
     justify-content: space-between;
-    align-items: center;           
-    flex-wrap: wrap;              
-    gap: 10px;                     
-    background-color: #f7f7f7;     
-    padding: 10px 15px;            
-    border: 1px solid #ddd;        
-    border-radius: 6px;            
-    margin-bottom: 10px;          
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #f7f7f7;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 
 .cabecera_reserva span {
-    text-align: center;            
-    min-width: 120px;              
+    text-align: center;
+    min-width: 120px;
 }
 
 
@@ -43,11 +43,11 @@
     list-style-type: disc;
     padding-left: 20px;
     margin: 0;
-    background-color: #f7f7f7;     
-    padding: 10px 15px;            
-    border: 1px solid #ddd;        
-    border-radius: 6px;            
-    margin-bottom: 10px; 
+    background-color: #f7f7f7;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 10px;
 }
 
 
@@ -64,7 +64,8 @@
     margin: 0;
 }
 
-.btn_cancelar,  .btn_modificar {
+.btn_cancelar,
+.btn_modificar {
     background-color: #333;
     color: #fff;
     border: none;
@@ -74,7 +75,14 @@
     transition: background-color 0.2s;
 }
 
-.btn_añadir, .btn_reservar, .btn_login, .btn_modificarStock, .btn_crearProducto, .btn_logoff, .btn_contacto, .btn_buscarReserva {
+.btn_añadir,
+.btn_reservar,
+.btn_login,
+.btn_modificarStock,
+.btn_crearProducto,
+.btn_logoff,
+.btn_contacto,
+.btn_buscarReserva {
     text-decoration: none;
     background-color: #333;
     color: #fff;
@@ -85,11 +93,19 @@
     transition: background-color 0.2s;
 }
 
-.btn_cancelar:hover, .btn_logoff:hover, .btn_modificarStock:hover {
+.btn_cancelar:hover,
+.btn_logoff:hover,
+.btn_modificarStock:hover {
     background-color: #c0392b;
 }
 
-.btn_modificar:hover, .btn_añadir:hover, .btn_login:hover,  .btn_crearProducto:hover, .btn_contacto:hover, .btn_reservar:hover, .btn_buscarReserva:hover {
+.btn_modificar:hover,
+.btn_añadir:hover,
+.btn_login:hover,
+.btn_crearProducto:hover,
+.btn_contacto:hover,
+.btn_reservar:hover,
+.btn_buscarReserva:hover {
     background-color: #27ae60;
 }
 
@@ -99,11 +115,18 @@
 
 
 
-.perfil_container_reservas{}
-.perfil_titulo{}
-.perfil_reserva_detalles{}
-.perfil_cabecera_reserva{}
-.perfil_productos_reserva{}
-.perfil_botones_reserva{}
-.btn_cancelar{}
-.btn_modificar{}
+.perfil_container_reservas {}
+
+.perfil_titulo {}
+
+.perfil_reserva_detalles {}
+
+.perfil_cabecera_reserva {}
+
+.perfil_productos_reserva {}
+
+.perfil_botones_reserva {}
+
+.btn_cancelar {}
+
+.btn_modificar {}

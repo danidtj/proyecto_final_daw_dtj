@@ -144,7 +144,7 @@ if (isset($_SESSION['email_nueva_orden']) && $_SESSION['email_nueva_orden'] === 
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
 
-    unset($_SESSION['id_reserva']);
+    //unset($_SESSION['id_reserva']);
     unset($_SESSION['carrito']);
     unset($_SESSION['stripe_payment_id']);
     unset($_SESSION['email_nueva_orden']);

@@ -55,9 +55,9 @@ class Registro
                             //Comprobamos que no se hayan enviado previamente los encabezados por HTTP. En caso afirmativo, 
                             //redirecciona mediante código javascript
                             if (headers_sent()) {
-                                echo "<script> window.location.href = '../../views/frontend/home'; </script>";
+                                echo "<script> window.location.href = '/proyecto_final_daw_dtj/views/frontend/index.php'; </script>";
                             } else {
-                                header("Location: ../home");
+                                header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
                                 exit;
                             }
                         }

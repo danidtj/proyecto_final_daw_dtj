@@ -15,7 +15,7 @@
 }
 
 .formulario_nuevoProducto {
-    width: 800px;
+    width: 1000px;
     max-width: 100%;
     height: auto;
     padding: 20px;
@@ -28,7 +28,7 @@
 }
 
 
-.formulario_productos .titulo_form {
+.formulario_productos.titulo_form {
     width: 500px;
     text-align: center;
     margin-bottom: 10px;
@@ -81,7 +81,7 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     font-size: 0.95rem;
-    width: 49vw;
+    /*width: 100%;*/
 }
 
 

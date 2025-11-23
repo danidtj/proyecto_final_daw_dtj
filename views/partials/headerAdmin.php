@@ -9,6 +9,13 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 
 $paginaActual = basename($_SERVER['PHP_SELF']);
 
+if (isset($_POST['cerrarSesion'])) {
+
+    // Y la eliminamos
+    unset($_SESSION['id_usuario']);
+    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
+}
+
 ?>
 
 
@@ -23,6 +30,8 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminIndex.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminFooter.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminTablasproductos.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminProductos.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminReservas.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/admin_mediaqueriesHeader.css">
     <!--<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carrito.css">
@@ -74,14 +83,3 @@ $paginaActual = basename($_SERVER['PHP_SELF']);
 
 </html>
 
-<?php
-if (isset($_POST['cerrarSesion'])) {
-    @session_start();
-
-    // Y la eliminamos
-    unset($_SESSION['id_usuario']);
-    header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
-}
-
-
-?>

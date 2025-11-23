@@ -21,12 +21,12 @@ class LoginController
     {
         if (isset($_POST['user'], $_POST['password'])) {
             //Con htmlspecialchars se evita inyección de código malicioso y se convierte en entidades de HTML.
-            $nom_usuario = htmlspecialchars($_POST['user'], ENT_QUOTES, 'UTF-8');
+            $email_usuario = htmlspecialchars($_POST['user'], ENT_QUOTES, 'UTF-8');
             $pswd_usuario = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
         }
 
         $login = new Login();
-        $login->comprobarCredencialesAcceso(trim($nom_usuario), trim($pswd_usuario));
+        $login->comprobarCredencialesAcceso(trim($email_usuario), trim($pswd_usuario));
     }
 
     //Método para mostar la vista de Login

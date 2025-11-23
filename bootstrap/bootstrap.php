@@ -1,5 +1,6 @@
 <?php
 //require_once __DIR__ . '/Router.php';
+//require_once __DIR__ . '/View.php';
 //require_once dirname(__DIR__) . '/vendor/autoload.php';
 use Bootstrap\Router;
 

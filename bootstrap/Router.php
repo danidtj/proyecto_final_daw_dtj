@@ -1,6 +1,6 @@
 <?php
 namespace Bootstrap;
-//require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Bootstrap\View;
 class Router {

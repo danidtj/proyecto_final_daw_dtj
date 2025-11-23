@@ -5,15 +5,12 @@ use ModelsAdmin\Producto;
 require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -22,241 +19,298 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 
 
 <body>
-    <hr id="hr1">
-    <!--<hr id="hr2">
-        <hr id="hr3">-->
-    <hr id="hr4">
     <?php include_once __DIR__ . '/../partials/header.php'; ?>
     <main>
 
-        <?php if (isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) && $_SESSION['comanda'] === '1'
-        || isset($_SESSION['confirmarModificacionReserva'])) { ?>
-            <section class="container_form">
-                <h2 class="titulo_form">CARTA</h2>
-                <!--<form action="/controllers/frontend/CarritoController.php" method="post">-->
-
+        <?php if (
+            isset($_SESSION['id_usuario']) && isset($_SESSION['confirmarReserva']) && isset($_SESSION['comanda_previa']) && $_SESSION['comanda_previa'] === '1'
+            || isset($_SESSION['modificar_orden']) && $_SESSION['modificar_orden'] === true || isset($_SESSION['confirmarModificacionReserva'])
+            && $_SESSION['confirmarModificacionReserva'] === true && isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1"
+        ) { ?>
+            <section class="container_form carta_container">
+                <h2 class="titulo_form carta_titulo">CARTA</h2>
 
                 <?php
-
-                //USAR AJAX PARA RECARGAR LA PÁGINA
+                // --- BEBIDAS ---
                 $productos = Producto::getProductos('bebida');
+                echo '<div class="accordion">';
+                echo '<div class="accordion-header">Bebidas</div>';
+                echo '<div class="accordion-content">';
 
-                echo "<h3>&nbsp;&nbsp;&nbspBebidas</h3><br>";
-                //REFRESCOS
-                echo "<h4>&nbsp;&nbsp;&nbspRefrescos</h4><br>";
+                // REFRESCOS
+                echo '<div class="accordion-header">Refrescos</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-
-                    if ($producto->productos['tipo_producto'] === 'Refresco') {
+                    if ($producto->productos['tipo_categoria'] === 'Refresco' && $producto->productos['modalidad_producto'] === 'Refresco' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        //echo "<input type=\"checkbox\" name=\"codigo_producto\" id=\"" . $producto->getNombreProducto() . "\" value=\"" . $producto->getCodigoProducto() . "\"> ";
-                        //echo "<label for=\"" . $producto->getNombreProducto() . "\">" . $producto->getNombreProducto() . "</label> <span class=\"precio_producto\">...................." . $producto->getPrecioProducto() . " €</span><br>";
-                        //echo "<input type=\"hidden\" name=\"productosCarrito[nombre_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getNombreProducto(), ENT_QUOTES, 'UTF-8') . "\">";
-                        //echo "<input type=\"hidden\" name=\"productosCarrito[precio_producto]" . $producto->getCodigoProducto() . "\" value=\"" . htmlspecialchars($producto->getPrecioProducto(), ENT_QUOTES, 'UTF-8') . "\">";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreProducto() . "\n";
-                        echo "............" . $producto->getPrecioProducto() . "\n";
-                        echo "<input type='hidden' name='codigo_producto' value='" . $producto->getCodigoProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_producto' value='" . $producto->getNombreProducto() . "'>";
-                        echo "<input type='hidden' name='precio_producto' value='" . $producto->getPrecioProducto() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
+                echo '</div>';
 
-                //BEBIDAS ALCOHÓLICAS
-                echo "<h4>&nbsp;&nbsp;&nbspCon alcohol</h4><br>";
+                // CON ALCOHOL
+                echo '<div class="accordion-header">Con alcohol</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-
-                    if ($producto->productos['tipo_producto'] === 'Con alcohol') {
+                    if ($producto->productos['tipo_categoria'] === 'Con alcohol' && $producto->productos['modalidad_producto'] === 'Con alcohol' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreProducto() . "\n";
-                        echo "............" . $producto->getPrecioProducto() . "\n";
-                        echo "<input type='hidden' name='codigo_producto' value='" . $producto->getCodigoProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_producto' value='" . $producto->getNombreProducto() . "'>";
-                        echo "<input type='hidden' name='precio_producto' value='" . $producto->getPrecioProducto() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
+                echo '</div>';
 
-                //COMIDA
-                echo "<h3>&nbsp;&nbsp;&nbspComida</h3><br>";
+                echo '</div>'; // fin Bebidas
+                echo '</div>';
+
+                // --- COMIDA ---
                 $productos = Producto::getProductos('comida');
-                //ENTRANTES
-                echo "<h4>&nbsp;&nbsp;&nbspEntrantes</h4><br>";
-                foreach ($productos as $producto) {
+                echo '<div class="accordion">';
+                echo '<div class="accordion-header">Comida</div>';
+                echo '<div class="accordion-content">';
 
-                    if ($producto->productos['tipo_producto'] === 'Tapa') {
-                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreProducto() . "\n";
-                        echo "............" . $producto->getPrecioProducto() . "\n";
-                        echo "<input type='hidden' name='codigo_producto' value='" . $producto->getCodigoProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_producto' value='" . $producto->getNombreProducto() . "'>";
-                        echo "<input type='hidden' name='precio_producto' value='" . $producto->getPrecioProducto() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
-                        echo "</form>";
-                    }
-                }
-                //RACIONES Y VARIADOS
-                echo "<h4>&nbsp;&nbsp;&nbspRaciones</h4><br>";
-                echo "<h5>&nbsp;&nbsp;&nbspVariados</h5><br>";
+                // ENTRANTES
+                echo '<div class="accordion-header">Entrantes</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_producto'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado') {
+                    if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Embutido' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreProducto() . "\n";
-                        echo "............" . $producto->getPrecioProducto() . "\n";
-                        echo "<input type='hidden' name='codigo_producto' value='" . $producto->getCodigoProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_producto' value='" . $producto->getNombreProducto() . "'>";
-                        echo "<input type='hidden' name='precio_producto' value='" . $producto->getPrecioProducto() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
-                //RACIONES Y CARNES
-                echo "<h5>&nbsp;&nbsp;&nbspCarnes</h5><br>";
+                echo '</div>';
+
+                // RACIONES
+                echo '<div class="accordion-header">Raciones</div>';
+                echo '<div class="accordion-content">';
+
+                // Variados
+                echo '<div class="accordion-header">Variados</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_producto'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne') {
+                    if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreProducto() . "\n";
-                        echo "............" . $producto->getPrecioProducto() . "\n";
-                        echo "<input type='hidden' name='codigo_producto' value='" . $producto->getCodigoProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_producto' value='" . $producto->getNombreProducto() . "'>";
-                        echo "<input type='hidden' name='precio_producto' value='" . $producto->getPrecioProducto() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
-                //RACIONES Y PESCADOS
-                echo "<h5>&nbsp;&nbsp;&nbspPescados</h5><br>";
+                echo '</div>';
+
+                // Carnes
+                echo '<div class="accordion-header">Carnes</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_producto'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado') {
+                    if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne' && $producto->getUdsStock() > 0) {
                         echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                        echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreProducto() . "\n";
-                        echo "............" . $producto->getPrecioProducto() . "\n";
-                        echo "<input type='hidden' name='codigo_producto' value='" . $producto->getCodigoProducto() . "'>";
-                        echo "<input type='hidden' name='nombre_producto' value='" . $producto->getNombreProducto() . "'>";
-                        echo "<input type='hidden' name='precio_producto' value='" . $producto->getPrecioProducto() . "'>";
-                        echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
                         echo "</form>";
                     }
                 }
-                //POSTRES
-                echo "<h3>&nbsp;&nbsp;&nbspPostres</h3><br>";
+                echo '</div>';
+
+                // Pescados
+                echo '<div class="accordion-header">Pescados</div>';
+                echo '<div class="accordion-content">';
+                foreach ($productos as $producto) {
+                    if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado' && $producto->getUdsStock() > 0) {
+                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                        echo "</form>";
+                    }
+                }
+                echo '</div>';
+
+                echo '</div>'; // fin Raciones
+
+                echo '</div>'; // fin Comida
+                echo '</div>';
+
+                // --- POSTRES ---
                 $productos = Producto::getProductos('postre');
+                echo '<div class="accordion">';
+                echo '<div class="accordion-header">Postres</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
-                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" . $producto->getNombreProducto() . "\n";
-                    echo "............" . $producto->getPrecioProducto() . "\n";
-                    echo "<input type='hidden' name='codigo_producto' value='" . $producto->getCodigoProducto() . "'>";
-                    echo "<input type='hidden' name='nombre_producto' value='" . $producto->getNombreProducto() . "'>";
-                    echo "<input type='hidden' name='precio_producto' value='" . $producto->getPrecioProducto() . "'>";
-                    echo "<input type='submit' value='Añadir' name='añadir'><br><br>";
-                    echo "</form>";
+                    if ($producto->getUdsStock() > 0) {
+                        echo "<form action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "' method='POST'>";
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</span>";
+                        echo "<p class='descripcion_producto'style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" >" . $producto->getDescripcion() . "</p>";
+                        echo "<input type='hidden' name='id_producto' value='" . $producto->getIdProducto() . "'>";
+                        echo "<input type='hidden' name='nombre_corto' value='" . $producto->getNombreCorto() . "'>";
+                        echo "<input type='hidden' name='precio_unitario' value='" . $producto->getPrecioUnitario() . "'>";
+                        echo "<input type='submit' class='btn_añadir' value='Añadir' name='añadir'><br><br>";
+                        echo "</form>";
+                    }
                 }
-
+                echo '</div>';
+                echo '</div>';
                 ?>
-                <br>
-
-                <!--<input type="submit" value="Enviar" name="eleccionCarta">
-                </form>-->
             </section>
+
             <?php
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['añadir'])) {
                 $producto = [
-                    'codigo_producto' => $_POST['codigo_producto'],
-                    'nombre_producto' => $_POST['nombre_producto'],
-                    'precio_producto' => $_POST['precio_producto']
+                    'id_producto' => $_POST['id_producto'],
+                    'nombre_corto' => $_POST['nombre_corto'],
+                    'precio_unitario' => $_POST['precio_unitario']
                 ];
 
+                //Comprobamos que el carrito no existe para crearlo
+                if (!isset($_SESSION['carrito'])) {
+                    $_SESSION['carrito'] = array();
+                }
                 // Añadir el producto al carrito
                 $_SESSION['carrito'][] = $producto;
             }
         } else { ?>
-            <section class="container_form">
-                <h2 class="titulo_form">CARTA</h2>
+            <section class="container_form carta_container">
+                <h2 class="titulo_form carta_titulo">CARTA</h2>
 
                 <?php
-
+                // --- BEBIDAS ---
                 $productos = Producto::getProductos('bebida');
+                echo '<div class="accordion">';
+                echo '<div class="accordion-header">Bebidas</div>';
+                echo '<div class="accordion-content">';
 
-                echo "<h3>&nbsp;&nbsp;&nbspBebidas</h3><br>";
-                //REFRESCOS
-                echo "<h4>&nbsp;&nbsp;&nbspRefrescos</h4><br>";
+                // REFRESCOS
+                echo '<div class="accordion-header">Refrescos</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-
-                    if ($producto->productos['tipo_producto'] === 'Refresco') {
-                        echo "<p>" . $producto->getNombreProducto() . " - " . $producto->getPrecioProducto() . "</p><br>";
+                    if ($producto->productos['tipo_categoria'] === 'Refresco' && $producto->productos['modalidad_producto'] === 'Refresco' && $producto->getUdsStock() > 0) {
+                        echo "<p style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
                     }
                 }
+                echo '</div>';
 
-                //BEBIDAS ALCOHÓLICAS
-                echo "<h4>&nbsp;&nbsp;&nbspCon alcohol</h4><br>";
+                // CON ALCOHOL
+                echo '<div class="accordion-header">Con alcohol</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-
-                    if ($producto->productos['tipo_producto'] === 'Con alcohol') {
-                        echo "<p>" . $producto->getNombreProducto() . " - " . $producto->getPrecioProducto() . "</p><br>";
+                    if ($producto->productos['tipo_categoria'] === 'Con alcohol' && $producto->productos['modalidad_producto'] === 'Con alcohol' && $producto->getUdsStock() > 0) {
+                        echo "<p style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €</p>";
                     }
                 }
+                echo '</div>';
 
-                //COMIDA
-                echo "<h3>&nbsp;&nbsp;&nbspComida</h3><br>";
+                echo '</div>'; // fin Bebidas
+                echo '</div>';
 
+                // --- COMIDA ---
                 $productos = Producto::getProductos('comida');
+                echo '<div class="accordion">';
+                echo '<div class="accordion-header">Comida</div>';
+                echo '<div class="accordion-content">';
 
-                //ENTRANTES
-                echo "<h4>&nbsp;&nbsp;&nbspEntrantes</h4><br>";
-
+                // ENTRANTES
+                echo '<div class="accordion-header">Entrantes</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_producto'] === 'Tapa') {
-                        echo "<p>" . $producto->getNombreProducto() . " - " . $producto->getPrecioProducto() . "</p><br>";
+                    if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Embutido' && $producto->getUdsStock() > 0) {
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
+                echo '</div>';
 
-                //RACIONES Y VARIADOS
-                echo "<h4>&nbsp;&nbsp;&nbspRaciones</h4><br>";
-                echo "<h5>&nbsp;&nbsp;&nbspVariados</h5><br>";
+                // RACIONES
+                echo '<div class="accordion-header">Raciones</div>';
+                echo '<div class="accordion-content">';
 
+                // VARIADOS
+                echo '<div class="accordion-header">Variados</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_producto'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado') {
-                        echo "<p>" . $producto->getNombreProducto() . " - " . $producto->getPrecioProducto() . "</p><br>";
+                    if ($producto->productos['tipo_categoria'] === 'Tapa' && $producto->productos['modalidad_producto'] === 'Variado' && $producto->getUdsStock() > 0) {
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
+                echo '</div>';
 
-                //RACIONES Y CARNES
-                echo "<h5>&nbsp;&nbsp;&nbspCarnes</h5><br>";
-
+                // CARNES
+                echo '<div class="accordion-header">Carnes</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_producto'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne') {
-                        echo "<p>" . $producto->getNombreProducto() . " - " . $producto->getPrecioProducto() . "</p><br>";
+                    if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Carne' && $producto->getUdsStock() > 0) {
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
+                echo '</div>';
 
-                //RACIONES Y PESCADOS
-                echo "<h5>&nbsp;&nbsp;&nbspPescados</h5><br>";
-
+                // PESCADOS
+                echo '<div class="accordion-header">Pescados</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    if ($producto->productos['tipo_producto'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado') {
-                        echo "<p>" . $producto->getNombreProducto() . " - " . $producto->getPrecioProducto() . "</p><br>";
+                    if ($producto->productos['tipo_categoria'] === 'Ración' && $producto->productos['modalidad_producto'] === 'Pescado' && $producto->getUdsStock() > 0) {
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
                     }
                 }
+                echo '</div>';
 
-                //POSTRES
-                echo "<h3>&nbsp;&nbsp;&nbspPostres</h3><br>";
+                echo '</div>'; // fin Raciones
 
+                echo '</div>'; // fin Comida
+                echo '</div>';
+
+                // --- POSTRES ---
                 $productos = Producto::getProductos('postre');
-
+                echo '<div class="accordion">';
+                echo '<div class="accordion-header">Postres</div>';
+                echo '<div class="accordion-content">';
                 foreach ($productos as $producto) {
-                    echo "<p>" . $producto->getNombreProducto() . " - " . $producto->getPrecioProducto() . "</p><br>";
+                    if ($producto->getUdsStock() > 0) {
+                        echo "<span style=\"font-weight: bold; font-family: 'Playfair Display', serif;\">" . $producto->getNombreCorto() . " - " . number_format($producto->getPrecioUnitario(), 2, ',', '.') . " €&nbsp;&nbsp;&nbsp;&nbsp;</span>";
+                        echo "<span style=\"font-style: oblique; font-family: 'Playfair Display', serif;\" class=\"descripciones_productos\">" . $producto->getDescripcion() . "</span><br>";
+                    }
                 }
+                echo '</div>';
+                echo '</div>';
                 ?>
-
             </section>
+
 
         <?php }
         ?>
     </main>
 
-    <?php include_once __DIR__ . '/../partials/footer.php'; ?>
+    <?php
+    include_once __DIR__ . '/../partials/footer.php'; ?>
+
+    <script src="/proyecto_final_daw_dtj/assets/js/accordionCarta.js"></script>
 
 </body>
 

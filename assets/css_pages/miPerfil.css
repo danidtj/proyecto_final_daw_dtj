@@ -1,0 +1,109 @@
+.reserva_detalles{
+    width: 90%;
+    margin: 0 auto 2rem auto;
+    border: 2px solid grey;
+    background-color: white;
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.reserva_detalles {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cabecera_reserva {
+    display: flex;                 
+    justify-content: space-between;
+    align-items: center;           
+    flex-wrap: wrap;              
+    gap: 10px;                     
+    background-color: #f7f7f7;     
+    padding: 10px 15px;            
+    border: 1px solid #ddd;        
+    border-radius: 6px;            
+    margin-bottom: 10px;          
+}
+
+.cabecera_reserva span {
+    text-align: center;            
+    min-width: 120px;              
+}
+
+
+
+.productos_reserva {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+    background-color: #f7f7f7;     
+    padding: 10px 15px;            
+    border: 1px solid #ddd;        
+    border-radius: 6px;            
+    margin-bottom: 10px; 
+}
+
+
+
+
+.botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.botones form {
+    margin: 0;
+}
+
+.btn_cancelar,  .btn_modificar {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn_añadir, .btn_reservar, .btn_login, .btn_modificarStock, .btn_crearProducto, .btn_logoff, .btn_contacto, .btn_buscarReserva {
+    text-decoration: none;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn_cancelar:hover, .btn_logoff:hover, .btn_modificarStock:hover {
+    background-color: #c0392b;
+}
+
+.btn_modificar:hover, .btn_añadir:hover, .btn_login:hover,  .btn_crearProducto:hover, .btn_contacto:hover, .btn_reservar:hover, .btn_buscarReserva:hover {
+    background-color: #27ae60;
+}
+
+.btn_buscarReserva:hover {
+    background-color: #555;
+}
+
+
+
+.perfil_container_reservas{}
+.perfil_titulo{}
+.perfil_reserva_detalles{}
+.perfil_cabecera_reserva{}
+.perfil_productos_reserva{}
+.perfil_botones_reserva{}
+.btn_cancelar{}
+.btn_modificar{}

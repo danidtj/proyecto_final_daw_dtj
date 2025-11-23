@@ -30,8 +30,8 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 <body>
     <?php include_once __DIR__ . '/../partials/headerAdmin.php'; ?>
     <main>
-        <section class="container_form">
-            <h2 class="titulo_form">STOCK POSTRES</h2>
+        <section class="container_form productos_stock_container">
+            <h2 class="titulo_form productos_stock_titulo">STOCK POSTRES</h2>
 
             <table class="tabla_stock">
                 <tr>
@@ -102,8 +102,8 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
         if ($nombre_rol === "Administrador") {
 
         ?>
-            <section class="container_form">
-                <h2 class="titulo_form">MODIFICAR STOCK POSTRES</h2>
+            <section class="container_form productos_modificar_container">
+                <h2 class="titulo_form productos_modificar_titulo">MODIFICAR STOCK POSTRES</h2>
                 <form action="/proyecto_final_daw_dtj/controllers/admin/ProductoController.php" method="post">
 
                     <table class="tabla_stock">
@@ -127,11 +127,11 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
                                         <input type="hidden" name="postres[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($postre->productos['modalidad_producto']) ?>">
                                     </td>
                                     <td>
-                                        <input type="number" name="postres[<?= $index ?>][uds_stock]"
+                                        <input class="datos_productos" type="number" name="postres[<?= $index ?>][uds_stock]"
                                             value="" min="0">
                                     </td>
                                     <td>
-                                        <input type="number" name="postres[<?= $index ?>][precio_unitario]"
+                                        <input class="datos_productos" type="number" name="postres[<?= $index ?>][precio_unitario]"
                                             value="" min="0" step="0.01">
                                     </td>
 
@@ -140,7 +140,7 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
                         </tbody>
                     </table><br>
 
-                    <input type="submit" class="btn_modificarStock" value="Modificar" name="modificarPostre"><br>
+                    <input type="submit" class="btn_modificarStock boton_modificarAdmin" value="Modificar" name="modificarPostre"><br>
                 </form>
             </section>
         <?php

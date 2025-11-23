@@ -31,8 +31,8 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 <body>
     <?php include_once __DIR__ . '/../partials/headerAdmin.php'; ?>
     <main>
-        <section class="container_form">
-            <h2 class="titulo_form">STOCK COMIDAS</h2>
+        <section class="container_form productos_stock_container">
+            <h2 class="titulo_form productos_stock_titulo">STOCK COMIDAS</h2>
 
             <table class="tabla_stock">
                 <tr>
@@ -107,8 +107,8 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 
         ?>
             <!-- Consultamos de nuevo los productos disponibles en la base de datos y aparecen esos mismos en un formulario para modificar su stock y precio -->
-            <section class="container_form">
-                <h2 class="titulo_form">MODIFICAR STOCK COMIDA</h2>
+            <section class="container_form productos_modificar_container">
+                <h2 class="titulo_form productos_modificar_titulo">MODIFICAR STOCK COMIDA</h2>
                 <form action="/proyecto_final_daw_dtj/controllers/admin/ProductoController.php" method="post">
 
                     <table class="tabla_stock">
@@ -133,10 +133,10 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
                                         <input type="hidden" name="comidas[<?= $index ?>][modalidad_producto]" value="<?= htmlspecialchars($comida->productos['modalidad_producto']) ?>">
                                     </td>
                                     <td>
-                                        <input type="number" name="comidas[<?= $index ?>][uds_stock]" value="" min="0">
+                                        <input class="datos_productos" type="number" name="comidas[<?= $index ?>][uds_stock]" value="" min="0">
                                     </td>
                                     <td>
-                                        <input type="number" name="comidas[<?= $index ?>][precio_unitario]" value="" min="0" step="0.01">
+                                        <input class="datos_productos" type="number" name="comidas[<?= $index ?>][precio_unitario]" value="" min="0" step="0.01">
                                     </td>
                                     <td>
                                         <?= htmlspecialchars($comida->productos['tipo_categoria']) ?>
@@ -149,7 +149,7 @@ $nombre_rol = $rol->obtenerNombreRolPorIdUsuario($_SESSION['id_usuario']);
 
                     </table><br>
 
-                    <input type="submit" class="btn_modificarStock" value="Modificar" name="modificarComida"><br>
+                    <input type="submit" class="btn_modificarStock boton_modificarAdmin" value="Modificar" name="modificarComida"><br>
 
 
                 </form>

@@ -27,6 +27,7 @@ if (isset($_POST['iniciarSesion'])) {
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/carrito.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/index.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/popupTerminos.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/popup.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/mediaqueries_header.css">
 
     <!--<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">

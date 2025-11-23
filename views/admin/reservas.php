@@ -111,7 +111,7 @@ $orden = new Orden();
                                 echo "</div>";
                             }
                         } else {
-                            echo "<p>No se encontró ninguna reserva para el teléfono y la fecha proporcionados.</p>";
+                            echo "<p class='no_reservas'>No se encontró ninguna reserva para el teléfono y la fecha proporcionados.</p>";
                         }
                     } elseif (!empty($fecha_reserva)) {
                         // Buscar todas las reservas de una fecha específica
@@ -158,7 +158,7 @@ $orden = new Orden();
                                 }
                             }
                         } else {
-                            echo "<p>No se encontraron reservas para la fecha proporcionada.</p>";
+                            echo "<p class='no_reservas'>No se encontraron reservas para la fecha proporcionada.</p>";
                         }
                     } elseif (!empty($telefono)) {
                         // Buscar todas las reservas de un teléfono específico
@@ -214,10 +214,10 @@ $orden = new Orden();
                                 continue;
                             }
                         } else {
-                            echo "<p>No se encontraron reservas para el teléfono proporcionado.</p>";
+                            echo "<p class='no_reservas'>No se encontraron reservas para el teléfono proporcionado.</p>";
                         }
                     } else {
-                        echo "<p>Por favor, ingrese al menos un criterio de búsqueda (teléfono o fecha).</p>";
+                        echo "<p class='no_reservas'>Por favor, ingrese al menos un criterio de búsqueda (teléfono o fecha).</p>";
                     }
                 }
 

@@ -42,7 +42,7 @@ $orden = new Orden();
             //unset($_SESSION['id_reserva']);
             unset($_SESSION['id_mesa']);
             //unset($_SESSION['mod_reserva_sin_comanda']);
-            unset($_SESSION['comanda_previa']);
+            //unset($_SESSION['comanda_previa']);
             unset($_SESSION['id_reserva_nueva']);
             unset($_SESSION['codigo_reserva']);
             unset($_SESSION['idOrdenCreada']);
@@ -187,9 +187,11 @@ $orden = new Orden();
 
                 if (isset($_POST['comanda_previa']) && $_POST['comanda_previa'] == "0") {
                     $_SESSION['mod_reserva_sin_comanda'] = $_POST['comanda_previa'];
+                } elseif (isset($_POST['comanda_previa']) && $_POST['comanda_previa'] == "1") {
+                    $_SESSION['mod_reserva_con_comanda'] = "1";
                 } else {
                     unset($_SESSION['mod_reserva_sin_comanda']);
-                    $_SESSION['mod_reserva_con_comanda'] = $_POST['comanda_previa'];
+                    $_SESSION['mod_reserva_con_comanda'] = "0";
                     //$_SESSION['mod_reserva_con_comanda'] = "0";
                 }
             } else {
@@ -215,74 +217,74 @@ $orden = new Orden();
             <h1 class="header_reserva reserva_header">RESERVA CON NOSOTROS</h1>
             <section class="container_form reserva_container">
                 <div class="reserva_informacion">
-                <?php
-                if (isset($_POST['reservar']) || isset($_POST['modificar'])) { ?>
+                    <?php
+                    if (isset($_POST['reservar']) || isset($_POST['modificar'])) { ?>
 
 
 
-                    <!-- Fecha -->
-                    <div>
-                        <label for="fecha_reserva">Selecciona la fecha:</label>
-                        <?php echo "<input type='date' id='fecha_reserva' name='fecha' title='Elige la fecha' value='" . $_SESSION['fecha'] . "' onkeydown='return false' min='" . date('Y-m-d') . "'>"; ?>
-                        <p class="mensaje-error" id="error-fecha" role="alert" aria-live="assertive"></p>
-                    </div>
-
-                    <!-- Hora -->
-
-                    <div>
-                        <label for="hora_inicio">Hora:</label>
-                        <select id="hora_inicio_reserva" name="hora_inicio" required>
-                            <option value="<?= $_SESSION['hora_inicio']; ?>" selected><?= $_SESSION['hora_inicio']; ?></option>
-                        </select>
-                        <p class="mensaje-error" id="error-hora" role="alert" aria-live="assertive"></p>
-                    </div>
-
-                    <!-- Comensales -->
-                    <div>
-                        <label for="numero_comensales">Comensales:</label>
-                        <select id="numero_comensales_reserva" name="numero_comensales">
-                            <option value="<?= $_SESSION['numero_comensales']; ?>" selected><?= $_SESSION['numero_comensales']; ?></option>
-                        </select>
-
-
-                        <p class="mensaje-error" id="error-comensales" role="alert" aria-live="assertive"></p>
-                    </div>
-
-                    <!-- Comanda -->
-                    <?php if (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] == "0") { ?>
+                        <!-- Fecha -->
                         <div>
-                            <p>¿Quieres realizar ya tu orden?</p>
-                            <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['mod_reserva_sin_comanda'] == '1' ? 'checked' : ''; ?>> Sí</label>
-                            <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['mod_reserva_sin_comanda'] == '0' ? 'checked' : ''; ?>> No</label>
-
-                            <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                            <label for="fecha_reserva">Selecciona la fecha:</label>
+                            <?php echo "<input type='date' id='fecha_reserva' name='fecha' title='Elige la fecha' value='" . $_SESSION['fecha'] . "' onkeydown='return false' min='" . date('Y-m-d') . "'>"; ?>
+                            <p class="mensaje-error" id="error-fecha" role="alert" aria-live="assertive"></p>
                         </div>
 
-                    <?php } elseif (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") { ?>
+                        <!-- Hora -->
+
                         <div>
-                            <p>¿Quieres realizar ya tu orden?</p>
-                            <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['mod_reserva_con_comanda'] == '1' ? 'checked' : ''; ?>> Sí</label>
-                            <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['mod_reserva_con_comanda'] == '0' ? 'checked' : ''; ?>> No</label>
-
-                            <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                            <label for="hora_inicio">Hora:</label>
+                            <select id="hora_inicio_reserva" name="hora_inicio" required>
+                                <option value="<?= $_SESSION['hora_inicio']; ?>" selected><?= $_SESSION['hora_inicio']; ?></option>
+                            </select>
+                            <p class="mensaje-error" id="error-hora" role="alert" aria-live="assertive"></p>
                         </div>
-                        <?php
 
-                    } else {
-                        if (!isset($_POST['modificar'])) {
-                        ?>
-                            <!-- Comanda -->
+                        <!-- Comensales -->
+                        <div>
+                            <label for="numero_comensales">Comensales:</label>
+                            <select id="numero_comensales_reserva" name="numero_comensales">
+                                <option value="<?= $_SESSION['numero_comensales']; ?>" selected><?= $_SESSION['numero_comensales']; ?></option>
+                            </select>
+
+
+                            <p class="mensaje-error" id="error-comensales" role="alert" aria-live="assertive"></p>
+                        </div>
+
+                        <!-- Comanda -->
+                        <?php if (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_sin_comanda']) && $_SESSION['mod_reserva_sin_comanda'] == "0") { ?>
                             <div>
                                 <p>¿Quieres realizar ya tu orden?</p>
-                                <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['comanda_previa'] == '1' ? 'checked' : ''; ?>> Sí</label>
-                                <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['comanda_previa'] == '0' ? 'checked' : ''; ?>> No</label>
+                                <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['mod_reserva_sin_comanda'] == '1' ? 'checked' : ''; ?>> Sí</label>
+                                <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['mod_reserva_sin_comanda'] == '0' ? 'checked' : ''; ?>> No</label>
 
                                 <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
                             </div>
-                <?php }
-                    }
-                } ?>
-</div>
+
+                        <?php } elseif (isset($_POST['modificar']) && isset($_SESSION['mod_reserva_con_comanda']) && $_SESSION['mod_reserva_con_comanda'] == "1") { ?>
+                            <div>
+                                <p>¿Quieres realizar ya tu orden?</p>
+                                <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['mod_reserva_con_comanda'] == '1' ? 'checked' : ''; ?>> Sí</label>
+                                <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['mod_reserva_con_comanda'] == '0' ? 'checked' : ''; ?>> No</label>
+
+                                <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                            </div>
+                            <?php
+
+                        } else {
+                            if (!isset($_POST['modificar'])) {
+                            ?>
+                                <!-- Comanda -->
+                                <div>
+                                    <p>¿Quieres realizar ya tu orden?</p>
+                                    <label><input type="radio" name="comanda_previa" value="1" <?= $_SESSION['comanda_previa'] == '1' ? 'checked' : ''; ?>> Sí</label>
+                                    <label><input type="radio" name="comanda_previa" value="0" <?= $_SESSION['comanda_previa'] == '0' ? 'checked' : ''; ?>> No</label>
+
+                                    <p class="mensaje-error" id="error-comanda" role="alert" aria-live="assertive"></p>
+                                </div>
+                    <?php }
+                        }
+                    } ?>
+                </div>
             </section>
 
             <section class="container_plano reserva_container_plano">
@@ -360,7 +362,7 @@ $orden = new Orden();
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']) || isset($_POST['confirmarModificacionReserva']))): ?>
 
         <script src="/proyecto_final_daw_dtj/assets/js/validacionMesa.js"></script>
-        
+
 
     <?php endif; ?>
 

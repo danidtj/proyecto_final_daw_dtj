@@ -31,14 +31,6 @@ class ReservaController
 
         $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
 
-        $orden->crearOrden(
-            $_SESSION['id_reserva'],
-            'Tarjeta de crédito',
-            $_SESSION['precioTotalCarrito'],
-            $_SESSION['nuevoPagoAdelantado'],
-            $stripePaymentId
-        );
-
         $reserva->modificarReserva(
             $_SESSION['id_reserva'],
             $_SESSION['mesa_id'],
@@ -47,6 +39,16 @@ class ReservaController
             $_SESSION['numero_comensales'],
             $_SESSION['mod_reserva_con_comanda']
         );
+
+        $orden->crearOrden(
+            $_SESSION['id_reserva'],
+            'Tarjeta de crédito',
+            $_SESSION['precioTotalCarrito'],
+            $_SESSION['nuevoPagoAdelantado'],
+            $stripePaymentId
+        );
+
+        
 
         unset($_SESSION['stripe_payment_id']);
         unset($_SESSION['confirmarModificacionReserva']);
@@ -114,12 +116,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
             <div class="popup-contenido">
                 <span id="cerrar">&times;</span>
                 <h2>Reserva no permitida</h2>
-                <p>No puedes realizar más de una reserva en la misma fecha.</p>
+                <p>No puedes realizar más de una reserva en la misma fecha.1</p>
                 <button id="aceptar">Aceptar</button>
             </div>
         </div>
         <script src="/proyecto_final_daw_dtj/assets/js/popupReserva.js"></script>
+        
     <?php
+    
     } else {
 
         $_SESSION['confirmarReserva'] = true;
@@ -221,7 +225,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
             <div class="popup-contenido">
                 <span id="cerrar-modificar-reserva">&times;</span>
                 <h2>Reserva no permitida</h2>
-                <p>No puedes realizar más de una reserva en la misma fecha.</p>
+                <p>No puedes realizar más de una reserva en la misma fecha.2</p>
                 <button id="aceptar-modificar-reserva">Aceptar</button>
             </div>
         </div>

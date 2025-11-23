@@ -29,7 +29,7 @@
     <main>
         <section class="container_form registro_container" aria-labelledby="titulo-form">
             <h2 id="titulo-form" class="titulo_form">Formulario de registro</h2>
-            <form action="/controllers/frontend/RegistroController.php" method="post" class="formulario registro_formulario">
+            <form action="/proyecto_final_daw_dtj/controllers/frontend/RegistroController.php" method="post" class="formulario registro_formulario">
                 <div>
                     <label for="nombre_usuario">Nombre:</label><br>
                     <input type="text" name="nombre_usuario" id="nombre_usuario" placeholder="Nombre" title="Introduzca su nombre" minlength="2" maxlength="20"
@@ -80,7 +80,7 @@
             p.type = p.type === "password" ? "text" : "password";
         };
     </script>
-     <script src="/assets/js/validacionRegistro.js"></script>
+     <script src="/proyecto_final_daw_dtj/assets/js/validacionRegistro.js"></script>
 </body>
 
 </html>

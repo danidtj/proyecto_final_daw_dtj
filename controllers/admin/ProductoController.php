@@ -6,33 +6,6 @@ require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';
 
 use ModelsAdmin\Producto;
 
-$productos = array();
-
-switch (true) {
-    case isset($_POST['modificarComida']):
-        $productos[] = $_POST['comidas'];
-        $producto = new Producto($_POST['comidas']);
-        $producto->insertarBaseDatos($producto->productos);
-        break;
-
-    case isset($_POST['modificarBebida']):
-        $productos[] = $_POST['bebidas'];
-        $producto = new Producto($_POST['bebidas']);
-        $producto->insertarBaseDatos($producto->productos);
-        break;
-
-    case isset($_POST['modificarPostre']):
-        $productos[] = $_POST['postres'];
-        $producto = new Producto($_POST['postres']);
-        $producto->insertarBaseDatos($producto->productos);
-        break;
-}
-
-
-$productoController = new ProductoController();
-$productoController->mostrarVistaStock();
-
-
 class ProductoController
 {
     public function __construct() {}
@@ -52,6 +25,64 @@ class ProductoController
             case isset($_POST['modificarPostre']):
                 header("Location: ../../views/admin/stockPostre.php");
                 exit;
+            default:
+                header("Location: ../../views/admin/nuevosProductos.php");
+                exit;
         }
     }
 }
+
+$productos = array(); 
+
+switch (true) {
+    case isset($_POST['modificarComida']):
+        $productos[] = $_POST['comidas'];
+        //$producto = new Producto($_POST['comidas']);
+        Producto::insertarBaseDatos($_POST['comidas']);
+        break;
+
+    case isset($_POST['modificarBebida']):
+        $productos[] = $_POST['bebidas'];
+        //$producto = new Producto($_POST['bebidas']);
+        Producto::insertarBaseDatos($_POST['bebidas']);
+        break;
+
+    case isset($_POST['modificarPostre']):
+        $productos[] = $_POST['postres'];
+        //print_r($_POST['postres']);
+        //$producto = new Producto($_POST['postres']);
+        Producto::insertarBaseDatos($_POST['postres']);
+        break;
+}
+
+if(isset($_POST['crearNuevoProducto'])){
+    $nuevoProducto = [
+        'uds_stock' => $_POST['uds_stock'],
+        'nombre_corto' => $_POST['nombre_corto'],
+        'nombre_largo' => $_POST['nombre_largo'],
+        'descripcion' => $_POST['descripcion'],
+        'precio_unitario' => $_POST['precio_unitario']
+    ];
+    
+
+    $categoria = [
+        'nombre_categoria' => $_POST['nombre_categoria'],
+        'tipo_categoria' => $_POST['tipo_categoria'],
+        'modalidad_producto' => $_POST['modalidad_producto']
+    ];
+
+    
+    if(isset($_SESSION['producto_creado'])){
+        unset($_SESSION['producto_creado']);
+        $_SESSION['producto_creado'] = Producto::crearProductoNuevo($nuevoProducto, $categoria);
+    } else {
+        $_SESSION['producto_creado'] = Producto::crearProductoNuevo($nuevoProducto, $categoria);
+    }
+}
+
+
+$productoController = new ProductoController();
+$productoController->mostrarVistaStock();
+
+
+

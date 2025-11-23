@@ -12,5 +12,5 @@ session_destroy();
 
 
 //Redirigimos al usuario a la página de login
-header("Location: home");
+header("Location: /proyecto_final_daw_dtj/views/frontend/index.php");
 exit();

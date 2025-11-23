@@ -2,10 +2,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const celdas = document.querySelectorAll(".celda.mesa-seleccionada");
     const inputMesaId = document.getElementById("mesa_id");
-    const botonReservar = document.getElementById("boton-confirmar-reserva");
+    const botonReservar = document.getElementById("boton-confirmar-reserva") || document.getElementById("boton-confirmar-modificacion");;
 
-    // Deshabilitar botón al cargar
-    botonReservar.disabled = true;
+    if (botonReservar) {
+        // Deshabilitar botón al cargar
+        botonReservar.disabled = true;
+    }
+    
+
 
     // Añadimos evento click a cada celda
     celdas.forEach(function (celda) {
@@ -20,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
                 inputMesaId.value = "";
                 botonReservar.disabled = true;
+                
             } else {
                 // Seleccionamos mesa y deseleccionamos las demás
                 celdas.forEach(function (c) {
@@ -35,7 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
                 inputMesaId.value = this.id;
+                console.log("Mesa seleccionada:", inputMesaId.value);
                 botonReservar.disabled = false;
+                
             }
         });
     });

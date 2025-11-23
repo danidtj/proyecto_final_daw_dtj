@@ -1,0 +1,52 @@
+@media screen and (max-width: 900px) {
+    .container_header.header_container {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        /*padding: 0.5rem 1rem;*/
+        gap: 0.5rem;
+    }
+
+
+    .container_header.header_container .logo a {
+        font-size: 1.5rem;
+    }
+
+
+    .menu_nav ul {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+    }
+
+    .menu_nav .link_menu {
+        font-size: 0.9rem;
+        padding: 4px 8px;
+    }
+
+
+    .container_carrito,
+    .container_form {
+        margin-top: 0.5rem;
+    }
+
+    .btn_login,
+    .btn_logoff {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+
+    .container_carrito a {
+        font-size: 1.2rem;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .menu_nav .link_menu {
+        font-size: 0.8rem;
+        padding: 3px 6px;
+    }
+
+    .container_header.header_container .logo a {
+        font-size: 1.2rem;
+    }
+}

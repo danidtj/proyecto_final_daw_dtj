@@ -11,6 +11,7 @@ require_once __DIR__ . '/bootstrap/bootstrap.php';
  // El método trim() elimina el slash tanto al inicio como al final de lo enviado por GET['path'].
 $path = isset($_GET['path']) ? trim($_GET['path'], '/') : 'home';
 
+
 // Handle logout separately
 /*if ($path === 'logout') {
     session_destroy();
@@ -20,4 +21,12 @@ $path = isset($_GET['path']) ? trim($_GET['path'], '/') : 'home';
 //holi moxitiiiiiiiiiiiiiii
 // Route the request
 Router::handleRequest($path);
+?>
+
+<!-- Cerrar sesión si el usuario cierra la pestaña o, en su defecto, el navegador -->
+<!--<script>
+window.addEventListener("beforeunload", function() {
+  navigator.sendBeacon("cerrarPestania.php");
+});
+</script>-->
 

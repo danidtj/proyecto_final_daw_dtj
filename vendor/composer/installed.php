@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => '4f770017903998b1f63f4e7833dc9138b936ff06',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => '7871c334559bbe10f684af25f22d7a4705f9e099',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '4f770017903998b1f63f4e7833dc9138b936ff06',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => '7871c334559bbe10f684af25f22d7a4705f9e099',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -28,6 +28,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'phpmailer/phpmailer' => array(
+            'pretty_version' => 'v7.0.0',
+            'version' => '7.0.0.0',
+            'reference' => 'c7111310c6116ba508a6a170a89eaaed2129bd42',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../phpmailer/phpmailer',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'phpoption/phpoption' => array(
             'pretty_version' => '1.9.4',
             'version' => '1.9.4.0',
@@ -38,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v18.0.0',
-            'version' => '18.0.0.0',
-            'reference' => '70d6c286f0eca002b60ccd62afa7140c43c14bbb',
+            'pretty_version' => 'v18.2.0',
+            'version' => '18.2.0.0',
+            'reference' => '0acd7bdac84ad0f940d5da30c417170ce59b4fbc',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),

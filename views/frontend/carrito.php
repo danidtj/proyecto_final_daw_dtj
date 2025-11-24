@@ -84,10 +84,10 @@ $carritoController = new CarritoController();
                         echo "<div id='pagoAdelantado'>Precio a pagar por adelantado (10% del carrito): " .
                             number_format($nuevoPagoAdelantado, 2, ',', '.') . " €</div>\n";
 
-                        echo "<form method='POST' id='formPagar' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>";
-                        echo "<button type='submit' id='botonPagar' name='pagarCarrito'>Pagar</button>";
+                        //echo "<form method='POST' id='formPagar' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>";
+                        echo "<button type='submit' id='botonPagar' name='pagarCarrito'>Pedir</button>";
                         echo "<button type='submit' id='botonVaciarCarrito' name='vaciarCarrito'>Vaciar carrito</button>";
-                        echo "</form>";
+                        //echo "</form>";
 
                         if ($pagarNuevoCarrito === false) {
                             $_SESSION['precioTotalCarrito'] = $precioTotalCarrito;
@@ -181,7 +181,7 @@ $carritoController = new CarritoController();
                 botonPagar.disabled = false;
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    alert('Pago realizado con éxito!');
+                    alert('¡Orden realizada con éxito!');
 
                     // Llamamos al backend para registrar la orden
                     await fetch('comprobacionesPago.php', {
@@ -189,7 +189,7 @@ $carritoController = new CarritoController();
                     });
 
                     // Redirigimos al perfil
-                    window.location.href = '/proyecto_final_daw_dtj/views/frontend/miPerfil.php';
+                    window.location.href = 'http://localhost/proyecto_final_daw_dtj/views/frontend/miPerfil.php';
                 }
             }
         });

@@ -249,15 +249,10 @@
 
 
 
-.carta_container{}
-.carta_titulo{}
-.btn_añadir{}
-
-
-
-
-
-
-.carta_container{}
-.carta_titulo{}
-.btn_añadir{}
+/*EL PLANO SE ADAPTA MEDIANTE SCROLL LATERAL*/
+@media (max-width: 768px){
+    .tabla {
+        overflow-x: auto;
+        display: block;
+    }
+}

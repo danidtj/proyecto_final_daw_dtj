@@ -27,8 +27,8 @@
     flex-direction: column;
     gap: 1.5vh; 
 }
-.container_form.perfil_container_reservas p{
-    /*width: 800px;*/
+/*.container_form.perfil_container_reservas p{
+    /*width: 800px;
     width: 65vw;
     max-width: 100%;
     height: auto;
@@ -40,7 +40,7 @@
     padding-bottom: 2vw;
     padding-top: 2vw;
     text-align: center;
-}
+}*/
 
 /*CABECERA CON EL DETALLE DE LAS RESERVAS*/
 .cabecera_reserva {

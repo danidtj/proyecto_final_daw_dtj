@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function cerrarPopupReserva() {
         popup.style.display = "none";
-        // Redirigir a la página de reservas
-        window.location.href = "/proyecto_final_daw_dtj/views/frontend/reserva.php";
+        // Redirigir a la página del perfil del cliente
+        window.location.href = "/proyecto_final_daw_dtj/views/frontend/miPerfil.php";
     }
 
     cerrar.addEventListener("click", cerrarPopupReserva);

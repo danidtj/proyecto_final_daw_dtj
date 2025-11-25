@@ -1,4 +1,4 @@
-.admin_reservas_titulo{
+.admin_reservas_titulo {
     color: white
 }
 
@@ -54,7 +54,7 @@
     color: #000;
 }
 
-.no_reservas{
+.no_reservas {
     text-align: center;
 }
 
@@ -89,7 +89,7 @@
 }
 
 
-.admin_reservas_plano_container form, 
+.admin_reservas_plano_container form,
 .admin_reservas_container_formulario {
     display: flex;
     flex-wrap: wrap;
@@ -135,7 +135,7 @@
 .admin_reservas_container_formulario input[type="number"],
 #hora_inicio,
 #mensaje,
- select {
+select {
     padding: 8px 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -143,15 +143,18 @@
     width: 200px;
 }
 
-.admin_reservas_container_formulario{
+.admin_reservas_container_formulario {
     margin-bottom: 7vh;
 }
 
 
 /*PLANO*/
-.tabla{
-    width: 1000px;
-    max-width: 100%;
+.tabla {
+    /*width: 1000px;
+    max-width: 100%;*/
+    width: 100%;
+    min-width: 1000px;
+    max-width: none;
     height: 60vh;
     max-height: 100%;
     border: 2px solid grey;
@@ -159,25 +162,75 @@
     box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
 }
 
-.celda{
-   width: auto; 
-   /*padding: 10px;*/
-   margin: 0;
+.scroll-tabla {
+    overflow-x: auto;
+    overflow-y: hidden;
+    /*width: 100%;*/
 }
 
-.celda:hover span{
+.celda {
+    width: auto;
+    /*padding: 10px;*/
+    margin: 0;
+}
+
+.celda:hover span {
     background-color: #1a2732;
     box-shadow: 0 0 5px grey, 0 0 10px grey;
 }
 
-.silla1, .mesa, .silla2, .silla3, .silla4{
+.silla1,
+.mesa,
+.silla2,
+.silla3,
+.silla4 {
     display: inline-block;
     background-color: grey;
     border: 1px solid grey;
     position: relative;
 }
 
-.mesa{
+
+.mesa {
+        width: 40px;
+        height: 80px;
+        border-radius: 5px;
+        margin: 0 62px 0 62px;
+    }
+
+    .silla1,
+    .silla2,
+    .silla3,
+    .silla4 {
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+    .silla1 {
+        border-radius: 12px 0 0 12px;
+        left: 25px;
+        top: 43px;
+    }
+
+    .silla2 {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        top: 43px;
+    }
+
+    .silla3 {
+        border-radius: 12px 0 0 12px;
+        left: 25px;
+        bottom: 45px;
+    }
+
+    .silla4 {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        bottom: 45px;
+    }
+/*.mesa {
     width: 2.6vw;
     max-width: 100%;
     height: 11vh;
@@ -186,7 +239,10 @@
     margin: 0 4vw 0 3.9vw;
 }
 
-.silla1, .silla2, .silla3, .silla4{
+.silla1,
+.silla2,
+.silla3,
+.silla4 {
     width: 1.95vw;
     max-width: 100%;
     height: 4vh;
@@ -194,29 +250,29 @@
     position: relative;
 }
 
-.silla1{
+.silla1 {
     border-radius: 0.8vw 0 0 0.8vw;
     left: 1.6vw;
     top: 5.7vh;
 }
 
-.silla2{
+.silla2 {
     border-radius: 0 0.8vw 0.8vw 0;
     left: 4.8vw;
     top: 5.7vh;
 }
 
-.silla3{
+.silla3 {
     border-radius: 0.8vw 0 0 0.8vw;
     left: 1.6vw;
     top: -6.1vh;
 }
 
-.silla4{
+.silla4 {
     border-radius: 0 0.8vw 0.8vw 0;
     left: 4.8vw;
     top: -6.1vh;
-}
+}*/
 
 .mesa-no-disponible {
     opacity: 0.4;
@@ -249,10 +305,50 @@
 
 
 
-/*EL PLANO SE ADAPTA MEDIANTE SCROLL LATERAL*/
-@media (max-width: 768px){
-    .tabla {
+/*EL PLANO SE ADAPTA MEDIANTE SCROLL*/
+@media (max-width: 1400px) {
+    .scroll-tabla {
         overflow-x: auto;
-        display: block;
+        max-width: 100%;
+    }
+
+    .mesa {
+        width: 40px;
+        height: 80px;
+        border-radius: 5px;
+        margin: 0 62px 0 62px;
+    }
+
+    .silla1,
+    .silla2,
+    .silla3,
+    .silla4 {
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+    .silla1 {
+        border-radius: 12px 0 0 12px;
+        left: 25px;
+        top: 43px;
+    }
+
+    .silla2 {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        top: 43px;
+    }
+
+    .silla3 {
+        border-radius: 12px 0 0 12px;
+        left: 25px;
+        bottom: 45px;
+    }
+
+    .silla4 {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        bottom: 45px;
     }
 }

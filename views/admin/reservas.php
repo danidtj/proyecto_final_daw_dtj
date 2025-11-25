@@ -363,61 +363,61 @@ $orden = new Orden();
                         } ?>
 
                     </section>
+            </section>
 
+            <section class="container_plano admin_reservas_plano_container">
 
-                    <section class="container_plano admin_reservas_plano_container">
+                <div class="scroll-tabla">
+                    <!-- Para trasladar el ID de la mesa seleccionada -->
+                    <input type="hidden" name="mesa_id" id="mesa_id" value="">
 
-                        <div class="scroll-tabla">
-                            <!-- Para trasladar el ID de la mesa seleccionada -->
-                            <input type="hidden" name="mesa_id" id="mesa_id" value="">
+                    <?php
+                    $planoMesas = [
+                        // Subarrays para representar la estructura de mesas y huecos entre las mismas
+                        [true,  false, true,  false, true,  false],
+                        [false, true,  false, true,  false, true],
+                        [true,  false, true,  false, true,  false],
+                    ];
 
-                            <?php
-                            $planoMesas = [
-                                // Subarrays para representar la estructura de mesas y huecos entre las mismas
-                                [true,  false, true,  false, true,  false],
-                                [false, true,  false, true,  false, true],
-                                [true,  false, true,  false, true,  false],
-                            ];
+                    $idMesa = 1; // ID inicial de las mesas
 
-                            $idMesa = 1; // ID inicial de las mesas
+                    echo '<table class="tabla">';
 
-                            echo '<table class="tabla">';
+                    foreach ($planoMesas as $fila) {
+                        echo '<tr class="fila">';
 
-                            foreach ($planoMesas as $fila) {
-                                echo '<tr class="fila">';
-
-                                foreach ($fila as $mesa) {
-                                    if ($mesa) {
-                                        $clase = 'celda mesa-seleccionada';
-                                        if (!in_array($idMesa, $idMesasDisponibles)) {
-                                            $clase .= ' mesa-no-disponible';
-                                        }
-
-                                        echo "<td class=\"$clase\" title=\"Número: $idMesa\" id=\"$idMesa\">";
-                                        echo '<span class="silla1"></span>';
-                                        echo '<span class="silla2"></span>';
-                                        echo '<span class="mesa"></span>';
-                                        echo '<span class="silla3"></span>';
-                                        echo '<span class="silla4"></span>';
-                                        echo '</td>';
-
-                                        $idMesa++; // Solo incrementa si hay una mesa
-                                    } else {
-                                        echo '<td class="celda"></td>';
-                                    }
+                        foreach ($fila as $mesa) {
+                            if ($mesa) {
+                                $clase = 'celda mesa-seleccionada';
+                                if (!in_array($idMesa, $idMesasDisponibles)) {
+                                    $clase .= ' mesa-no-disponible';
                                 }
 
-                                echo '</tr>';
+                                echo "<td class=\"$clase\" title=\"Número: $idMesa\" id=\"$idMesa\">";
+                                echo '<span class="silla1"></span>';
+                                echo '<span class="silla2"></span>';
+                                echo '<span class="mesa"></span>';
+                                echo '<span class="silla3"></span>';
+                                echo '<span class="silla4"></span>';
+                                echo '</td>';
+
+                                $idMesa++; // Solo incrementa si hay una mesa
+                            } else {
+                                echo '<td class="celda"></td>';
                             }
+                        }
 
-                            echo '</table>';
-                            ?>
-                        </div>
-                    </section>
+                        echo '</tr>';
+                    }
 
-                <?php endif; ?>
-
+                    echo '</table>';
+                    ?>
+                </div>
             </section>
+
+        <?php endif; ?>
+
+
 
     </main>
 <?php

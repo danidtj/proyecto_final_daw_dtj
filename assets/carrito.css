@@ -13,6 +13,9 @@
     background-color: white;
     box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
     padding-bottom: 20px;
+    gap: 0.5vh;
+    display: grid;
+    justify-content: center;
 }
 
 

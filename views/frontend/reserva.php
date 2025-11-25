@@ -318,7 +318,7 @@ $orden = new Orden();
                                 echo "<td class=\"$clase\" title=\"Elige tu mesa\" id=\"$idMesa\">";
                                 echo '<span class="silla1"></span>';
                                 echo '<span class="silla2"></span>';
-                                echo '<span class="mesa"></span>';
+                                echo '<span class="mesa mesa_reservar"></span>';
                                 echo '<span class="silla3"></span>';
                                 echo '<span class="silla4"></span>';
                                 echo '</td>';

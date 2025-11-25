@@ -57,7 +57,7 @@
         <section class="container_plano index_container_plano">
             <h1 class="header_reserva index_header_reserva">RESERVA CON NOSOTROS</h1>
             <section class="header_reserva index_querer_reservar">
-                <p>¿Quieres reservar una mesa en nuestro restaurante? ¡Inicia sesión o regístrate si aún no lo has hecho!</p>
+                <p class="querer_reservar_info">¿Quieres reservar una mesa en nuestro restaurante? ¡Inicia sesión o regístrate si aún no lo has hecho!</p>
             </section>
             <table class="tabla">
                 <tr class="fila">

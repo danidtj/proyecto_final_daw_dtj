@@ -57,6 +57,19 @@
 
 }
 
+/*NO RESERVAS*/
+.no_reservas_realizadas{
+   width: 65vw;
+    max-width: 100%; 
+    border-radius: 1rem;
+    border: 2px solid grey;
+    background-color: white;
+    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
+    padding-bottom: 2vw;
+    padding-top: 2vw;
+    text-align: center;
+}
+
 
 /*INFORMACIÓN DE LAS ÓRDENES*/
 .productos_reserva {
@@ -75,7 +88,7 @@
 /*BOTONES*/
 .botones {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
 }

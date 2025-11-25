@@ -337,7 +337,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                     <br>";
                 }
             } else {
-                echo "<p>No tienes reservas realizadas.</p>";
+                echo "<p class='no_reservas_realizadas'>No tienes reservas realizadas.</p>";
             }
             //Cancelar una reserva
             if (isset($_POST['cancelarReserva'])) {

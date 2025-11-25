@@ -298,7 +298,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                                 // Formulario para modificar la orden
                                 if ($mostrarBoton && $mostrarAntesDeInicio && !$botonModificacionMostrado) {
 
-                                    echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
+                                    echo '<form class="form_modificar_orden" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
                                     echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
                                     echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
                                     echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
@@ -321,7 +321,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                         ) {
 
                             // Formulario para modificar la orden
-                            echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
+                            echo '<form class="form_modificar_orden" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
                             echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
                             echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
                             echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
@@ -337,7 +337,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                     <br>";
                 }
             } else {
-                echo "<p class='no_reservas_realizadas'>No tienes reservas realizadas.</p>";
+                echo "<p id='no_reservas_realizadas'>No tienes reservas realizadas.</p>";
             }
             //Cancelar una reserva
             if (isset($_POST['cancelarReserva'])) {

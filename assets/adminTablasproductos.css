@@ -154,7 +154,7 @@
 
 
 /*LAS TABLAS SE ADAPTAN MEDIANTE SCROLL*/
-@media (max-width: 640px){
+@media (max-width: 800px){
     .tabla_stock {
         overflow-x: auto;
         display: block;

@@ -64,26 +64,5 @@ class Usuario
         return $this->telefono_usuario;
     }
 
-    /*
-     * Función que devuelve los el valor de los atributos serializados.
-     * Esto es útil para el almacenamiento de valores en PHP sin perder su tipo y estructura.
-     */
-
-    /*public function serialize() {
-        return serialize([$this->usuario, $this->password, $this->nombre, $this->apellidos]);
-    }*/
-
-    /*
-     * Crea un valor PHP a partir de una representación almacenada, es decir, crea un objeto de la clase
-     */
-
-    /*public function unserialize($serialized) {
-        list(
-                $this->usuario,
-                $this->password,
-                $this->nombre,
-                $this->apellidos
-            ) = unserialize($serialized);
-    }*/
 
 }

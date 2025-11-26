@@ -115,17 +115,6 @@ class Producto
 
             return true;
 
-
-
-            /*$sqlCategorias = "INSERT INTO categorias (codigo_producto, categoria_producto, tipo_producto, modalidad_producto) VALUES 
-            (:codigo_producto, :categoria_producto, :tipo_producto, :modalidad_producto)";
-            $result = $this->connection->prepare($sqlCategorias);
-            $result->execute([
-                ":codigo_producto" => $producto['codigo_producto'],
-                ":categoria_producto" => $producto['categoria_producto'],
-                ":tipo_producto" => $producto['tipo_producto'],
-                ":modalidad_producto" => $producto['modalidad_producto']
-            ]);*/
         } catch (Exception $e) {
             die("Error de conexión: " . $e->getMessage());
         }
@@ -224,8 +213,7 @@ class Producto
                             ":modalidad_producto" => $producto['modalidad_producto']
                         ]);
                     } else {
-                        //$totalUnidades = (int)$existe['uds_stock'] + (int)$producto['uds_stock'];
-                        //$totalPrecio = (float)$existe['precio'] + (float)$producto['precio'];
+
                         if (!empty($producto['precio_unitario'])) {
                             $sql = "UPDATE productos SET precio_unitario = :precio_unitario WHERE id_producto = :id_producto";
                             $result = DB::getInstance()->getConnection()->prepare($sql);
@@ -278,7 +266,6 @@ class Producto
             $result->execute([':nombre_categoria' => $nombre_categoria]);
 
             if ($result) {
-                //$row = $result->fetch(PDO::FETCH_ASSOC);
 
                 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
                     $productosDB[] = new Producto($row);

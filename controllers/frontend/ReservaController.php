@@ -177,9 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
                 $_SESSION['comanda_previa']
             );
 
-            //Almacenamos el id de la nueva reserva en session
-            //$_SESSION['id_reserva_nueva'] = $codigo_reserva;
-            //Si no ha hecho comanda previa, redirige a la página principal
+            //Si no ha hecho comanda previa, redirige a la página de perfil
             header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");
             exit();
         }

@@ -170,13 +170,6 @@ $orden = new Orden();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['reservar']) || isset($_POST['modificar']))):
 
-            /*if (isset($_POST['modificarReserva'])) {
-                $_SESSION['fecha'] = $_POST['fecha_reserva'];
-                $_SESSION['hora'] = $_POST['hora_reserva'];
-                $_SESSION['comensales'] = $_POST['numero_comensales'];
-                $_SESSION['comanda'] = $_POST['comanda_previa'];
-            } */
-
 
             if (isset($_POST['modificar'])) {
 
@@ -201,12 +194,6 @@ $orden = new Orden();
             $_SESSION['fecha'] = $_POST['fecha'];
             $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
             $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
-            //if (!isset($_POST['modificar'])) {
-
-            //}
-            //$_SESSION['numero_mesa'] = $_POST['numero_mesa'];
-            //$_SESSION['codigo_reserva'] = $_POST['codigo_reserva'];
-
 
 
 
@@ -232,7 +219,7 @@ $orden = new Orden();
                         <!-- Hora -->
 
                         <div>
-                            <label for="hora_inicio">Hora:</label>
+                            <label for="hora_inicio_reserva">Hora:</label>
                             <select id="hora_inicio_reserva" name="hora_inicio" required>
                                 <option value="<?= $_SESSION['hora_inicio']; ?>" selected><?= $_SESSION['hora_inicio']; ?></option>
                             </select>
@@ -241,7 +228,7 @@ $orden = new Orden();
 
                         <!-- Comensales -->
                         <div>
-                            <label for="numero_comensales">Comensales:</label>
+                            <label for="numero_comensales_reserva">Comensales:</label>
                             <select id="numero_comensales_reserva" name="numero_comensales">
                                 <option value="<?= $_SESSION['numero_comensales']; ?>" selected><?= $_SESSION['numero_comensales']; ?></option>
                             </select>
@@ -292,49 +279,49 @@ $orden = new Orden();
                 <form action="/proyecto_final_daw_dtj/controllers/frontend/ReservaController.php" name="formulario-reserva" method="post">
                     <!-- Para trasladar el ID de la mesa seleccionada -->
                     <input type="hidden" name="mesa_id" id="mesa_id" value="">
+                    <div class="scroll-tabla">
+                        <?php
+                        $planoMesas = [
+                            // Subarrays para representar la estructura de mesas y huecos entre las mismas
+                            [true,  false, true,  false, true,  false],
+                            [false, true,  false, true,  false, true],
+                            [true,  false, true,  false, true,  false],
+                        ];
 
-                    <?php
-                    $planoMesas = [
-                        // Subarrays para representar la estructura de mesas y huecos entre las mismas
-                        [true,  false, true,  false, true,  false],
-                        [false, true,  false, true,  false, true],
-                        [true,  false, true,  false, true,  false],
-                    ];
+                        $idMesa = 1; // ID inicial de las mesas
 
-                    $idMesa = 1; // ID inicial de las mesas
+                        echo '<table class="tabla">';
 
-                    echo '<table class="tabla">';
+                        foreach ($planoMesas as $fila) {
+                            echo '<tr class="fila">';
 
-                    foreach ($planoMesas as $fila) {
-                        echo '<tr class="fila">';
+                            foreach ($fila as $mesa) {
+                                if ($mesa) {
+                                    $clase = 'celda mesa-seleccionada';
+                                    if (!in_array($idMesa, $idMesasDisponibles)) {
+                                        $clase .= ' mesa-no-disponible';
+                                    }
 
-                        foreach ($fila as $mesa) {
-                            if ($mesa) {
-                                $clase = 'celda mesa-seleccionada';
-                                if (!in_array($idMesa, $idMesasDisponibles)) {
-                                    $clase .= ' mesa-no-disponible';
+                                    echo "<td class=\"$clase\" title=\"Elige tu mesa\" id=\"$idMesa\">";
+                                    echo '<span class="silla1"></span>';
+                                    echo '<span class="silla2"></span>';
+                                    echo '<span class="mesa mesa_reservar"></span>';
+                                    echo '<span class="silla3"></span>';
+                                    echo '<span class="silla4"></span>';
+                                    echo '</td>';
+
+                                    $idMesa++; // Solo incrementa si hay una mesa
+                                } else {
+                                    echo '<td class="celda"></td>';
                                 }
-
-                                echo "<td class=\"$clase\" title=\"Elige tu mesa\" id=\"$idMesa\">";
-                                echo '<span class="silla1"></span>';
-                                echo '<span class="silla2"></span>';
-                                echo '<span class="mesa mesa_reservar"></span>';
-                                echo '<span class="silla3"></span>';
-                                echo '<span class="silla4"></span>';
-                                echo '</td>';
-
-                                $idMesa++; // Solo incrementa si hay una mesa
-                            } else {
-                                echo '<td class="celda"></td>';
                             }
+
+                            echo '</tr>';
                         }
 
-                        echo '</tr>';
-                    }
-
-                    echo '</table>';
-                    ?>
-
+                        echo '</table>';
+                        ?>
+                    </div>
                     <div class="reserva_boton_modificar">
                         <?php if (isset($_POST['reservar'])): ?>
                             <p class="mensaje-error" id="error-mesa" role="alert" aria-live="assertive"></p>

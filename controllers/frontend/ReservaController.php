@@ -169,8 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
                 $contenidoCorreo .= "<p>Le recordamos que la duración de la reserva es de 1 hora y 30 minutos.</p>";
                 $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO.</p>";
 
-                //$asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
-                $asuntoCorreo = "Dentro de RC en el primer asunto.";
+                $asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
 
                 $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
             }
@@ -182,9 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
                 $_SESSION['comanda_previa']
             );
 
-            //Almacenamos el id de la nueva reserva en session
-            //$_SESSION['id_reserva_nueva'] = $codigo_reserva;
-            //Si no ha hecho comanda previa, redirige a la página principal
+            //Si no ha hecho comanda previa, redirige a la página de perfil
             header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");
             exit();
         }
@@ -327,9 +324,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
         $contenidoCorreo .= "<p>Su reserva con ID <strong>" . htmlspecialchars($datosReserva['id_reserva']) .
             "</strong> ha sido modificada con éxito. A continuación, encontrará los detalles de su reserva:</p>";
 
-        //Mostrarle al cliente desde $reservaEmail la fecha de la reserva, la hora, el número de mesa y el de comensales
         $contenidoCorreo .= "<ul>";
-        //$contenidoCorreo .= "<li>Fecha de la reserva: " . htmlspecialchars($reservaEmail['fecha']) . ".</li>";
         $contenidoCorreo .= "<li>Fecha y hora de la reserva: " . htmlspecialchars($datosReserva['hora_inicio']) . ".</li>";
         $contenidoCorreo .= "<li>Número de mesa: " . htmlspecialchars($datosReserva['id_mesa']) . ".</li>";
         $contenidoCorreo .= "<li>Número de comensales: " . htmlspecialchars($datosReserva['numero_comensales']) . ".</li>";
@@ -338,8 +333,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
         $contenidoCorreo .= "<p>Le recordamos que la duración de la reserva es de 1 hora y 30 minutos.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
 
-        //$asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
-        $asuntoCorreo = "Dentro de RC en el segundo asunto.";
+        $asuntoCorreo = "Modificación de su reserva en Restaurante XITO";
 
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
@@ -351,8 +345,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
     //Redirige a la página del perfil del ususario
     header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");
     exit();
-    //}
-    //}
+    
 }
 
 

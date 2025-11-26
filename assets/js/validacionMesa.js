@@ -47,12 +47,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // Validación antes de enviar el formulario
-    /*formulario.addEventListener("submit", function (e) {
-        if (inputMesaId.value.length === 0) {
-            e.preventDefault();
-            alert("Por favor, selecciona una mesa antes de continuar.");
-        }
-    });*/
-
 });

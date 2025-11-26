@@ -37,20 +37,16 @@ $productos = array();
 switch (true) {
     case isset($_POST['modificarComida']):
         $productos[] = $_POST['comidas'];
-        //$producto = new Producto($_POST['comidas']);
         Producto::insertarBaseDatos($_POST['comidas']);
         break;
 
     case isset($_POST['modificarBebida']):
         $productos[] = $_POST['bebidas'];
-        //$producto = new Producto($_POST['bebidas']);
         Producto::insertarBaseDatos($_POST['bebidas']);
         break;
 
     case isset($_POST['modificarPostre']):
         $productos[] = $_POST['postres'];
-        //print_r($_POST['postres']);
-        //$producto = new Producto($_POST['postres']);
         Producto::insertarBaseDatos($_POST['postres']);
         break;
 }

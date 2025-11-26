@@ -48,11 +48,6 @@ class Login
 
                 // Recuperar el resultado
                 $row = $result->fetch(PDO::FETCH_ASSOC);
-                //Como al introducir un usuario o contraseña que no están en la DB el resultado devuelto por $row es false, lo controlamos con el condicional
-                /*if ($row != false) {
-                    $psswdHash = $row["password_usuario"];
-                    $this->bool = true;
-                }*/
 
                 // Validación de contraseña
                 if (empty($row)) {

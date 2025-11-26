@@ -85,7 +85,7 @@ $carritoController = new CarritoController();
                             number_format($nuevoPagoAdelantado, 2, ',', '.') . " €</div>\n";
 
                         //echo "<form method='POST' id='formPagar' action='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'>";
-                        echo "<button type='submit' id='botonPagar' name='pagarCarrito'>Pagar</button>";
+                        echo "<button type='submit' id='botonPagar' name='pagarCarrito'>Pedir</button>";
                         echo "<button type='submit' id='botonVaciarCarrito' name='vaciarCarrito'>Vaciar carrito</button>";
                         //echo "</form>";
 
@@ -181,7 +181,7 @@ $carritoController = new CarritoController();
                 botonPagar.disabled = false;
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    alert('Pago realizado con éxito!');
+                    alert('¡Orden realizada con éxito!');
 
                     // Llamamos al backend para registrar la orden
                     await fetch('comprobacionesPago.php', {

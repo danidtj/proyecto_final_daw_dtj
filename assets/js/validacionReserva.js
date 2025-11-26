@@ -155,12 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 const fechaFinal = new Date(anioIntroducido, mesIntroducido - 1, diaIntroducido);
                 const fechaActual = new Date();
 
-
-                /*if (fechaFinal > fechaActual) {
-                    errores.push("- La fecha introducida es posterior a la actual.");
-                    spanFecha.textContent = "La fecha no puede ser posterior a hoy.";
-                    fecha_reserva.classList.add("error");
-                }*/
             }
         }
 

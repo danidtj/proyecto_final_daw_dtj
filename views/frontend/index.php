@@ -50,96 +50,97 @@
         </article>
         <section class="container_video index_video">
             <video autoplay controls muted>
-                <source src="/../proyecto_final_def/assets/DJI_20250601173853_0111_D.MP4" type="video/mp4">
+                <source src="" type="video/mp4">
                 Tu navegador no sorporta la etiqueta vídeo.
             </video>
         </section>
         <section class="container_plano index_container_plano">
             <h1 class="header_reserva index_header_reserva">RESERVA CON NOSOTROS</h1>
             <section class="header_reserva index_querer_reservar">
-                <p>¿Quieres reservar una mesa en nuestro restaurante? ¡Inicia sesión o regístrate si aún no lo has hecho!</p>
+                <p class="querer_reservar_info">¿Quieres reservar una mesa en nuestro restaurante? ¡Inicia sesión o regístrate si aún no lo has hecho!</p>
             </section>
-            <table class="tabla">
-                <tr class="fila">
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                </tr>
-                <tr class="fila">
-                    <td class="celda"></td>
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                </tr>
-                <tr class="fila">
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                    <td class="celda">
-                        <span class="silla1"></span>
-                        <span class="silla2"></span>
-                        <span class="mesa"></span>
-                        <span class="silla3"></span>
-                        <span class="silla4"></span>
-                    </td>
-                    <td class="celda"></td>
-                </tr>
-            </table>
-
+            
+                <table class="tabla_index">
+                    <tr class="fila_index">
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                    </tr>
+                    <tr class="fila_index">
+                        <td class="celda_index"></td>
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                    </tr>
+                    <tr class="fila_index">
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                        <td class="celda_index">
+                            <span class="silla1_index"></span>
+                            <span class="silla2_index"></span>
+                            <span class="mesa_index"></span>
+                            <span class="silla3_index"></span>
+                            <span class="silla4_index"></span>
+                        </td>
+                        <td class="celda_index"></td>
+                    </tr>
+                </table>
+                
         </section>
     </main>
     <?php include_once __DIR__ . '/../partials/footer.php' ?>

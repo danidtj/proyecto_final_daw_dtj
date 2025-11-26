@@ -61,8 +61,7 @@ if (isset($_SESSION['idOrdenCreada']) && isset($_SESSION['codigo_reserva'])) {
         $contenidoCorreo .= "<p>Total de la orden: " . htmlspecialchars(number_format($ordenEmail['precio_total'], 2, ',', '.')) . " €.</p>";
         $contenidoCorreo .= "<p>Pago adelantado (10%): " . htmlspecialchars(number_format($ordenEmail['precio_total'] * 0.1, 2, ',', '.')) . " €.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
-        //$asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
-        $asuntoCorreo = "Dentro de miPerfil el primer asunto.";
+        $asuntoCorreo = "Confirmación de su reserva en Restaurante XITO";
 
         //Enviar el correo
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
@@ -101,8 +100,7 @@ if (isset($_SESSION['idReservaModificar']) && isset($_SESSION['idOrdenModificar'
         $contenidoCorreo .= "<p>Pago adelantado (10%): " . htmlspecialchars(number_format($ordenEmail['precio_total'] * 0.1, 2, ',', '.')) . " €.</p>";
         $contenidoCorreo .= "<p>Le recordamos que la devolución de su anterior pago se realizará en un plazo de 5-7 días hábiles.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
-        //$asuntoCorreo = "Modificación de su orden en Restaurante XITO";
-        $asuntoCorreo = "Dentro de miPerfil el segundo asunto.";
+        $asuntoCorreo = "Modificación de su orden en Restaurante XITO";
 
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
@@ -138,8 +136,7 @@ if (isset($_SESSION['email_nueva_orden']) && $_SESSION['email_nueva_orden'] === 
         $contenidoCorreo .= "<p>Pago adelantado (10%): " . htmlspecialchars(number_format($ordenEmail['precio_total'] * 0.1, 2, ',', '.')) . " €.</p>";
         $contenidoCorreo .= "<p>Le recordamos que la devolución de su anterior pago se realizará en un plazo de 5-7 días hábiles.</p>";
         $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
-        //$asuntoCorreo = "Modificación de su orden en Restaurante XITO";
-        $asuntoCorreo = "Dentro de miPerfil el XXXXXX asunto.";
+        $asuntoCorreo = "Modificación de su orden en Restaurante XITO";
 
         enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
     }
@@ -167,11 +164,8 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                 $_SESSION['carrito'][] = [
                     'id_producto' => $productoOrden['id_producto'],
-                    //'cantidad_pedido' => $productoOrden['cantidad_pedido'],
-                    //'id_orden' => $productoOrden['id_orden'],
                     'nombre_corto' => $datosProducto['nombre_corto'],
                     'precio_unitario' => $datosProducto['precio_unitario'],
-                    //'id_reserva' => $_POST['id_reserva']
                 ];
 
                 $_SESSION['orden_original'][] = [
@@ -238,7 +232,6 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                         }
                         echo "<br><p><strong>Precio total: " . number_format($ordenes['precio_total'], 2, ',', '.') . " €</strong></p>";
                         echo "<p><strong>Montante adelantado (10%): " . number_format($ordenes['montante_adelantado'], 2, ',', '.') . " €</strong></p><br>";
-                        //echo "<p>Número de mesa: " . htmlspecialchars($ordenes['id_mesa']) . "</p>";
 
                         echo "</div>";
                     }
@@ -269,7 +262,6 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                         echo "<input type=\"hidden\" name=\"hora_inicio\" value=\"" . htmlspecialchars($reserva['hora_inicio']) . "\">";
                         echo "<input type=\"hidden\" name=\"numero_comensales\" value=\"" . htmlspecialchars($reserva['numero_comensales']) . "\">";
                         echo "<input type=\"hidden\" name=\"comanda_previa\" value=\"" . htmlspecialchars($reserva['comanda_previa']) . "\">";
-                        // echo "<input type=\"hidden\" name=\"id_mesa\" value=\"" . htmlspecialchars($reserva['id_mesa']) . "\">";
                         echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar reserva\" name=\"modificarReserva\">";
                         echo "</form>";
                     }
@@ -277,9 +269,9 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                     if (!empty($ordenes)) {
 
                         $mostrarBoton = false;
-                        $botonModificacionMostrado = false; // <- evita duplicados
+                        $botonModificacionMostrado = false; //Evitar duplicados
 
-                        // --- Reservas activas por fecha ---
+                        // Reservas activas por fecha 
                         if (in_array($reserva['id_reserva'], array_column($idReservasActivasPorFecha, 'id_reserva'))) {
                             $mostrarBoton = true;
 
@@ -306,7 +298,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                                 // Formulario para modificar la orden
                                 if ($mostrarBoton && $mostrarAntesDeInicio && !$botonModificacionMostrado) {
 
-                                    echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
+                                    echo '<form class="form_modificar_orden" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
                                     echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
                                     echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
                                     echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
@@ -329,7 +321,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                         ) {
 
                             // Formulario para modificar la orden
-                            echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
+                            echo '<form class="form_modificar_orden" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
                             echo "<input type=\"hidden\" name=\"id_reserva\" value=\"" . htmlspecialchars($reserva['id_reserva']) . "\">";
                             echo "<input type=\"hidden\" name=\"id_orden\" value=\"" . htmlspecialchars($ordenes['id_orden']) . "\">";
                             echo "<input type=\"submit\" class=\"botones btn_modificar\" value=\"Modificar orden\" name=\"modificarOrden\">";
@@ -345,7 +337,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
                     <br>";
                 }
             } else {
-                echo "<p>No tienes reservas realizadas.</p>";
+                echo "<p id='no_reservas_realizadas'>No tienes reservas realizadas.</p>";
             }
             //Cancelar una reserva
             if (isset($_POST['cancelarReserva'])) {
@@ -383,8 +375,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                     $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
 
-                    //$asuntoCorreo = "Cancelación de su reserva en Restaurante XITO";
-                    $asuntoCorreo = "Dentro de miPerfil el tercer asunto.";
+                    $asuntoCorreo = "Cancelación de su reserva en Restaurante XITO";
 
                     $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
                 }
@@ -416,8 +407,7 @@ if (isset($_POST['modificarOrden']) && !empty($_POST['id_orden']) && !empty($_PO
 
                 $contenidoCorreo .= "<p>Gracias por confiar en Restaurante XITO. Esperamos verle pronto.</p>";
 
-                //$asuntoCorreo = "Cancelación de su orden en Restaurante XITO";
-                $asuntoCorreo = "Dentro de miPerfil el cuarto asunto.";
+                $asuntoCorreo = "Cancelación de su orden en Restaurante XITO";
 
                 $resultadoEmail = enviarEmail($emailDestinatario, $nombreDestinatario, $asuntoCorreo, $contenidoCorreo);
             }

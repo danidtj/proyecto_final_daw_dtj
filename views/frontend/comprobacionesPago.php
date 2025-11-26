@@ -8,7 +8,6 @@ use ControllerFrontend\OrdenController;
 
 @session_start();
 
-//require_once dirname(__DIR__, 2) . '/utilidades/enviarEmail.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Orden.php';
 require_once dirname(__DIR__, 2) . '/models/frontend/Reserva.php';
 require_once dirname(__DIR__, 2) . '/models/admin/Producto.php';

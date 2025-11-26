@@ -264,16 +264,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `id_rol`, `nombre_usuario`, `apellidos_usuario`, `password_usuario`, `email_usuario`, `telefono_usuario`) VALUES
-(1, 1, 'Daniel', 'Torrado Jaramago', '$2y$10$0Q.GD98sxcQpThNMgcyWb.lJ2fDUJIn9JYpBg9ycsvkzkN3qsnUyu', 'danidtj@gmail.com', '8888888'),
-(2, 1, 'lola', 'lola lola', '$2y$10$KkQQ9b4VsIdLmG0DEO0y3O6H6PFv2BuNGklFavZqIRmXt9p3aWzgK', 'lola@gmail.com', '555555'),
-(3, 3, 'admin', 'admin', '$2y$10$vPYkkIr7xy3Uj.ZpmrGCi.sCTr5DKsvxxvu3eTkAwB62ghFtcrjra', 'admin@admin.com', '55555'),
-(4, 2, 'camarero1', 'camarero1', '$2y$10$.J5Uv.Jr/BqQeHBaLmmWr.BvqlBX5.7FN0PCI60YoWUukdwu71PDm', 'camarero1@camarero.com', '0000000'),
-(5, 1, 'diego', 'torrado sanchez', '$2y$10$5HtkgXSCWpnf7WRYu62GwOW5ySMBQy.48eSvSMNksCeN0Z0PR7hTa', 'dddd@gmail.com', '979797979797'),
-(6, 1, 'dddd', 'dddd dddd', '$2y$10$V/VjTEnWHmUYO64UQJI3BeCZ3vh888mspuAh/lO4jfBj1Vt9BN5zm', 'dan@gmail.com', '939393939393'),
-(7, 1, 'hhh', 'hhh hhhh', '$2y$10$2V.nenfUk1G85fdQzTPbz.jVs4/vzvJs2/ZxJQhF9BJMwV9AbN7I.', 'hhh@gmail.com', '884848484'),
-(11, 1, 'bbbb', 'bbbbb', '$2y$10$3vYtXlOSIv1zLFS18aKfKepzSuC2WbkmXJXH1h1/Q8X.9gfDV3r5y', 'bbbb@gmail.com', '4444444444'),
-(39, 1, 'cristian', 'retortillo corrales', '$2y$10$OypvX4y2pIW5L.ywvfQMROPRHAjraJvwJrxes.jFZqXdXLeBhPOji', 'retorjr@gmail.com', '999999888'),
-(40, 1, 'xito', 'xito xito', '$2y$10$SW7xsraTz2YK2ChISSv3heEP69IwiyqpFbHyBJC5BDCtrA31oBAiy', 'xitorestaurante@gmail.com', '121212121');
+(1, 1, 'Daniel', 'Torrado Jaramago', '$2y$10$0Q.GD98sxcQpThNMgcyWb.lJ2fDUJIn9JYpBg9ycsvkzkN3qsnUyu', 'danidtj@gmail.com', '688888888'),
+(3, 3, 'admin', 'admin', '$2y$10$vPYkkIr7xy3Uj.ZpmrGCi.sCTr5DKsvxxvu3eTkAwB62ghFtcrjra', 'admin@admin.com', '655555555'),
+(4, 2, 'camarero1', 'camarero1', '$2y$10$.J5Uv.Jr/BqQeHBaLmmWr.BvqlBX5.7FN0PCI60YoWUukdwu71PDm', 'camarero1@camarero.com', '600000000');
 
 --
 -- Índices para tablas volcadas

@@ -4,21 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carta.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/contacto.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/footer.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/general.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/header.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/images.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/index.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/miPerfil.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/nuevosProductos.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/popup.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/productosAdmin.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/registro.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reserva.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/terminos.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_index.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/login-off.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lato&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />

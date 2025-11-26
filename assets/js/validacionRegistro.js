@@ -96,16 +96,4 @@ document.addEventListener("DOMContentLoaded", function () {
         campo.addEventListener("blur", () => validarCampo(campo));
     });
 
-    // Evento submit
-    /*formulario.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        // Validar todos los campos antes de enviar
-        let valid = [nombre, apellidos, email, password, telefono].every(campo => validarCampo(campo));
-
-        if (valid) {
-        formulario.submit(); // envía el POST al RegistroController.php
-    }
-    });*/
-
 });

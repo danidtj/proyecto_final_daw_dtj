@@ -37,11 +37,6 @@ class OrdenController
             }
         }
 
-        /*if($ordenModificada){
-        $stripePayment = $orden->obtenerStripePaymentIdPorCodigoOrden($_SESSION['idOrdenModificar']);
-        $orden->reembolsarOrden($_SESSION['idReservaModificar']);
-        $orden->actualizarStripePaymentId($_SESSION['idOrdenModificar'], $_SESSION['stripe_payment_id']);
-    }*/
 
         unset($_SESSION['confirmarModificacionReserva']);
         unset($_SESSION['modificar_orden']);

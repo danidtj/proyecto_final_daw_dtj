@@ -25,34 +25,15 @@ if (isset($_POST['cerrarSesion'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/general.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminheader.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminIndex.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminFooter.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminTablasproductos.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminProductos.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminReservas.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/admin_mediaqueriesHeader.css">
-    <!--<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/admin.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carrito.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/carta.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/contacto.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/footer.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/general.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/header.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/images.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/index.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/login.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/miPerfil.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/nuevosProductos.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/popup.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/productosAdmin.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/registro.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reserva.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/reservasAdmin.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_pages/terminos.css">
-
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css_mediaqueries/mediaqueries_index.css">-->
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/general.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminheader.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminIndex.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminFooter.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminTablasproductos.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminProductos.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminReservas.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/admin_mediaqueriesHeader.css">
+    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/admin_mediaqueriesTablasproductos.css">
     <title>Restaurante XITO - Administrador</title>
 </head>
 
@@ -82,4 +63,3 @@ if (isset($_POST['cerrarSesion'])) {
 </body>
 
 </html>
-

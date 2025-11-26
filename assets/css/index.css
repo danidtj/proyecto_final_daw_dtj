@@ -52,8 +52,12 @@
 /*PLANO DE MESAS*/
 .container_plano.index_container_plano {
     margin: 4rem auto 7rem auto;
-    width: 100%;
-    max-width: 1000px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     /*background-color: white;*/
 }
 
@@ -70,9 +74,16 @@
     text-align: justify;
 }
 
-.tabla{
+.querer_reservar_info {
+    text-align: justify;
+}
+
+.tabla_index {
     width: 100%;
     max-width: 1000px;
+    /*width: 100%;
+    min-width: 1000px;
+    max-width: none;*/
     height: 60vh;
     max-height: 100%;
     border: 2px solid grey;
@@ -80,34 +91,87 @@
     box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
 }
 
-.celda{
-   width: auto; 
-   /*padding: 10px;*/
-   margin: 0;
+/*.scroll-tabla {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+}*/
+
+.celda_index {
+    width: auto;
+    /*padding: 10px;*/
+    margin: 0;
 }
 
-.celda:hover span{
+.celda_index:hover span {
     background-color: #1a2732;
     box-shadow: 0 0 5px grey, 0 0 10px grey;
 }
 
-.silla1, .mesa, .silla2, .silla3, .silla4{
+/*.mesa {
+    width: 40px;
+    height: 80px;
+    border-radius: 5px;
+    margin: 0 62px 0 62px;
+}
+
+.silla1,
+.silla2,
+.silla3,
+.silla4 {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.silla1 {
+    border-radius: 12px 0 0 12px;
+    left: 28px;
+    top: 43px;
+}
+
+.silla2 {
+    border-radius: 0 12px 12px 0;
+    left: 74px;
+    top: 43px;
+}
+
+.silla3 {
+    border-radius: 12px 0 0 12px;
+    left: 28px;
+    bottom: 45px;
+}
+
+.silla4 {
+    border-radius: 0 12px 12px 0;
+    left: 74px;
+    bottom: 45px;
+}*/
+
+.silla1_index,
+.mesa_index,
+.silla2_index,
+.silla3_index,
+.silla4_index {
     display: inline-block;
     background-color: grey;
     border: 1px solid grey;
     position: relative;
 }
 
-.mesa{
+.mesa_index {
     width: 2.6vw;
     max-width: 100%;
     height: 11vh;
     max-height: 100%;
     border-radius: 5px;
-    margin: 0 4vw 0 3.9vw;
+    margin: 0 4vw 0 4.05vw;
 }
 
-.silla1, .silla2, .silla3, .silla4{
+.silla1_index,
+.silla2_index,
+.silla3_index,
+.silla4_index {
     width: 1.95vw;
     max-width: 100%;
     height: 4vh;
@@ -115,25 +179,25 @@
     position: relative;
 }
 
-.silla1{
+.silla1_index {
     border-radius: 0.8vw 0 0 0.8vw;
     left: 1.6vw;
     top: 5.7vh;
 }
 
-.silla2{
+.silla2_index {
     border-radius: 0 0.8vw 0.8vw 0;
     left: 4.8vw;
     top: 5.7vh;
 }
 
-.silla3{
+.silla3_index {
     border-radius: 0.8vw 0 0 0.8vw;
     left: 1.6vw;
     top: -6.1vh;
 }
 
-.silla4{
+.silla4_index {
     border-radius: 0 0.8vw 0.8vw 0;
     left: 4.8vw;
     top: -6.1vh;
@@ -143,4 +207,54 @@
     opacity: 0.4;
     pointer-events: none;
     cursor: not-allowed;
+}
+
+
+
+/*EL PLANO SE ADAPTA MEDIANTE SCROLL*/
+@media (max-width: 1400px) {
+    .container_plano.index_container_plano {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+
+    .mesa_index {
+        width: 40px;
+        height: 80px;
+        border-radius: 5px;
+        margin: 0 62px 0 64px;
+    }
+
+    .silla1_index,
+    .silla2_index,
+    .silla3_index,
+    .silla4_index {
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+    .silla1_index {
+        border-radius: 12px 0 0 12px;
+        left: 28px;
+        top: 39px;
+    }
+
+    .silla2_index {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        top: 39px;
+    }
+
+    .silla3_index {
+        border-radius: 12px 0 0 12px;
+        left: 28px;
+        bottom: 45px;
+    }
+
+    .silla4_index {
+        border-radius: 0 12px 12px 0;
+        left: 74px;
+        bottom: 45px;
+    }
 }

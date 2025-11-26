@@ -13,111 +13,111 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Stripe\\' => 7,
         ),
-        'P' => 
+        'P' =>
         array (
             'PhpOption\\' => 10,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
-        'M' => 
+        'M' =>
         array (
             'ModelsFrontend\\' => 15,
             'ModelsAdmin\\' => 12,
         ),
-        'I' => 
+        'I' =>
         array (
             'Interfaces\\' => 11,
         ),
-        'G' => 
+        'G' =>
         array (
             'GrahamCampbell\\ResultType\\' => 26,
         ),
-        'D' => 
+        'D' =>
         array (
             'Dotenv\\' => 7,
         ),
-        'C' => 
+        'C' =>
         array (
             'ControllerUtilidades\\' => 21,
             'ControllerFrontend\\' => 19,
             'ControllerAdmin\\' => 16,
             'Config\\' => 7,
         ),
-        'B' => 
+        'B' =>
         array (
             'Bootstrap\\' => 10,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Symfony\\Polyfill\\Php80\\' => 
+        'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'Symfony\\Polyfill\\Ctype\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Stripe\\' => 
+        'Stripe\\' =>
         array (
             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
-        'PhpOption\\' => 
+        'PhpOption\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'PHPMailer\\PHPMailer\\' => 
+        'PHPMailer\\PHPMailer\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'ModelsFrontend\\' => 
+        'ModelsFrontend\\' =>
         array (
             0 => __DIR__ . '/../..' . '/models/frontend',
         ),
-        'ModelsAdmin\\' => 
+        'ModelsAdmin\\' =>
         array (
             0 => __DIR__ . '/../..' . '/models/admin',
         ),
-        'Interfaces\\' => 
+        'Interfaces\\' =>
         array (
             0 => __DIR__ . '/../..' . '/interfaces',
         ),
-        'GrahamCampbell\\ResultType\\' => 
+        'GrahamCampbell\\ResultType\\' =>
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
         ),
-        'Dotenv\\' => 
+        'Dotenv\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
             1 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
-        'ControllerUtilidades\\' => 
+        'ControllerUtilidades\\' =>
         array (
             0 => __DIR__ . '/../..' . '/controllers/utilidades',
         ),
-        'ControllerFrontend\\' => 
+        'ControllerFrontend\\' =>
         array (
             0 => __DIR__ . '/../..' . '/controllers/frontend',
         ),
-        'ControllerAdmin\\' => 
+        'ControllerAdmin\\' =>
         array (
             0 => __DIR__ . '/../..' . '/controllers/admin',
         ),
-        'Config\\' => 
+        'Config\\' =>
         array (
             0 => __DIR__ . '/../..' . '/config',
         ),
-        'Bootstrap\\' => 
+        'Bootstrap\\' =>
         array (
             0 => __DIR__ . '/../..' . '/bootstrap',
         ),

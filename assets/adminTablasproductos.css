@@ -156,3 +156,11 @@
 .productos_stock_titulo{}
 .productos_modificar_container{}
 .btn_modificarStock{}
+
+
+@media (max-width: 768px){
+    .tabla_stock{
+        overflow-x: auto;
+        display: block;
+    }
+}

@@ -26,7 +26,7 @@ if (isset($_POST['cerrarSesion'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/general.css">
-<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminHeader.css">
+<link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminheader.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminIndex.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminFooter.css">
 <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/adminTablasproductos.css">

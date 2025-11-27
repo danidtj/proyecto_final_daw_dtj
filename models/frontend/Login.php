@@ -2,7 +2,6 @@
 
 namespace ModelsFrontend;
 
-//session_start();
 
 use Config\DB;
 use PDO;

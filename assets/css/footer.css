@@ -1,16 +1,4 @@
-/*
-.container_footer{
-    //position: fixed;
-    display: grid;
-    align-self: end;
-    width: 100vw;
-    height: 2.5em;
-    margin-bottom: 0px;
-    text-align: center;
-    padding-top: 1.5em; 
-    
-}
-*/
+
 
 .container_footer.footer {
     width: 100%;
@@ -28,7 +16,6 @@
 
     font-family: 'Poppins', 'Lato', sans-serif;
 
-    /*height: 2.5em;*/
     display: flex;
     justify-content: center;
     align-items: center;

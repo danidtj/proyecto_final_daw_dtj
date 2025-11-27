@@ -56,7 +56,7 @@ if (isset($_POST['iniciarSesion'])) {
 
 
                     <li><a href="/proyecto_final_daw_dtj/views/frontend/carta.php" class="link_menu <?= $paginaActual == 'carta.php' ? 'activo' : '' ?>">CARTA</a></li>
-                    <!-- <li><a class="link_menu" href="#carrito">CARRITO</a></li> -->
+                    
                     <li><a href="/proyecto_final_daw_dtj/views/frontend/contacto.php" class="link_menu <?= $paginaActual == 'contacto.php' ? 'activo' : '' ?>">CONTACTO</a></li>
                 </ul>
             </nav>

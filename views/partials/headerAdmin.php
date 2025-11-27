@@ -33,7 +33,6 @@ if (isset($_POST['cerrarSesion'])) {
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminProductos.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/adminReservas.css">
     <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/admin_mediaqueriesHeader.css">
-    <link rel="stylesheet" href="/proyecto_final_daw_dtj/assets/css/admin_mediaqueriesTablasproductos.css">
     <title>Restaurante XITO - Administrador</title>
 </head>
 

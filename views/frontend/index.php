@@ -50,7 +50,7 @@
         </article>
         <section class="container_video index_video">
             <video autoplay controls muted>
-                <source src="" type="video/mp4">
+                <source src="/proyecto_final_daw_dtj/assets/video/IMG_9157.MOV" type="video/mp4">
                 Tu navegador no sorporta la etiqueta vídeo.
             </video>
         </section>

@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
             <div class="popup-contenido">
                 <span id="cerrar">&times;</span>
                 <h2>Reserva no permitida</h2>
-                <p>No puedes realizar más de una reserva en la misma fecha.1</p>
+                <p>No puedes realizar más de una reserva en la misma fecha.</p>
                 <button id="aceptar">Aceptar</button>
             </div>
         </div>
@@ -222,7 +222,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
             <div class="popup-contenido">
                 <span id="cerrar-modificar-reserva">&times;</span>
                 <h2>Reserva no permitida</h2>
-                <p>No puedes realizar más de una reserva en la misma fecha.2</p>
+                <p>No puedes realizar más de una reserva en la misma fecha.</p>
                 <button id="aceptar-modificar-reserva">Aceptar</button>
             </div>
         </div>

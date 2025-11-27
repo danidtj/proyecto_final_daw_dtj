@@ -2,7 +2,6 @@
 /*CONTAINER STOCK PRODUCTOS*/
 .productos_stock_container, .productos_modificar_container {
     background-color: white;
-    /*width: 800px;*/
    width: 90%;
     max-width: 100%;
     height: auto;
@@ -14,13 +13,12 @@
     padding-bottom: 20px;
 }
 
-.productos_modificar_container{
+.productos_modificar_container, .productos_stock_container{
     margin-bottom: 7vh;
 }
 
 .titulo_form.productos_stock_titulo, .productos_modificar_titulo {
     text-align: center;
-    /*margin-top: 4rem;*/
     margin-bottom: 2rem;
     padding-top: 1rem;
 }
@@ -82,14 +80,6 @@
 .tabla_stock input[type="submit"]:hover {
     background-color: #e74c3c;
 }
-
-.datos_productos{
-
-}
-
-
-
-
 
 
 

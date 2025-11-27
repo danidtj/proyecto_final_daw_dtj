@@ -4,7 +4,6 @@
 
 .admin_reservas_container {
     background-color: white;
-    /*width: 800px;*/
     width: 1000px;
     max-width: 100%;
     height: auto;
@@ -75,7 +74,6 @@
 /*RESERVAS CON PLANO*/
 .admin_reservas_plano_container {
     background-color: white;
-    /*width: 800px;*/
     width: 1000px;
     max-width: 100%;
     height: auto;
@@ -84,7 +82,6 @@
     border: 2px solid grey;
     background-color: white;
     box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
-    /*padding-bottom: 20px;*/
     margin-bottom: 7vh;
 }
 
@@ -150,8 +147,6 @@ select {
 
 /*PLANO*/
 .tabla {
-    /*width: 1000px;
-    max-width: 100%;*/
     width: 100%;
     min-width: 1000px;
     max-width: none;
@@ -165,12 +160,10 @@ select {
 .scroll-tabla {
     overflow-x: auto;
     overflow-y: hidden;
-    /*width: 100%;*/
 }
 
 .celda {
     width: auto;
-    /*padding: 10px;*/
     margin: 0;
 }
 
@@ -192,87 +185,45 @@ select {
 
 
 .mesa {
-        width: 40px;
-        height: 80px;
-        border-radius: 5px;
-        margin: 0 62px 0 62px;
-    }
-
-    .silla1,
-    .silla2,
-    .silla3,
-    .silla4 {
-        width: 30px;
-        height: 30px;
-        position: relative;
-    }
-
-    .silla1 {
-        border-radius: 12px 0 0 12px;
-        left: 28px;
-        top: 43px;
-    }
-
-    .silla2 {
-        border-radius: 0 12px 12px 0;
-        left: 74px;
-        top: 43px;
-    }
-
-    .silla3 {
-        border-radius: 12px 0 0 12px;
-        left: 28px;
-        bottom: 45px;
-    }
-
-    .silla4 {
-        border-radius: 0 12px 12px 0;
-        left: 74px;
-        bottom: 45px;
-    }
-/*.mesa {
-    width: 2.6vw;
-    max-width: 100%;
-    height: 11vh;
-    max-height: 100%;
+    width: 40px;
+    height: 80px;
     border-radius: 5px;
-    margin: 0 4vw 0 3.9vw;
+    margin: 0 62px 0 62px;
 }
 
 .silla1,
 .silla2,
 .silla3,
 .silla4 {
-    width: 1.95vw;
-    max-width: 100%;
-    height: 4vh;
-    max-height: 100%;
+    width: 30px;
+    height: 30px;
     position: relative;
 }
 
 .silla1 {
-    border-radius: 0.8vw 0 0 0.8vw;
-    left: 1.6vw;
-    top: 5.7vh;
+    border-radius: 12px 0 0 12px;
+    left: 28px;
+    top: 43px;
 }
 
 .silla2 {
-    border-radius: 0 0.8vw 0.8vw 0;
-    left: 4.8vw;
-    top: 5.7vh;
+    border-radius: 0 12px 12px 0;
+    left: 74px;
+    top: 43px;
 }
 
 .silla3 {
-    border-radius: 0.8vw 0 0 0.8vw;
-    left: 1.6vw;
-    top: -6.1vh;
+    border-radius: 12px 0 0 12px;
+    left: 28px;
+    bottom: 45px;
 }
 
 .silla4 {
-    border-radius: 0 0.8vw 0.8vw 0;
-    left: 4.8vw;
-    top: -6.1vh;
-}*/
+    border-radius: 0 12px 12px 0;
+    left: 74px;
+    bottom: 45px;
+}
+
 
 .mesa-no-disponible {
     opacity: 0.4;

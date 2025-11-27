@@ -34,7 +34,7 @@ class Orden
             $sqlOrden = "INSERT INTO ordenes (id_reserva, fecha, metodo_pago, precio_total, montante_adelantado, stripe_payment_id)
         VALUES (:id_reserva, NOW(), :metodo_pago, :precio_total, :montante_adelantado, :stripe_payment_id)";
 
-            //VALUES (:codigo_reserva, :id_usuario, :numero_mesa, 'ABIERTA', CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 DAY))";
+            
             $stmt = $this->connection->prepare($sqlOrden);
             $stmt->bindParam(':id_reserva', $id_reserva);
             $stmt->bindParam(':metodo_pago', $metodo_pago);

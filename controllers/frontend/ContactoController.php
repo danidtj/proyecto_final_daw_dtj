@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mensaje = htmlspecialchars($_POST['mensaje']);
 
     // Dirección de destino
-    $destino = "danidtj@gmail.com";
+    $destino = $_SESSION['email_usuario'];
     $asunto = "Nuevo mensaje desde el formulario de contacto";
 
     // Cuerpo del mensaje

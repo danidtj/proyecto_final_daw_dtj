@@ -8,7 +8,6 @@
 
 .container_form.reserva_container {
     background-color: white;
-    /*width: 800px;*/
     width: 1000px;
     max-width: 100%;
     height: auto;
@@ -91,9 +90,6 @@ select {
 .tabla {
     width: 100%;
     max-width: 1000px;
-    /*width: 100%;
-    min-width: 1000px;
-    max-width: none;*/
     height: 60vh;
     max-height: 100%;
     border: 2px solid grey;
@@ -101,15 +97,9 @@ select {
     box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
 }
 
-/*.scroll-tabla {
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-}*/
 
 .celda {
     width: auto;
-    /*padding: 10px;*/
     margin: 0;
 }
 

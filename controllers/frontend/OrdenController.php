@@ -22,7 +22,6 @@ class OrdenController
                 $_SESSION['idOrdenModificar'] = $ordenOriginal['id_orden'];
                 $_SESSION['idReservaModificar'] = $ordenOriginal['id_reserva'];
 
-                //$orden->reembolsarOrdenPorStripePaymentId($ordenOriginal['id_orden']);
 
                 $ordenModificada = $orden->modificarOrdenPorCodigoOrden(
                     $_SESSION['precioTotalCarrito'],

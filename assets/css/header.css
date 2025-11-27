@@ -3,11 +3,8 @@
 /*CONTENEDOR DEL HEADER*/
 .container_header.header_container{
     width: 100%;
-    /*margin: 1rem auto;*/
     padding-top: 2vh;
     padding-bottom: 2vh;
-    /*padding-left: 1vw;
-    padding-right: 1vw;*/
     margin-bottom: 8vh;
 
     display: flex;
@@ -53,24 +50,13 @@
 }
 
 
-/*MENÚ DE NAVEGACIÓN*/
-/*.menu_nav {
-    width: 65%;
-}*/
+
 
 .menu_nav ul {
     display: flex;
     gap: 1.7vw; 
     list-style: none;
 }
-
-/*ul {
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    gap: 50px;
-    list-style: none;
-}*/
 
 .menu_nav .link_menu {
     text-decoration: none;
@@ -121,10 +107,7 @@
         0 0 15px #0ff,
         0 0 35px #0ff;
 }
-/*.container_header.header_container, ul{
-    display: flex;
-    height: 4em;
-}*/
+
 
 
 

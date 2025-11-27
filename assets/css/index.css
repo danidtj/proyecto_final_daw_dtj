@@ -1,10 +1,8 @@
 /*HISTORIA DEL RESTAURANTE*/
 .container_info.index_info {
     background-color: white;
-    /*width: 800px;*/
     width: 100%;
     max-width: 65vw;
-    /*margin: 0 auto;*/
     border-radius: 1rem;
     box-shadow: 0 0 0.1rem black;
     transition: box-shadow 0.3s ease;
@@ -18,7 +16,6 @@
 .container_info.index_info h2,
 .header_reserva.index_querer_reservar {
     text-align: center;
-    /*margin-top: 4rem;*/
     margin-bottom: 2rem;
     padding-top: 1rem;
 }
@@ -58,7 +55,6 @@
     justify-content: center;
     align-items: center;
 
-    /*background-color: white;*/
 }
 
 .header_reserva.index_header_reserva,
@@ -67,7 +63,7 @@
     text-shadow: 1px 1px 2px #000;
     text-align: center;
     justify-items: center;
-    /*text-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;*/
+
 }
 
 .header_reserva.index_querer_reservar p {
@@ -81,9 +77,7 @@
 .tabla_index {
     width: 100%;
     max-width: 1000px;
-    /*width: 100%;
-    min-width: 1000px;
-    max-width: none;*/
+
     height: 60vh;
     max-height: 100%;
     border: 2px solid grey;
@@ -91,15 +85,9 @@
     box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
 }
 
-/*.scroll-tabla {
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-}*/
 
 .celda_index {
     width: auto;
-    /*padding: 10px;*/
     margin: 0;
 }
 
@@ -108,45 +96,6 @@
     box-shadow: 0 0 5px grey, 0 0 10px grey;
 }
 
-/*.mesa {
-    width: 40px;
-    height: 80px;
-    border-radius: 5px;
-    margin: 0 62px 0 62px;
-}
-
-.silla1,
-.silla2,
-.silla3,
-.silla4 {
-    width: 30px;
-    height: 30px;
-    position: relative;
-}
-
-.silla1 {
-    border-radius: 12px 0 0 12px;
-    left: 28px;
-    top: 43px;
-}
-
-.silla2 {
-    border-radius: 0 12px 12px 0;
-    left: 74px;
-    top: 43px;
-}
-
-.silla3 {
-    border-radius: 12px 0 0 12px;
-    left: 28px;
-    bottom: 45px;
-}
-
-.silla4 {
-    border-radius: 0 12px 12px 0;
-    left: 74px;
-    bottom: 45px;
-}*/
 
 .silla1_index,
 .mesa_index,

@@ -3,11 +3,10 @@
 /*CONTENEDOR DEL HEADER*/
 .container_header.header_container{
     width: 100%;
-    /*margin: 1rem auto;*/
+
     padding-top: 2vh;
     padding-bottom: 2vh;
-    /*padding-left: 1vw;
-    padding-right: 1vw;*/
+
     margin-bottom: 8vh;
 
     display: flex;
@@ -111,10 +110,6 @@
         0 0 15px #0ff,
         0 0 35px #0ff;
 }
-/*.container_header.header_container, ul{
-    display: flex;
-    height: 4em;
-}*/
 
 
 

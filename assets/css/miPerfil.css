@@ -27,20 +27,7 @@
     flex-direction: column;
     gap: 1.5vh; 
 }
-/*.container_form.perfil_container_reservas p{
-    /*width: 800px;
-    width: 65vw;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-    border-radius: 1rem;
-    border: 2px solid grey;
-    background-color: white;
-    box-shadow: 0 0 5px grey, 0 0 10px grey, 0 0 15px grey;
-    padding-bottom: 2vw;
-    padding-top: 2vw;
-    text-align: center;
-}*/
+
 
 /*CABECERA CON EL DETALLE DE LAS RESERVAS*/
 .cabecera_reserva {

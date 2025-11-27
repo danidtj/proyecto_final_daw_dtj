@@ -6,7 +6,6 @@ use Config\DB;
 use PDO;
 use Exception;
 use PDOException;
-//use Interfaces\Insertar;
 
 require_once dirname(__DIR__, 2) . '/config/DB.php';
 

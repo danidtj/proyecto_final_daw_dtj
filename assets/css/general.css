@@ -35,7 +35,6 @@ main {
     align-items: center;     
     box-sizing: border-box;
     gap: 3rem; 
-     /*Con este padding se centra el contenido de la historia del restaurante*/
 }
 
 

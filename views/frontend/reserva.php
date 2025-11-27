@@ -39,10 +39,9 @@ $orden = new Orden();
             unset($_SESSION['fecha']);
             unset($_SESSION['hora_inicio']);
             unset($_SESSION['numero_comensales']);
-            //unset($_SESSION['id_reserva']);
+
             unset($_SESSION['id_mesa']);
-            //unset($_SESSION['mod_reserva_sin_comanda']);
-            //unset($_SESSION['comanda_previa']);
+
             unset($_SESSION['id_reserva_nueva']);
             unset($_SESSION['codigo_reserva']);
             unset($_SESSION['idOrdenCreada']);
@@ -117,7 +116,7 @@ $orden = new Orden();
 
 
                     <?php
-                    //$ordenReserva = $orden->obtenerOrdenPorCodigoReserva($_SESSION['id_reserva']);
+                    
                     if (
                         isset($_POST['modificarReserva']) && isset($_SESSION['mod_reserva_sin_comanda']) &&
                         $_SESSION['mod_reserva_sin_comanda'] == "0"
@@ -185,7 +184,7 @@ $orden = new Orden();
                 } else {
                     unset($_SESSION['mod_reserva_sin_comanda']);
                     $_SESSION['mod_reserva_con_comanda'] = "0";
-                    //$_SESSION['mod_reserva_con_comanda'] = "0";
+                    
                 }
             } else {
                 $_SESSION['comanda_previa'] = $_POST['comanda_previa'];
@@ -340,9 +339,6 @@ $orden = new Orden();
 
     <?php include_once __DIR__ . '/../partials/footer.php'; ?>
 
-
-
-    <!--  <script src="/assets/js/validacionReserva.js"></script> -->
 
 
     <?php

@@ -160,7 +160,7 @@ $carritoController = new CarritoController();
             const clientSecret = data.clientSecret;
 
             if (!clientSecret) {
-                document.getElementById('card-errors').textContent = 'Error al crear PaymentIntent';
+                document.getElementById('card-errors').textContent = 'Error al crear PaymentIntent. El importe mínimo es 0,50€.';
                 botonPagar.disabled = false;
                 return;
             }

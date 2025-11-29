@@ -199,11 +199,7 @@ if (isset($_POST['modificarReserva'])) {
     } else {
         $_SESSION['mod_reserva_sin_comanda'] = "0";
     }
-    //$_SESSION['id_mesa'] = $_POST['id_mesa'];
-    /*var_dump($_POST['comanda_previa']);
-    var_dump($_SESSION['mod_reserva_con_comanda']);
-    var_dump($_SESSION['mod_reserva_con_comanda_original']);
-    var_dump($_SESSION['mod_reserva_sin_comanda']);*/
+    
 }
 
 

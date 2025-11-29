@@ -52,6 +52,7 @@ class Registro
                             echo "<p style='color:white'>El registro no se ha podido completar. Inténtalo de nuevo.</p>";
                         } else {
                             $_SESSION['id_usuario'] = $this->connection->lastInsertId();
+                            $_SESSION['email_usuario'] = $email_usuario;
                             //Comprobamos que no se hayan enviado previamente los encabezados por HTTP. En caso afirmativo, 
                             //redirecciona mediante código javascript
                             if (headers_sent()) {
@@ -66,10 +67,10 @@ class Registro
             }
         } catch (PDOException $e) {
             // Captura cualquier error relacionado con la base de datos
-            echo "Error de conexión o consulta: " . $e->getMessage();
+            echo "<p style='color:white'>Error de conexión o consulta: " . $e->getMessage() . "</p>";
         } catch (Exception $e) {
             // Captura otros errores que puedan surgir
-            echo "Ocurrió un error inesperado: " . $e->getMessage();
+            echo "<p style='color:white'>Ocurrió un error inesperado: " . $e->getMessage() . "</p>";
         }
     }
 }

@@ -31,6 +31,14 @@ class ReservaController
 
         $stripePaymentId = $_SESSION['stripe_payment_id'] ?? null;
 
+        $orden->crearOrden(
+            $_SESSION['id_reserva'],
+            'Tarjeta de crédito',
+            $_SESSION['precioTotalCarrito'],
+            $_SESSION['nuevoPagoAdelantado'],
+            $stripePaymentId
+        );
+
         $reserva->modificarReserva(
             $_SESSION['id_reserva'],
             $_SESSION['mesa_id'],
@@ -40,16 +48,6 @@ class ReservaController
             $_SESSION['mod_reserva_con_comanda']
         );
 
-        $orden->crearOrden(
-            $_SESSION['id_reserva'],
-            'Tarjeta de crédito',
-            $_SESSION['precioTotalCarrito'],
-            $_SESSION['nuevoPagoAdelantado'],
-            $stripePaymentId
-        );
-
-        
-
         unset($_SESSION['stripe_payment_id']);
         unset($_SESSION['confirmarModificacionReserva']);
         unset($_SESSION['mesa_id']);
@@ -57,6 +55,7 @@ class ReservaController
         unset($_SESSION['hora_inicio']);
         unset($_SESSION['numero_comensales']);
         unset($_SESSION['mod_reserva_con_comanda']);
+        unset($_SESSION['mod_reserva_sin_comanda']);
 
         $_SESSION['carrito'] = [];
     }
@@ -121,9 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmarReserva'])) 
             </div>
         </div>
         <script src="/proyecto_final_daw_dtj/assets/js/popupReserva.js"></script>
-        
     <?php
-    
     } else {
 
         $_SESSION['confirmarReserva'] = true;
@@ -196,13 +193,17 @@ if (isset($_POST['modificarReserva'])) {
     $_SESSION['hora_inicio'] = $_POST['hora_inicio'];
     $_SESSION['numero_comensales'] = $_POST['numero_comensales'];
 
-    if ($_POST['comanda_previa'] == "1") {
+    if (isset($_POST['comanda_previa']) && $_POST['comanda_previa'] == 1) {
         $_SESSION['mod_reserva_con_comanda'] = "1";
         $_SESSION['mod_reserva_con_comanda_original'] = "1";
     } else {
         $_SESSION['mod_reserva_sin_comanda'] = "0";
     }
     //$_SESSION['id_mesa'] = $_POST['id_mesa'];
+    /*var_dump($_POST['comanda_previa']);
+    var_dump($_SESSION['mod_reserva_con_comanda']);
+    var_dump($_SESSION['mod_reserva_con_comanda_original']);
+    var_dump($_SESSION['mod_reserva_sin_comanda']);*/
 }
 
 
@@ -341,6 +342,7 @@ if (isset($_POST['confirmarModificacionReserva'])) {
     unset($_SESSION['hora_inicio']);
     unset($_SESSION['numero_comensales']);
     unset($_SESSION['mod_reserva_con_comanda']);
+    unset($_SESSION['mod_reserva_con_comanda_original']);
 
     //Redirige a la página del perfil del ususario
     header("Location: /proyecto_final_daw_dtj/views/frontend/miPerfil.php");

@@ -69,12 +69,11 @@ $orden = new Orden();
                         <label for="hora_inicio">Hora:</label>
                         <select id="hora_inicio" name="hora_inicio" required>
                             <optgroup label="Mediodía">
-                                <option value="13:30">13:30</option>
+                                <option value="13:28">13:28</option>
                                 <option value="14:00">14:00</option>
                                 <option value="14:30">14:30</option>
                                 <option value="15:00">15:00</option>
                                 <option value="15:30">15:30</option>
-                                <option value="15:50">15:50</option>
                                 <option value="16:00">16:00</option>
                                 <option value="16:30">16:30</option>
                                 <option value="17:00">17:00</option>

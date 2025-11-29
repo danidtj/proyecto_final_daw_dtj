@@ -189,7 +189,6 @@ $orden = new Orden();
                                     echo "<div class='productos_reserva_admin'>";
                                     $orden_reserva = $orden->obtenerOrdenPorCodigoReserva($r['id_reserva']);
                                     $productosOrden = Producto::obtenerProductosReservaOrden($r['id_usuario'], $r['id_reserva'], $orden_reserva['id_orden']);
-
                                     if ($orden_reserva) {
                                         echo "<p>Código de la orden: " . htmlspecialchars($orden_reserva['id_orden']) . "</p>";
                                         echo "<p>Precio total: " . number_format($orden_reserva['precio_total'], 2, ',', '.') . " €</p>";
@@ -204,7 +203,7 @@ $orden = new Orden();
                                                 " ..... " . htmlspecialchars($producto['cantidad_pedido']) . "u ..... " . "
                                      " . number_format(htmlspecialchars($producto['precio_unitario']), 2, ',', '.') . " € ..... " . number_format(htmlspecialchars($producto['precio_unitario'])
                                                     * htmlspecialchars($producto['cantidad_pedido']), 2, ',', '.') . " €</p>";
-                                            break;
+                                            //break;
                                         }
                                         echo "</div>";
                                     }
